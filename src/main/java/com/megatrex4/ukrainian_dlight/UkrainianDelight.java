@@ -1,5 +1,7 @@
 package com.megatrex4.ukrainian_dlight;
 
+import com.megatrex4.ukrainian_dlight.item.ModItemGroups;
+import com.megatrex4.ukrainian_dlight.item.ModItems;
 import net.fabricmc.api.ModInitializer;
 
 import org.slf4j.Logger;
@@ -12,10 +14,9 @@ public class UkrainianDelight implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		// This code runs as soon as Minecraft is in a mod-load-ready state.
-		// However, some things (like resources) may still be uninitialized.
-		// Proceed with mild caution.
+		ModItemGroups.registerItemGroups();
+		ModItems.registerModItems();
 
-		LOGGER.info("Hello Fabric world!");
+		LOGGER.info("Hello Fabric world it`s " + MOD_ID + "!");
 	}
 }
