@@ -3,9 +3,9 @@
 	"id": "ukrainian-delight",
 	"version": "${version}",
 	"name": "Ukrainian Delight",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "A mod for Minecraft that adds Ukrainian cuisine as a mod add-on to Farmer`s Delight",
 	"authors": [
-		"Me!"
+		"MEGATREX4"
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",
