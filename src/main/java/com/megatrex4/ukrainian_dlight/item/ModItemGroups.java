@@ -11,13 +11,14 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class ModItemGroups {
-    public static final ItemGroup RUBY_GROUP = Registry.register(Registries.ITEM_GROUP,
+    public static final ItemGroup UKRANIAN_DELIGHT_GROUP = Registry.register(Registries.ITEM_GROUP,
             new Identifier(UkrainianDelight.MOD_ID, "Ukrainian Delight"),
             FabricItemGroup.builder().displayName(Text.translatable("itemgroup.ruby"))
                     .icon(() -> new ItemStack(Items.CARROT)).entries((displayContext, entries) -> {
 
                         entries.add(Items.CARROT);
 
+                        entries.add(ModItems.VARENYK);
 
 
                     }).build());
