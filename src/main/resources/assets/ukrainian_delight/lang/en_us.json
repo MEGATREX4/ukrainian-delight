@@ -6,6 +6,9 @@
   "item.ukrainian_delight.borscht": "Borscht",
 
   "item.ukrainian_delight.horseradish": "Horseradish",
+  "item.ukrainian_delight.salt": "Salt",
+
+  "block.ukrainian_delight.salt_block": "Salt Block",
 
   "tooltip.ukrainian_delight.no_effects": "No effects"
 }

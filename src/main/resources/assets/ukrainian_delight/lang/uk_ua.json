@@ -6,6 +6,9 @@
   "item.ukrainian_delight.borscht": "Борщ",
 
   "item.ukrainian_delight.horseradish": "Хрін",
+  "item.ukrainian_delight.salt": "Сіль",
+
+  "block.ukrainian_delight.salt_block": "Солевий блок",
 
   "tooltip.ukrainian_delight.no_effects": "Немає ефектів"
 }

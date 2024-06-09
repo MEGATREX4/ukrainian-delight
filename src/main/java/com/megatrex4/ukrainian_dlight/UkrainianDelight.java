@@ -1,5 +1,6 @@
 package com.megatrex4.ukrainian_dlight;
 
+import com.megatrex4.ukrainian_dlight.block.ModBlock;
 import com.megatrex4.ukrainian_dlight.item.ModItemGroups;
 import com.megatrex4.ukrainian_dlight.item.ModItems;
 import net.fabricmc.api.ModInitializer;
@@ -14,6 +15,7 @@ public class UkrainianDelight implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		ModBlock.registerModBlock();
 		ModItems.registerModItems();
 		ModItemGroups.registerItemGroups();
 

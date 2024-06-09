@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "ukrainian_delight:salt_block"
+    }
+  ],
+    "result": {
+      "item": "ukrainian_delight:salt",
+      "count": 9
+    }
+}

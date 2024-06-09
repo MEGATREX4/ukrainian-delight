@@ -1,6 +1,7 @@
 package com.megatrex4.ukrainian_dlight.item;
 
 import com.megatrex4.ukrainian_dlight.UkrainianDelight;
+import com.megatrex4.ukrainian_dlight.block.ModBlock;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -21,6 +22,9 @@ public class ModItemGroups {
 
                         entries.add(ModItems.VARENYK);
                         entries.add(ModItems.BORSCHT);
+
+                        entries.add(ModItems.SALT);
+                        entries.add(ModBlock.SALT_BLOCK);
                     }).build());
 
     public static void registerItemGroups() {

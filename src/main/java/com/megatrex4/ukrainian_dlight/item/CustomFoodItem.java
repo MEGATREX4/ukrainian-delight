@@ -50,10 +50,11 @@ public class CustomFoodItem extends Item {
                 String name = effect.getEffectType().getTranslationKey();
                 int duration = effect.getDuration() / 20; // Convert ticks to seconds
                 int amplifier = effect.getAmplifier();
+                String amplifierString = formatAmplifier(amplifier + 1);
                 String durationString = formatDuration(duration);
 
                 // Combine the effect name and duration, formatting them as blue text
-                Text tooltipText = Text.translatable(name).formatted(Formatting.BLUE)
+                Text tooltipText = Text.translatable(name).formatted(Formatting.BLUE).append(Text.of(" " + amplifierString))
                         .append(Text.of(" (" + durationString + ") "));
 
                 // Add the tooltip text to the list
@@ -64,7 +65,28 @@ public class CustomFoodItem extends Item {
 
 
 
-
+    private static String formatAmplifier(int amplifier) {
+        // amplifier to roman numeral
+        String romanNumeral = "";
+        switch (amplifier) {
+            case 1:
+                romanNumeral = "I";
+                break;
+            case 2:
+                romanNumeral = "II";
+                break;
+            case 3:
+                romanNumeral = "III";
+                break;
+            case 4:
+                romanNumeral = "IV";
+                break;
+            case 5:
+                romanNumeral = "V";
+                break;
+        }
+        return romanNumeral;
+    }
 
 
     // This method formats the duration of an effect
