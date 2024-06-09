@@ -17,9 +17,10 @@ public class ModItemGroups {
                     .displayName(Text.translatable("itemgroup.ukrainian_delight"))
                     .icon(() -> new ItemStack(ModItems.VARENYK))
                     .entries((displayContext, entries) -> {
+                        entries.add(ModItems.HORSERADISH);
+
                         entries.add(ModItems.VARENYK);
                         entries.add(ModItems.BORSCHT);
-
                     }).build());
 
     public static void registerItemGroups() {

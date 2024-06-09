@@ -7,44 +7,54 @@ import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public class ModFoodComponents {
     // Define identifiers for effects from other mods
     public static final Identifier COMFORT = new Identifier("farmersdelight", "comfort");
     public static final Identifier NOURISHMENT = new Identifier("farmersdelight", "nourishment");
-    public static final Identifier SATURATION = new Identifier("minecraft", "saturation");
+    // Define other identifiers as needed...
 
     // Define food components with multiple effects
-    public static final FoodComponent VARENYK = createFoodComponent(3, 0.25f, COMFORT, 200, 0);
-    public static final FoodComponent BORSCHT = createFoodComponent(4, 0.25f, NOURISHMENT, 200, 0);
-    // public static final FoodComponent TOMATO = createFoodComponent(1, 0.1f);
+    public static final FoodComponent VARENYK = createFoodComponent(3, 0.25f, List.of(new EffectData(COMFORT, 1500, 0)));
+    public static final FoodComponent BORSCHT = createFoodComponent(5, 0.5f, List.of(new EffectData(NOURISHMENT, 3000, 0), new EffectData(COMFORT, 2000, 0)));
+    public static final FoodComponent HORSERADISH = createFoodComponent(1, 0.1f, null);
 
-    // Method to create food component with multiple effects
-    public static FoodComponent createFoodComponent(int hunger, float saturation, @Nullable Identifier effectId, int duration, int amplifier) {
-        if (effectId == null) {
-            return createFoodComponent(hunger, saturation);
-        }
-
+    // Method to create food component with multiple optional effects
+    public static FoodComponent createFoodComponent(int hunger, float saturation, @Nullable List<EffectData> effects) {
         FoodComponent.Builder builder = new FoodComponent.Builder()
                 .hunger(hunger)
                 .saturationModifier(saturation);
 
-        StatusEffect effect = Registries.STATUS_EFFECT.getOrEmpty(effectId).orElse(null);
-
-        if (effect != null) {
-            builder.statusEffect(new StatusEffectInstance(effect, duration, amplifier), 1.0F);
+        if (effects != null) {
+            for (EffectData effectData : effects) {
+                // Use the effect ID directly
+                Identifier effectId = effectData.effectId;
+                StatusEffect effect = Registries.STATUS_EFFECT.getOrEmpty(effectId).orElse(null);
+                if (effect != null) {
+                    builder.statusEffect(new StatusEffectInstance(effect, effectData.duration, effectData.amplifier), 1.0F);
+                    System.out.println("Adding effect: " + effectId);
+                } else {
+                    System.err.println("Effect not found: " + effectId);
+                }
+            }
         } else {
-            throw new IllegalArgumentException("Invalid effectId: " + effectId);
+            System.out.println("No effects to add.");
         }
 
         return builder.build();
     }
 
-    // Overloaded method to create food component without effects
-    public static FoodComponent createFoodComponent(int hunger, float saturation) {
-        return new FoodComponent.Builder()
-                .hunger(hunger)
-                .saturationModifier(saturation)
-                .build();
+    // Inner class to hold effect data
+    public static class EffectData {
+        public final Identifier effectId;
+        public final int duration;
+        public final int amplifier;
+
+        public EffectData(Identifier effectId, int duration, int amplifier) {
+            this.effectId = effectId;
+            this.duration = duration;
+            this.amplifier = amplifier;
+        }
     }
 }
-

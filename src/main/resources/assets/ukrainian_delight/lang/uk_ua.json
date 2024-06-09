@@ -1,6 +1,11 @@
 {
   "itemgroup.ukrainian_delight": "Українська насолода",
+  "rei.ukrainian_delight": "Українська насолода",
 
   "item.ukrainian_delight.varenyk": "Вареник",
-  "item.ukrainian_delight.borscht": "Борщ"
+  "item.ukrainian_delight.borscht": "Борщ",
+
+  "item.ukrainian_delight.horseradish": "Хрін",
+
+  "tooltip.ukrainian_delight.no_effects": "Немає ефектів"
 }

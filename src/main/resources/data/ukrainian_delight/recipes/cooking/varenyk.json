@@ -7,13 +7,10 @@
       "tag": "c:dough"
     },
     {
-      "item": "minecaft:carrot"
-    },
-    {
-      "item": "minecraft:potato"
-    },
-    {
       "tag": "c:crops/onion"
+    },
+    {
+      "item": "minecraft:carrot"
     },
     [
       {

@@ -1,15 +1,17 @@
 {
 	"schemaVersion": 1,
-	"id": "ukrainian-delight",
+	"id": "ukrainian_delight",
 	"version": "${version}",
 	"name": "Ukrainian Delight",
-	"description": "A mod for Minecraft that adds Ukrainian cuisine as a mod add-on to Farmer`s Delight",
+	"description": "A mod for Minecraft that adds Ukrainian cuisine as a mod add-on to Farmer's Delight",
 	"authors": [
 		"MEGATREX4"
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"sources": "https://github.com/SKZGx/ukrainian-delight",
+		"issues": "https://github.com/SKZGx/ukrainian-delight/issues",
+		"discord": "https://discord.com/invite/hc4XPRBEsq"
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/ukrainian_delight/icon.png",
@@ -20,6 +22,9 @@
 		],
 		"fabric-datagen": [
 			"com.megatrex4.ukrainian_dlight.UkrainianDelightDataGenerator"
+		],
+		"rei_client": [
+			"com.megatrex4.ukrainian_dlight.compat.UkrainianDeligthREIClientPlugin"
 		]
 	},
 	"mixins": [
@@ -29,7 +34,8 @@
 		"fabricloader": ">=0.15.11",
 		"minecraft": "~1.20",
 		"java": ">=21",
-		"fabric-api": "*"
+		"fabric-api": "*",
+		"farmersdelight": "*"
 	},
 	"suggests": {
 		"another-mod": "*"

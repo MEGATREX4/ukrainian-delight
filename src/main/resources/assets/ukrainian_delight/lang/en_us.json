@@ -1,8 +1,11 @@
 {
   "itemgroup.ukrainian_delight": "Ukrainian Delight",
+  "rei.ukrainian_delight": "Ukrainian Delight",
 
   "item.ukrainian_delight.varenyk": "Varenyk",
   "item.ukrainian_delight.borscht": "Borscht",
 
-  "ukranian_delight.rei": "Ukrainian Delight"
+  "item.ukrainian_delight.horseradish": "Horseradish",
+
+  "tooltip.ukrainian_delight.no_effects": "No effects"
 }
