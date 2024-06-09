@@ -17,6 +17,7 @@ public class UkrainianDelight implements ModInitializer {
 		ModItems.registerModItems();
 		ModItemGroups.registerItemGroups();
 
+
 		LOGGER.info("Hello Fabric world it`s " + MOD_ID + "!");
 	}
 }

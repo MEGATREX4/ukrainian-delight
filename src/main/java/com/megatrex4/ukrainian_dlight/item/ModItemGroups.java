@@ -15,9 +15,11 @@ public class ModItemGroups {
             new Identifier(UkrainianDelight.MOD_ID, "ukrainian_delight"),
             FabricItemGroup.builder()
                     .displayName(Text.translatable("itemgroup.ukrainian_delight"))
-                    .icon(() -> new ItemStack(Items.CARROT))
+                    .icon(() -> new ItemStack(ModItems.VARENYK))
                     .entries((displayContext, entries) -> {
                         entries.add(ModItems.VARENYK);
+                        entries.add(ModItems.BORSCHT);
+
                     }).build());
 
     public static void registerItemGroups() {
