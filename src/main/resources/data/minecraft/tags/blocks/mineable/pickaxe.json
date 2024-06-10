@@ -1,11 +1,6 @@
 {
     "replace": false,
     "values": [
-        "test:ruby_block",
-        "test:raw_ruby_block",
-        "test:ruby_ore",
-        "test:deepslate_ruby_ore",
-        "test:nether_ruby_ore",
-        "test:end_stone_ruby_ore"
+
     ]
 }

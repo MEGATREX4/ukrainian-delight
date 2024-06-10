@@ -25,9 +25,9 @@ public class ModFoodComponents {
     public static final FoodComponent BORSCHT = new FoodComponent.Builder()
             .hunger(15)
             .saturationModifier(1f)
-            .statusEffect(new StatusEffectInstance(NOURISHMENT, 3*60*20, 0), 1.0F)
-            .statusEffect(new StatusEffectInstance(COMFORT, 2*60*20, 0), 1.0F)
-            .statusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 3*20, 5), 1.0f)
+            .statusEffect(new StatusEffectInstance(NOURISHMENT, 5*60*20, 0), 1.0F)
+            .statusEffect(new StatusEffectInstance(COMFORT, 5*60*20, 0), 1.0F)
+            // .statusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 3*20, 3), 1.0f)
             .build();
 
     public static final FoodComponent HORSERADISH = new FoodComponent.Builder()

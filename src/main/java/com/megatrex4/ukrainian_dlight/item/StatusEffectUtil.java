@@ -11,7 +11,7 @@ public class StatusEffectUtil {
         }
 
         // Handle amplifiers greater than 5 by returning the number itself
-        if (amplifier > 5) {
+        if (amplifier > 10) {
             return " " + amplifier;
         }
 
