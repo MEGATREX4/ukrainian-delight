@@ -37,7 +37,7 @@ public class ModItems {
         ModFoodComponents.init();
 
         // Create the food item with the specified max count
-        return registerItem(name, new CustomFoodItem(new FabricItemSettings().food(foodComponent).maxCount(maxCount)), maxCount);
+        return registerItem(name, new ToolTipHelper(new FabricItemSettings().food(foodComponent).maxCount(maxCount)), maxCount);
     }
 
     public static void registerModItems() {

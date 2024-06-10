@@ -10,5 +10,14 @@
 
   "block.ukrainian_delight.salt_block": "Salt Block",
 
-  "tooltip.ukrainian_delight.no_effects": "No effects"
+  "tooltip.ukrainian_delight.no_effects": "No effects",
+
+  "amplifier.none": "",
+  "amplifier.1": " I",
+  "amplifier.2": " II",
+  "amplifier.3": " III",
+  "amplifier.4": " IV",
+  "amplifier.5": " V",
+  "amplifier.6": " VI",
+  "amplifier.7": " VII"
 }

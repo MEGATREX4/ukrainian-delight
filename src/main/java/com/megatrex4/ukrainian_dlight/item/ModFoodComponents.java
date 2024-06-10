@@ -27,8 +27,7 @@ public class ModFoodComponents {
             .saturationModifier(1f)
             .statusEffect(new StatusEffectInstance(NOURISHMENT, 3*60*20, 0), 1.0F)
             .statusEffect(new StatusEffectInstance(COMFORT, 2*60*20, 0), 1.0F)
-            // add simple minecraft:regeneration effect
-            // .statusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 6*20, 1), 1.0f)
+            .statusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 3*20, 5), 1.0f)
             .build();
 
     public static final FoodComponent HORSERADISH = new FoodComponent.Builder()
