@@ -11,13 +11,32 @@ import net.minecraft.util.Identifier;
 public class ModItems {
 
     // Define items using the ItemBuilder
-    public static final Item VARENYK = registerItem("varenyk", new ItemBuilder().food(ModFoodComponents.VARENYK).build());
-    public static final Item BORSCHT = registerItem("borscht", new ItemBuilder().food(ModFoodComponents.BORSCHT).maxCount(16).returnsBowl().build());
-    public static final Item LEAN_BORSCHT = registerItem("lean_borscht", new ItemBuilder().food(ModFoodComponents.LEAN_BORSCHT).maxCount(16).returnsBowl().build());
+    public static final Item VARENYK = registerItem("varenyk", new ItemBuilder()
+            .food(ModFoodComponents.VARENYK)
+            .build());
 
-    public static final Item HORSERADISH = registerItem("horseradish", new ItemBuilder().food(ModFoodComponents.HORSERADISH).build());
-    public static final Item CUCUMBER = registerItem("cucumber", new ItemBuilder().food(ModFoodComponents.CUCUMBER).build());
-    public static final Item CUTTED_CUCUMBER = registerItem("cutted_cucumber", new ItemBuilder().food(ModFoodComponents.CUTTED_CUCUMBER).build());
+    public static final Item BORSCHT = registerItem("borscht", new ItemBuilder()
+            .food(ModFoodComponents.BORSCHT)
+            .maxCount(16)
+            .returnsBowl()
+            .build());
+
+    public static final Item LEAN_BORSCHT = registerItem("lean_borscht", new ItemBuilder()
+            .food(ModFoodComponents.LEAN_BORSCHT)
+            .maxCount(16).returnsBowl()
+            .build());
+
+    public static final Item HORSERADISH = registerItem("horseradish", new ItemBuilder()
+            .food(ModFoodComponents.HORSERADISH)
+            .build());
+
+    public static final Item CUCUMBER = registerItem("cucumber", new ItemBuilder()
+            .food(ModFoodComponents.CUCUMBER)
+            .build());
+
+    public static final Item CUTTED_CUCUMBER = registerItem("cutted_cucumber", new ItemBuilder()
+            .food(ModFoodComponents.CUTTED_CUCUMBER)
+            .build());
 
     // Simple items without specifying maxCount, defaults to 64
     public static final Item SALT = registerItem("salt", new ItemBuilder().build());

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+  "#": {
+    "item": "ukrainian_delight:cucumber"
+  }
+},
+  "result": {
+   "item":  "ukrainian_delight:cucumber_crate"
+  }
+}
