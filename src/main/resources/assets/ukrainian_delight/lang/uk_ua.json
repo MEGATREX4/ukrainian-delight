@@ -1,15 +1,46 @@
 {
-  "itemgroup.ukrainian_delight": "Українська насолода",
+  "_comment1": "groups",
+  "itemgroup.meals_ukrainian_delight": "Українська насолода страви",
+  "itemgroup.ingredients_ukrainian_delight": "Українська насолода складові",
   "rei.ukrainian_delight": "Українська насолода",
 
-  "item.ukrainian_delight.varenyk": "Вареник",
-  "item.ukrainian_delight.borscht": "Борщ",
-
+  "_comment2": "ingredients",
   "item.ukrainian_delight.horseradish": "Хрін",
   "item.ukrainian_delight.salt": "Сіль",
+  "item.ukrainian_delight.cucumber": "Огірок",
+  "item.ukrainian_delight.cutted_cucumber": "Скибка огірка",
+  "block.ukrainian_delight.cucumber_crate": "Ящик огірків",
 
+  "_comment3": "meals",
+  "item.ukrainian_delight.varenyk": "Вареник",
+  "item.ukrainian_delight.borscht": "Борщ",
+  "item.ukrainian_delight.lean_borscht": "Пісний борщ",
+
+  "_comment4": "blocks",
   "block.ukrainian_delight.salt_block": "Солевий блок",
 
-  "tooltip.ukrainian_delight.no_effects": "Немає ефектів"
+  "_comment5": "advancements",
+  "ukrainian_delight.advancement.root": "Українська насолода",
+  "ukrainian_delight.advancement.root.desc": "Сила українських смаколиків!",
+
+  "ukrainian_delight.advancement.borscht": "Де знайти червону воду!",
+  "ukrainian_delight.advancement.borscht.desc": "Зваріть борщ",
+  "ukrainian_delight.advancement.lean_borscht": "Те саме тільки з грибами",
+  "ukrainian_delight.advancement.lean_borscht.desc": "Зваріть пісний борщ",
+
+  "_comment6": "tooltip",
+  "tooltip.ukrainian_delight.no_effects": "Немає ефектів",
+
+  "amplifier.none": "",
+  "amplifier.1": "",
+  "amplifier.2": " II",
+  "amplifier.3": " III",
+  "amplifier.4": " IV",
+  "amplifier.5": " V",
+  "amplifier.6": " VI",
+  "amplifier.7": " VII",
+  "amplifier.8": " VIII",
+  "amplifier.9": " IX",
+  "amplifier.10": " X"
 
 }

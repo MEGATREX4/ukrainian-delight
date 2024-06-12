@@ -13,7 +13,11 @@ public class ModItems {
     // Define items without specifying maxCount, defaults to 64
     public static final Item VARENYK = createFoodItem("varenyk", ModFoodComponents.VARENYK);
     public static final Item BORSCHT = createFoodItem("borscht", ModFoodComponents.BORSCHT, 16);
+    public static final Item LEAN_BORSCHT = createFoodItem("lean_borscht", ModFoodComponents.LEAN_BORSCHT, 16);
+
     public static final Item HORSERADISH = createFoodItem("horseradish", ModFoodComponents.HORSERADISH);
+    public static final Item CUCUMBER = createFoodItem("cucumber", ModFoodComponents.CUCUMBER);
+    public static final Item CUTTED_CUCUMBER = createFoodItem("cutted_cucumber", ModFoodComponents.CUTTED_CUCUMBER);
 
     // Simple items without specifying maxCount, defaults to 64
     public static final Item SALT = registerItem("salt", new Item(new FabricItemSettings()));

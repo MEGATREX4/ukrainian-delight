@@ -1,0 +1,17 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "ukrainian_delight:cucumber"
+    }
+  ],
+  "result": [
+    {
+      "count": 2,
+      "item": "ukrainian_delight:cutted_cucumber"
+    }
+  ],
+  "tool": {
+    "tag": "c:tools/knives"
+  }
+}

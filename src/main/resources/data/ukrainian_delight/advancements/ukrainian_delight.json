@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "item": "ukrainian_delight:cucumber"
+    },
+    "title": {
+      "translate": "ukrainian_delight.advancement.root"
+    },
+    "description": {
+      "translate": "ukrainian_delight.advancement.root.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "background": "ukrainian_delight:textures/block/cucumber_crate_side.png"
+  },
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "ukrainian_delight:cucumber",
+              "ukrainian_delight:horseradish",
+              "ukrainian_delight:salt"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

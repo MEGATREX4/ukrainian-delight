@@ -1,0 +1,35 @@
+{
+  "type": "farmersdelight:cooking",
+  "container": {
+    "item": "minecraft:bowl"
+  },
+  "cookingtime": 200,
+  "experience": 1.0,
+  "ingredients": [
+    {
+      "item": "minecraft:carrot"
+    },
+    {
+      "item": "minecraft:potato"
+    },
+    {
+      "item": "minecraft:beetroot_soup"
+    },
+    {
+      "item": "farmersdelight:tomato_sauce"
+    },
+    {
+      "tag": "c:salad_ingredients"
+    },
+    {
+      "items": [
+        "minecraft:red_mushroom",
+        "minecraft:brown_mushroom"
+      ]
+    }
+  ],
+  "recipe_book_tab": "meals",
+  "result": {
+    "item": "ukrainian_delight:borscht"
+  }
+}
