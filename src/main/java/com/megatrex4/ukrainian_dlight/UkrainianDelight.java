@@ -19,7 +19,7 @@ public class UkrainianDelight implements ModInitializer {
 		ModBlock.registerModBlock();
 		ModItems.registerModItems();
 		ModItemGroups.registerItemGroups();
-		ToolTipHelper.RegisterTooltip();
+		ToolTipHelper.registerTooltip();
 
 
 		LOGGER.info("Hello Fabric world it`s " + MOD_ID + "!");

@@ -21,15 +21,14 @@
     {
       "tag": "c:salad_ingredients"
     },
-    {
-      "items": [
-        "minecraft:red_mushroom",
-        "minecraft:brown_mushroom"
-      ]
-    }
+    [
+      {
+        "tag": "c:mushrooms"
+      }
+    ]
   ],
   "recipe_book_tab": "meals",
   "result": {
-    "item": "ukrainian_delight:borscht"
+    "item": "ukrainian_delight:lean_borscht"
   }
 }

@@ -1,10 +1,8 @@
 package com.megatrex4.ukrainian_dlight.item;
 
-import java.util.List;
-
 import com.megatrex4.ukrainian_dlight.UkrainianDelight;
+import com.megatrex4.ukrainian_dlight.util.StatusEffectUtil;
 import com.mojang.datafixers.util.Pair;
-
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.item.TooltipContext;
@@ -17,35 +15,30 @@ import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public class ToolTipHelper extends Item {
 
     public ToolTipHelper(Settings settings) {
         super(settings);
     }
 
-    // This method adds tooltip information to the item when hovered over in the inventory
     @Override
     @Environment(EnvType.CLIENT)
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         super.appendTooltip(stack, world, tooltip, context);
 
-        // Retrieve the FoodComponent of the item
         FoodComponent foodComponent = this.getFoodComponent();
 
-        // Check if the FoodComponent exists and if it has any status effects
         if (foodComponent != null && !foodComponent.getStatusEffects().isEmpty()) {
-            // Call a method to add the status effects to the tooltip
             addFoodEffectTooltip(stack, tooltip, foodComponent.getStatusEffects());
         }
     }
 
-    // This method adds status effect information to the tooltip
     public static void addFoodEffectTooltip(ItemStack itemStack, List<Text> tooltip, List<Pair<StatusEffectInstance, Float>> effects) {
-        // If there are no effects, add a message indicating that there are no effects
         if (effects.isEmpty()) {
             tooltip.add(Text.translatable("tooltip.ukrainian_delight.no_effects").formatted(Formatting.GRAY));
         } else {
-            // Iterate through each effect and add its information to the tooltip
             for (Pair<StatusEffectInstance, Float> pair : effects) {
                 StatusEffectInstance effect = pair.getFirst();
                 String name = effect.getEffectType().getTranslationKey();
@@ -54,18 +47,14 @@ public class ToolTipHelper extends Item {
                 String amplifierString = StatusEffectUtil.formatAmplifier(amplifier);
                 String durationString = formatDuration(duration);
 
-                // Combine the effect name and duration, formatting them as blue text
                 Text tooltipText = Text.translatable(name).formatted(Formatting.BLUE).append(Text.of(amplifierString))
                         .append(Text.of(" (" + durationString + ") "));
 
-                // Add the tooltip text to the list
                 tooltip.add(tooltipText);
             }
         }
     }
 
-
-    // This method formats the duration of an effect
     private static String formatDuration(int duration) {
         int minutes = duration / 60;
         int seconds = duration % 60;
@@ -73,9 +62,7 @@ public class ToolTipHelper extends Item {
         return String.format("%d:%02d", minutes, seconds);
     }
 
-    public static void RegisterTooltip() {
+    public static void registerTooltip() {
         UkrainianDelight.LOGGER.info("Registering ToolTip for " + UkrainianDelight.MOD_ID + " items");
     }
-
-
 }

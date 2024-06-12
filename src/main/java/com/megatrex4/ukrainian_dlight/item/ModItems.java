@@ -10,38 +10,21 @@ import net.minecraft.util.Identifier;
 
 public class ModItems {
 
-    // Define items without specifying maxCount, defaults to 64
-    public static final Item VARENYK = createFoodItem("varenyk", ModFoodComponents.VARENYK);
-    public static final Item BORSCHT = createFoodItem("borscht", ModFoodComponents.BORSCHT, 16);
-    public static final Item LEAN_BORSCHT = createFoodItem("lean_borscht", ModFoodComponents.LEAN_BORSCHT, 16);
+    // Define items using the ItemBuilder
+    public static final Item VARENYK = registerItem("varenyk", new ItemBuilder().food(ModFoodComponents.VARENYK).build());
+    public static final Item BORSCHT = registerItem("borscht", new ItemBuilder().food(ModFoodComponents.BORSCHT).maxCount(16).returnsBowl().build());
+    public static final Item LEAN_BORSCHT = registerItem("lean_borscht", new ItemBuilder().food(ModFoodComponents.LEAN_BORSCHT).maxCount(16).returnsBowl().build());
 
-    public static final Item HORSERADISH = createFoodItem("horseradish", ModFoodComponents.HORSERADISH);
-    public static final Item CUCUMBER = createFoodItem("cucumber", ModFoodComponents.CUCUMBER);
-    public static final Item CUTTED_CUCUMBER = createFoodItem("cutted_cucumber", ModFoodComponents.CUTTED_CUCUMBER);
+    public static final Item HORSERADISH = registerItem("horseradish", new ItemBuilder().food(ModFoodComponents.HORSERADISH).build());
+    public static final Item CUCUMBER = registerItem("cucumber", new ItemBuilder().food(ModFoodComponents.CUCUMBER).build());
+    public static final Item CUTTED_CUCUMBER = registerItem("cutted_cucumber", new ItemBuilder().food(ModFoodComponents.CUTTED_CUCUMBER).build());
 
     // Simple items without specifying maxCount, defaults to 64
-    public static final Item SALT = registerItem("salt", new Item(new FabricItemSettings()));
+    public static final Item SALT = registerItem("salt", new ItemBuilder().build());
 
-    // Register items with optional maxCount
+    // Register items
     public static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, new Identifier(UkrainianDelight.MOD_ID, name.toLowerCase()), item);
-    }
-
-    public static Item registerItem(String name, Item item, int maxCount) {
-        return Registry.register(Registries.ITEM, new Identifier(UkrainianDelight.MOD_ID, name.toLowerCase()), item);
-    }
-
-    // Create food item with specified food component, optional maxCount
-    private static Item createFoodItem(String name, FoodComponent foodComponent) {
-        return createFoodItem(name, foodComponent, 64);
-    }
-
-    private static Item createFoodItem(String name, FoodComponent foodComponent, int maxCount) {
-        // Ensure that ModFoodComponents is initialized before accessing its components
-        ModFoodComponents.init();
-
-        // Create the food item with the specified max count
-        return registerItem(name, new ToolTipHelper(new FabricItemSettings().food(foodComponent).maxCount(maxCount)), maxCount);
     }
 
     public static void registerModItems() {

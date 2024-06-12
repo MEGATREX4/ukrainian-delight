@@ -1,4 +1,4 @@
-package com.megatrex4.ukrainian_dlight.item;
+package com.megatrex4.ukrainian_dlight.util;
 
 import net.minecraft.util.Language;
 

@@ -3,6 +3,7 @@ package com.megatrex4.ukrainian_dlight.item;
 import com.nhoryzon.mc.farmersdelight.registry.EffectsRegistry;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.FoodComponent;
 
 public class ModFoodComponents {
