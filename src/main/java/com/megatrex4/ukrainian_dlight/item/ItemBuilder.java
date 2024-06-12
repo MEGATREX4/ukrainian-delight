@@ -7,7 +7,7 @@ import net.minecraft.item.Item;
 public class ItemBuilder {
     private FoodComponent foodComponent;
     private int maxCount = 64;
-    private Boolean returnsBowl = null;
+    private Boolean returnsBowl = false;
 
     public ItemBuilder food(FoodComponent foodComponent) {
         this.foodComponent = foodComponent;
@@ -34,7 +34,7 @@ public class ItemBuilder {
         if (foodComponent != null) {
             settings.food(foodComponent);
         }
-        if (returnsBowl == null || returnsBowl) {
+        if (returnsBowl != null && returnsBowl) {
             return new BowlReturningFoodItem(settings);
         } else {
             return new ToolTipHelper(settings);

@@ -2,7 +2,6 @@ package com.megatrex4.ukrainian_dlight.item;
 
 import com.megatrex4.ukrainian_dlight.UkrainianDelight;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.minecraft.item.FoodComponent;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -23,7 +22,8 @@ public class ModItems {
 
     public static final Item LEAN_BORSCHT = registerItem("lean_borscht", new ItemBuilder()
             .food(ModFoodComponents.LEAN_BORSCHT)
-            .maxCount(16).returnsBowl()
+            .maxCount(16)
+            .returnsBowl()
             .build());
 
     public static final Item HORSERADISH = registerItem("horseradish", new ItemBuilder()
