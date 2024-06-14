@@ -30,7 +30,7 @@ public class ModItemGroups {
                     .icon(() -> new ItemStack(ModItems.CUCUMBER))
                     .entries((displayContext, entries) -> {
                         entries.add(JarsItems.JAR);
-                        entries.add(JarsItems.APPLE_JAR);
+                        entries.add(JarsItems.APPLE_JAM);
                         entries.add(JarsItems.TINNED_TOMATOES);
                         entries.add(ModBlocks.SALT_BLOCK);
                         entries.add(ModItems.SALT);
