@@ -16,7 +16,6 @@ public class ModFoodComponents {
             .hunger(6)
             .saturationModifier(0.40f)
             .statusEffect(new StatusEffectInstance(COMFORT, 25*20, 0), 1.0F)
-            .snack()
             .build();
 
     public static final FoodComponent BORSCHT = new FoodComponent.Builder()
@@ -48,6 +47,23 @@ public class ModFoodComponents {
     public static final FoodComponent CUTTED_CUCUMBER = new FoodComponent.Builder()
             .hunger(1)
             .saturationModifier(0.1f)
+            .build();
+
+    public static final FoodComponent APPLE_SLICE = new FoodComponent.Builder()
+            .hunger(3)
+            .snack()
+            .saturationModifier(0.2f)
+            .build();
+
+    public static final FoodComponent DRIED_APPLE_SLICE = new FoodComponent.Builder()
+            .hunger(4)
+            .snack()
+            .saturationModifier(0.23f)
+            .build();
+
+    public static final FoodComponent HOMEMADE_SAUSAGE = new FoodComponent.Builder()
+            .hunger(5)
+            .saturationModifier(0.25f)
             .build();
 
     // Ensure that the class is initialized

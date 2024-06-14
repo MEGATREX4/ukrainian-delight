@@ -10,11 +10,14 @@
   "item.ukrainian_delight.cucumber": "Огірок",
   "item.ukrainian_delight.cutted_cucumber": "Скибка огірка",
   "block.ukrainian_delight.cucumber_crate": "Ящик огірків",
+  "item.ukrainian_delight.apple_slice": "Скибка яблука",
+  "item.ukrainian_delight.dried_apple_slice": "Сушена скибка яблука",
 
   "_comment3": "meals",
   "item.ukrainian_delight.varenyk": "Вареник",
   "item.ukrainian_delight.borscht": "Борщ",
   "item.ukrainian_delight.lean_borscht": "Пісний борщ",
+  "item.ukrainian_delight.homemade_sausage": "Домашня ковбаса",
 
   "_comment4": "blocks",
   "block.ukrainian_delight.salt_block": "Солевий блок",

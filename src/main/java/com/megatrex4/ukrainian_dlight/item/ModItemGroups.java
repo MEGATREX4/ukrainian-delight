@@ -18,9 +18,10 @@ public class ModItemGroups {
                     .displayName(Text.translatable("itemgroup.meals_ukrainian_delight"))
                     .icon(() -> new ItemStack(ModItems.BORSCHT))
                     .entries((displayContext, entries) -> {
-                        entries.add(ModItems.VARENYK);
                         entries.add(ModItems.BORSCHT);
                         entries.add(ModItems.LEAN_BORSCHT);
+                        entries.add(ModItems.HOMEMADE_SAUSAGE);
+                        entries.add(ModItems.VARENYK);
                     }).build());
 
     public static final ItemGroup INGREDIENT_UKRAINIAN_DELIGHT = Registry.register(Registries.ITEM_GROUP,
@@ -36,6 +37,8 @@ public class ModItemGroups {
                         entries.add(ModBlock.CUCUMBER_CRATE);
                         entries.add(ModItems.CUCUMBER);
                         entries.add(ModItems.CUTTED_CUCUMBER);
+                        entries.add(ModItems.APPLE_SLICE);
+                        entries.add(ModItems.DRIED_APPLE_SLICE);
                     }).build());
 
 
