@@ -102,7 +102,7 @@ public class JarBlock extends Block {
     private boolean isValidJarItem(Item item, Block block) {
         if (block == ModBlocks.JAR_BLOCK && item == JarsItems.JAR) {
             return true;
-        } else if (block == ModBlocks.APPLE_JAM_JAR_BLOCK && item == JarsItems.APPLE_JAM) {
+        } else if (block == ModBlocks.APPLE_JAM_BLOCK && item == JarsItems.APPLE_JAM) {
             return true;
         } else if (block == ModBlocks.TINNED_TOMATOES_BLOCK && item == JarsItems.TINNED_TOMATOES) {
             return true;
@@ -119,7 +119,7 @@ public class JarBlock extends Block {
     }
 
     private ItemStack getJarItemStack(Block block) {
-        if (block == ModBlocks.APPLE_JAM_JAR_BLOCK) {
+        if (block == ModBlocks.APPLE_JAM_BLOCK) {
             return new ItemStack(JarsItems.APPLE_JAM);
         } else if (block == ModBlocks.TINNED_TOMATOES_BLOCK) {
             return new ItemStack(JarsItems.TINNED_TOMATOES);

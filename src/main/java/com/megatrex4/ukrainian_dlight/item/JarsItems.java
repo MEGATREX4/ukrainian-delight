@@ -11,7 +11,7 @@ import net.minecraft.util.Identifier;
 
 public class JarsItems {
     public static final Item JAR = registerJarsItem("jar", ModBlocks.JAR_BLOCK.getDefaultState());
-    public static final Item APPLE_JAM = registerJarsItem("apple_jam", ModBlocks.APPLE_JAM_JAR_BLOCK.getDefaultState());
+    public static final Item APPLE_JAM = registerJarsItem("apple_jam", ModBlocks.APPLE_JAM_BLOCK.getDefaultState());
     public static final Item TINNED_TOMATOES = registerJarsItem("tinned_tomatoes", ModBlocks.TINNED_TOMATOES_BLOCK.getDefaultState());
 
     private static Item registerJarsItem(String name, BlockState blockState) {

@@ -19,7 +19,7 @@ public class ModBlocks {
 
     // New Jar Blocks
     public static final Block JAR_BLOCK = registerBlock("jar_block", new JarBlock());
-    public static final Block APPLE_JAM_JAR_BLOCK = registerBlock("apple_jar_block", new JarBlock());
+    public static final Block APPLE_JAM_BLOCK = registerBlock("apple_jar_block", new JarBlock());
     public static final Block TINNED_TOMATOES_BLOCK = registerBlock("tinned_tomatoes_block", new JarBlock());
 
     private static Block registerBlock(String name, Block block){
