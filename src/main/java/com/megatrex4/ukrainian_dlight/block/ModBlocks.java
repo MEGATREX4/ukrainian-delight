@@ -18,9 +18,9 @@ public class ModBlocks {
             new Block(FabricBlockSettings.copyOf(Blocks.OAK_PLANKS).sounds(BlockSoundGroup.WOOD)));
 
     // New Jar Blocks
-    public static final Block JAR_BLOCK = registerBlock("jar_block", new JarBlock());
-    public static final Block APPLE_JAM_BLOCK = registerBlock("apple_jar_block", new JarBlock());
-    public static final Block TINNED_TOMATOES_BLOCK = registerBlock("tinned_tomatoes_block", new JarBlock());
+    public static final Block JAR = registerBlock("jar", new JarBlock());
+    public static final Block APPLE_JAM = registerBlock("apple_jam", new JarBlock());
+    public static final Block TINNED_TOMATOES = registerBlock("canned_tomatoes", new JarBlock());
 
     private static Block registerBlock(String name, Block block){
         registerBlockItem(name, block);

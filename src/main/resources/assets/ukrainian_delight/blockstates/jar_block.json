@@ -1,8 +1,0 @@
-{
-  "variants": {
-    "jars=1": { "model": "ukrainian_delight:block/jar/jar_block1" },
-    "jars=2": { "model": "ukrainian_delight:block/jar/jar_block2" },
-    "jars=3": { "model": "ukrainian_delight:block/jar/jar_block3" },
-    "jars=4": { "model": "ukrainian_delight:block/jar/jar_block4" }
-  }
-}

@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "jars=1": { "model": "ukrainian_delight:block/jars/one_jar_canned_tomatoes" },
+    "jars=2": { "model": "ukrainian_delight:block/jars/two_jar_canned_tomatoes" },
+    "jars=3": { "model": "ukrainian_delight:block/jars/three_jar_canned_tomatoes" },
+    "jars=4": { "model": "ukrainian_delight:block/jars/four_jar_canned_tomatoes" }
+  }
+}

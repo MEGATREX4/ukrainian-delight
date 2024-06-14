@@ -29,9 +29,9 @@ public class ModItemGroups {
                     .displayName(Text.translatable("itemgroup.ingredients_ukrainian_delight"))
                     .icon(() -> new ItemStack(ModItems.CUCUMBER))
                     .entries((displayContext, entries) -> {
-                        entries.add(JarsItems.JAR);
-                        entries.add(JarsItems.APPLE_JAM);
-                        entries.add(JarsItems.TINNED_TOMATOES);
+                        entries.add(ModBlocks.JAR);
+                        entries.add(ModBlocks.APPLE_JAM);
+                        entries.add(ModBlocks.TINNED_TOMATOES);
                         entries.add(ModBlocks.SALT_BLOCK);
                         entries.add(ModItems.SALT);
 
