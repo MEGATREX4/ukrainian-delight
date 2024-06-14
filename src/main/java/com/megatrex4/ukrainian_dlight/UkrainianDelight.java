@@ -1,6 +1,7 @@
 package com.megatrex4.ukrainian_dlight;
 
-import com.megatrex4.ukrainian_dlight.block.ModBlocks;
+import com.megatrex4.ukrainian_dlight.block.FoodBlocks;
+import com.megatrex4.ukrainian_dlight.block.ModBlock;
 import com.megatrex4.ukrainian_dlight.item.ModItemGroups;
 import com.megatrex4.ukrainian_dlight.item.ModItems;
 import com.megatrex4.ukrainian_dlight.item.ToolTipHelper;
@@ -18,14 +19,15 @@ public class UkrainianDelight implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		ModBlocks.registerModBlocks();
+		FoodBlocks.registerFoodBlocks();
+		ModBlock.registerModBlocks();
 		ModItems.registerModItems();
 		ModItemGroups.registerItemGroups();
 		ToolTipHelper.registerTooltip();
 
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.JAR, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.APPLE_JAM, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.TINNED_TOMATOES, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(FoodBlocks.JAR, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(FoodBlocks.APPLE_JAM, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(FoodBlocks.CANNED_TOMATOES, RenderLayer.getCutout());
 
 
 		LOGGER.info("Hello Fabric world it's " + MOD_ID + "!");

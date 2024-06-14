@@ -1,7 +1,8 @@
 package com.megatrex4.ukrainian_dlight.item;
 
 import com.megatrex4.ukrainian_dlight.UkrainianDelight;
-import com.megatrex4.ukrainian_dlight.block.ModBlocks;
+import com.megatrex4.ukrainian_dlight.block.FoodBlocks;
+import com.megatrex4.ukrainian_dlight.block.ModBlock;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -29,14 +30,14 @@ public class ModItemGroups {
                     .displayName(Text.translatable("itemgroup.ingredients_ukrainian_delight"))
                     .icon(() -> new ItemStack(ModItems.CUCUMBER))
                     .entries((displayContext, entries) -> {
-                        entries.add(ModBlocks.JAR);
-                        entries.add(ModBlocks.APPLE_JAM);
-                        entries.add(ModBlocks.TINNED_TOMATOES);
-                        entries.add(ModBlocks.SALT_BLOCK);
+                        entries.add(FoodBlocks.JAR);
+                        entries.add(FoodBlocks.APPLE_JAM);
+                        entries.add(FoodBlocks.CANNED_TOMATOES);
+                        entries.add(ModBlock.SALT_BLOCK);
                         entries.add(ModItems.SALT);
 
                         entries.add(ModItems.HORSERADISH);
-                        entries.add(ModBlocks.CUCUMBER_CRATE);
+                        entries.add(ModBlock.CUCUMBER_CRATE);
                         entries.add(ModItems.CUCUMBER);
                         entries.add(ModItems.CUTTED_CUCUMBER);
                         entries.add(ModItems.APPLE_SLICE);
