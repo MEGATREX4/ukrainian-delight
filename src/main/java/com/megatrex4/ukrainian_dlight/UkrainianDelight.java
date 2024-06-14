@@ -1,6 +1,7 @@
 package com.megatrex4.ukrainian_dlight;
 
-import com.megatrex4.ukrainian_dlight.block.ModBlock;
+import com.megatrex4.ukrainian_dlight.block.ModBlocks;
+import com.megatrex4.ukrainian_dlight.item.JarsItems;
 import com.megatrex4.ukrainian_dlight.item.ModItemGroups;
 import com.megatrex4.ukrainian_dlight.item.ModItems;
 import com.megatrex4.ukrainian_dlight.item.ToolTipHelper;
@@ -16,12 +17,14 @@ public class UkrainianDelight implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		ModBlock.registerModBlock();
+		ModBlocks.registerModBlocks();
 		ModItems.registerModItems();
+		JarsItems.registerJarsItems();
 		ModItemGroups.registerItemGroups();
 		ToolTipHelper.registerTooltip();
 
 
-		LOGGER.info("Hello Fabric world it`s " + MOD_ID + "!");
+
+		LOGGER.info("Hello Fabric world it's " + MOD_ID + "!");
 	}
 }
