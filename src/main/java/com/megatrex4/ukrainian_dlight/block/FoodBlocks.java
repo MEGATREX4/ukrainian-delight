@@ -1,6 +1,7 @@
 package com.megatrex4.ukrainian_dlight.block;
 
 import com.megatrex4.ukrainian_dlight.UkrainianDelight;
+import com.megatrex4.ukrainian_dlight.item.FoodBlockComponents;
 import com.megatrex4.ukrainian_dlight.item.FoodBlockItem;
 import com.megatrex4.ukrainian_dlight.item.ModFoodComponents;
 import net.minecraft.block.Block;
@@ -16,8 +17,8 @@ public class FoodBlocks {
 
     // New Jar Blocks
     public static final Block JAR = registerBlock("jar", new JarBlock(), null);
-    public static final Block APPLE_JAM = registerBlock("apple_jam", new JarBlock(), ModFoodComponents.APPLE_JAM);
-    public static final Block CANNED_TOMATOES = registerBlock("canned_tomatoes", new JarBlock(), ModFoodComponents.CANNED_TOMATOES);
+    public static final Block APPLE_JAM = registerBlock("apple_jam", new JarBlock(), FoodBlockComponents.APPLE_JAM);
+    public static final Block CANNED_TOMATOES = registerBlock("canned_tomatoes", new JarBlock(), FoodBlockComponents.CANNED_TOMATOES);
 
     private static Block registerBlock(String name, Block block, FoodComponent foodComponent){
         registerBlockItem(name, block, foodComponent);
