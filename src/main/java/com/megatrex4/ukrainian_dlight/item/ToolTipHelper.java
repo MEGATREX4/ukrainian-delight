@@ -2,6 +2,7 @@ package com.megatrex4.ukrainian_dlight.item;
 
 import com.megatrex4.ukrainian_dlight.UkrainianDelight;
 import com.megatrex4.ukrainian_dlight.util.StatusEffectUtil;
+import com.mojang.datafixers.util.Pair;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.item.TooltipContext;
@@ -29,29 +30,19 @@ public class ToolTipHelper extends Item {
 
         FoodComponent foodComponent = stack.getItem().getFoodComponent();
 
-        if (foodComponent != null && !foodComponent.getStatusEffects().isEmpty()) {
-            // Use Pair from net.minecraft.util
-            addFoodEffectTooltip(stack, tooltip, foodComponent.getStatusEffects());
-        }
-    }
-
-    // Adjusted to accept List<com.mojang.datafixers.util.Pair<StatusEffectInstance, Float>>
-    public static void addFoodEffectTooltip(ItemStack itemStack, List<Text> tooltip, List<com.mojang.datafixers.util.Pair<StatusEffectInstance, Float>> effects) {
-        if (effects.isEmpty()) {
-            tooltip.add(Text.translatable("tooltip.ukrainian_delight.no_effects").formatted(Formatting.GRAY));
-        } else {
-            for (com.mojang.datafixers.util.Pair<StatusEffectInstance, Float> pair : effects) {
-                StatusEffectInstance effect = pair.getFirst();
-                String name = effect.getEffectType().getTranslationKey();
-                int duration = effect.getDuration() / 20; // Convert ticks to seconds
-                int amplifier = effect.getAmplifier() + 1;
-                String amplifierString = StatusEffectUtil.formatAmplifier(amplifier);
-                String durationString = formatDuration(duration);
-
-                Text tooltipText = Text.translatable(name).formatted(Formatting.BLUE).append(Text.of(amplifierString))
-                        .append(Text.of(" (" + durationString + ") "));
-
-                tooltip.add(tooltipText);
+        // Add food component tooltip
+        if (foodComponent != null) {
+            // Check for status effects and add them to the tooltip
+            if (!foodComponent.getStatusEffects().isEmpty()) {
+                for (Pair<StatusEffectInstance, Float> effect : foodComponent.getStatusEffects()) {
+                    StatusEffectInstance instance = effect.getFirst();
+                    String effectName = instance.getEffectType().getTranslationKey();
+                    int duration = instance.getDuration() / 20;
+                    int amplifier = instance.getAmplifier() + 1;
+                    String amplifierString = StatusEffectUtil.formatAmplifier(amplifier);
+                    String durationString = formatDuration(duration);
+                    tooltip.add(Text.translatable(effectName).append(Text.of(amplifierString)).append(Text.of(" (" + durationString + ") ")).formatted(Formatting.BLUE));
+                }
             }
         }
     }

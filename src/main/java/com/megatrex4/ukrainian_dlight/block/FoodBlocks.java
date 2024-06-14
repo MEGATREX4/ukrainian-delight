@@ -2,8 +2,7 @@ package com.megatrex4.ukrainian_dlight.block;
 
 import com.megatrex4.ukrainian_dlight.UkrainianDelight;
 import com.megatrex4.ukrainian_dlight.item.FoodBlockComponents;
-import com.megatrex4.ukrainian_dlight.item.FoodBlockItem;
-import com.megatrex4.ukrainian_dlight.item.ModFoodComponents;
+import com.megatrex4.ukrainian_dlight.item.FoodBlockItem; // Import the FoodBlockItem class
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.FoodComponent;
@@ -13,7 +12,6 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 public class FoodBlocks {
-
 
     // New Jar Blocks
     public static final Block JAR = registerBlock("jar", new JarBlock(), null);

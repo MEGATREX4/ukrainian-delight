@@ -29,21 +29,6 @@
   "ukrainian_delight.advancement.borscht": "Де знайти червону воду!",
   "ukrainian_delight.advancement.borscht.desc": "Зваріть борщ",
   "ukrainian_delight.advancement.lean_borscht": "Те саме тільки з грибами",
-  "ukrainian_delight.advancement.lean_borscht.desc": "Зваріть пісний борщ",
-
-  "_comment6": "tooltip",
-  "tooltip.ukrainian_delight.no_effects": "Немає ефектів",
-
-  "amplifier.none": "",
-  "amplifier.1": "",
-  "amplifier.2": " II",
-  "amplifier.3": " III",
-  "amplifier.4": " IV",
-  "amplifier.5": " V",
-  "amplifier.6": " VI",
-  "amplifier.7": " VII",
-  "amplifier.8": " VIII",
-  "amplifier.9": " IX",
-  "amplifier.10": " X"
+  "ukrainian_delight.advancement.lean_borscht.desc": "Зваріть пісний борщ"
 
 }

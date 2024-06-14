@@ -21,8 +21,8 @@
 
   "_comment": "jars",
   "block.ukrainian_delight.jar": "Jar",
-
-
+  "block.ukrainian_delight.apple_jam": "Apple Jam",
+  "block.ukrainian_delight.canned_tomatoes": "Canned Tomatoes",
 
   "_comment": "blocks",
   "block.ukrainian_delight.salt_block": "Salt Block",
