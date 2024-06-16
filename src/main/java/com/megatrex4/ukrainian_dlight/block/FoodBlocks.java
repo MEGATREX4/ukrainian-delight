@@ -16,7 +16,7 @@ public class FoodBlocks {
     // New Jar Blocks
     public static final Block JAR = registerBlock("jar", new JarBlock(), null);
     public static final Block APPLE_JAM = registerBlock("apple_jam", new JarBlock(), FoodBlockComponents.APPLE_JAM);
-    public static final Block JARRED_TOMATOES = registerBlock("JARRED_tomatoes", new JarBlock(), FoodBlockComponents.JARRED_TOMATOES);
+    public static final Block JARRED_TOMATOES = registerBlock("jarred_tomatoes", new JarBlock(), FoodBlockComponents.JARRED_TOMATOES);
 
     private static Block registerBlock(String name, Block block, FoodComponent foodComponent){
         registerBlockItem(name, block, foodComponent);
