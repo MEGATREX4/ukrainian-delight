@@ -11,9 +11,6 @@ public class ModFoodComponents {
     public static final StatusEffect COMFORT = EffectsRegistry.COMFORT.get();
     public static final StatusEffect NOURISHMENT = EffectsRegistry.NOURISHMENT.get();
 
-    public static final FoodComponent APPLE_JAM = new FoodComponent.Builder().hunger(4).saturationModifier(0.3f).build();
-    public static final FoodComponent CANNED_TOMATOES = new FoodComponent.Builder().hunger(6).saturationModifier(0.6f).build();
-
     // MEALS
     public static final FoodComponent VARENYK = new FoodComponent.Builder()
             .hunger(6)

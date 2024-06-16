@@ -1,8 +1,28 @@
 {
   "variants": {
-    "jars=1": { "model": "ukrainian_delight:block/jars/one_jar" },
-    "jars=2": { "model": "ukrainian_delight:block/jars/two_jar" },
-    "jars=3": { "model": "ukrainian_delight:block/jars/three_jar" },
-    "jars=4": { "model": "ukrainian_delight:block/jars/four_jar" }
+    "jars=1": [
+      { "model": "ukrainian_delight:block/jars/one_jar", "particles": "minecraft:block/glass" },
+      { "model": "ukrainian_delight:block/jars/one_jar", "y": 90, "particles": "minecraft:block/glass" },
+      { "model": "ukrainian_delight:block/jars/one_jar", "y": 180, "particles": "minecraft:block/glass" },
+      { "model": "ukrainian_delight:block/jars/one_jar", "y": 270, "particles": "minecraft:block/glass" }
+    ],
+    "jars=2": [
+      { "model": "ukrainian_delight:block/jars/two_jar", "particles": "minecraft:block/glass" },
+      { "model": "ukrainian_delight:block/jars/two_jar", "y": 90, "particles": "minecraft:block/glass" },
+      { "model": "ukrainian_delight:block/jars/two_jar", "y": 180, "particles": "minecraft:block/glass" },
+      { "model": "ukrainian_delight:block/jars/two_jar", "y": 270, "particles": "minecraft:block/glass" }
+    ],
+    "jars=3": [
+      { "model": "ukrainian_delight:block/jars/three_jar", "particles": "minecraft:block/glass" },
+      { "model": "ukrainian_delight:block/jars/three_jar", "y": 90, "particles": "minecraft:block/glass" },
+      { "model": "ukrainian_delight:block/jars/three_jar", "y": 180, "particles": "minecraft:block/glass" },
+      { "model": "ukrainian_delight:block/jars/three_jar", "y": 270, "particles": "minecraft:block/glass" }
+    ],
+    "jars=4": [
+      { "model": "ukrainian_delight:block/jars/four_jar", "particles": "minecraft:block/glass" },
+      { "model": "ukrainian_delight:block/jars/four_jar", "y": 90, "particles": "minecraft:block/glass" },
+      { "model": "ukrainian_delight:block/jars/four_jar", "y": 180, "particles": "minecraft:block/glass" },
+      { "model": "ukrainian_delight:block/jars/four_jar", "y": 270, "particles": "minecraft:block/glass" }
+    ]
   }
 }

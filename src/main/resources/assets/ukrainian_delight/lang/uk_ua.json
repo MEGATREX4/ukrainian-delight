@@ -19,10 +19,15 @@
   "item.ukrainian_delight.lean_borscht": "Пісний борщ",
   "item.ukrainian_delight.homemade_sausage": "Домашня ковбаса",
 
-  "_comment4": "blocks",
+  "_comment4": "jars",
+  "block.ukrainian_delight.jar": "Банка",
+  "block.ukrainian_delight.apple_jam": "Яблучне варення",
+  "block.ukrainian_delight.jarred_tomatoes": "Консервовані помідори",
+
+  "_comment5": "blocks",
   "block.ukrainian_delight.salt_block": "Солевий блок",
 
-  "_comment5": "advancements",
+  "_comment6": "advancements",
   "ukrainian_delight.advancement.root": "Українська насолода",
   "ukrainian_delight.advancement.root.desc": "Сила українських смаколиків!",
 
@@ -31,19 +36,7 @@
   "ukrainian_delight.advancement.lean_borscht": "Те саме тільки з грибами",
   "ukrainian_delight.advancement.lean_borscht.desc": "Зваріть пісний борщ",
 
-  "_comment6": "tooltip",
-  "tooltip.ukrainian_delight.no_effects": "Немає ефектів",
-
-  "amplifier.none": "",
-  "amplifier.1": "",
-  "amplifier.2": " II",
-  "amplifier.3": " III",
-  "amplifier.4": " IV",
-  "amplifier.5": " V",
-  "amplifier.6": " VI",
-  "amplifier.7": " VII",
-  "amplifier.8": " VIII",
-  "amplifier.9": " IX",
-  "amplifier.10": " X"
+  "_comment7": "misc",
+  "death.attack.glass_damage": "%s був не обережний зі склом"
 
 }

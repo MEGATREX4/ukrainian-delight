@@ -32,7 +32,7 @@ public class ModItemGroups {
                     .entries((displayContext, entries) -> {
                         entries.add(FoodBlocks.JAR);
                         entries.add(FoodBlocks.APPLE_JAM);
-                        entries.add(FoodBlocks.CANNED_TOMATOES);
+                        entries.add(FoodBlocks.JARRED_TOMATOES);
                         entries.add(ModBlock.SALT_BLOCK);
                         entries.add(ModItems.SALT);
 

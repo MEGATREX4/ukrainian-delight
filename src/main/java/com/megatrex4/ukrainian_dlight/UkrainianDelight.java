@@ -9,6 +9,11 @@ import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.entity.damage.DamageType;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,9 +21,12 @@ public class UkrainianDelight implements ModInitializer {
 	public static final String MOD_ID = "ukrainian_delight";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
+	public static final RegistryKey<DamageType> GLASS_DAMAGE = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, new Identifier("ukrainian_delight", "glass_damage"));
 
 	@Override
 	public void onInitialize() {
+		RegistryKey<DamageType> GLASS_DAMAGE;
+
 		FoodBlocks.registerFoodBlocks();
 		ModBlock.registerModBlocks();
 		ModItems.registerModItems();
@@ -27,7 +35,7 @@ public class UkrainianDelight implements ModInitializer {
 
 		BlockRenderLayerMap.INSTANCE.putBlock(FoodBlocks.JAR, RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(FoodBlocks.APPLE_JAM, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(FoodBlocks.CANNED_TOMATOES, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(FoodBlocks.JARRED_TOMATOES, RenderLayer.getCutout());
 
 
 		LOGGER.info("Hello Fabric world it's " + MOD_ID + "!");
