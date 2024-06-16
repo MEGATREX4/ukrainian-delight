@@ -36,7 +36,8 @@
   "ukrainian_delight.advancement.lean_borscht": "The same, but with mushrooms!",
   "ukrainian_delight.advancement.lean_borscht.desc": "Cook lean borscht",
 
-  "_comment": "tooltip",
+  "_comment": "misc",
+  "death.attack.glass_damage": "%s was not very careful with the glass",
   "tooltip.ukrainian_delight.no_effects": "No effects",
 
   "amplifier.none": "",

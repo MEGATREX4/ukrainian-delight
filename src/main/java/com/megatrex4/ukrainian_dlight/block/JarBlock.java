@@ -5,17 +5,28 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ShapeContext;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particle.BlockStateParticleEffect;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
+import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
@@ -23,10 +34,15 @@ import net.minecraft.world.World;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.megatrex4.ukrainian_dlight.UkrainianDelight.GLASS_DAMAGE;
+
 public class JarBlock extends Block {
-    public static final IntProperty JARS = IntProperty.of("jars", 1, 4); // Adjusted range to 1-4 for handling all jars
+    public static final IntProperty JARS = IntProperty.of("jars", 1, 4);
+    public static final DirectionProperty FACING = DirectionProperty.of("facing", Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST);
     private static final Map<Integer, VoxelShape> SHAPES = new HashMap<>();
     private static final ThreadLocal<Boolean> isRemovingJar = ThreadLocal.withInitial(() -> false);
+
+
 
     static {
         SHAPES.put(1, Block.createCuboidShape(6, 0, 6, 10, 8, 10));
@@ -37,12 +53,12 @@ public class JarBlock extends Block {
 
     public JarBlock() {
         super(FabricBlockSettings.copyOf(Blocks.GLASS).strength(0.2F).nonOpaque().sounds(BlockSoundGroup.GLASS));
-        this.setDefaultState(this.stateManager.getDefaultState().with(JARS, 1)); // Start with 1 jar
+        this.setDefaultState(this.stateManager.getDefaultState().with(JARS, 1).with(FACING, Direction.NORTH)); // Start with 1 jar facing north
     }
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(JARS);
+        builder.add(JARS, FACING);
     }
 
     @Override
@@ -52,12 +68,12 @@ public class JarBlock extends Block {
 
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        // Check if the player is sneaking (crouching)
-        return ctx.getPlayer().isSneaking() ? this.getDefaultState().with(JARS, 1) : null;
+        Direction facing = ctx.getHorizontalPlayerFacing().getOpposite();
+        return ctx.getPlayer().isSneaking() ? this.getDefaultState().with(JARS, 1).with(FACING, facing) : null; // Set the facing direction based on player placement
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, net.minecraft.util.hit.BlockHitResult hit) {
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         int currentJars = state.get(JARS);
         ItemStack heldItem = player.getStackInHand(hand);
 
@@ -103,5 +119,40 @@ public class JarBlock extends Block {
             ItemStack jarItemStack = new ItemStack(this.asItem(), count);
             Block.dropStack(world, pos, jarItemStack);
         }
+    }
+
+    @Override
+    public void onLandedUpon(World world, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
+        this.tryBreakJar(world, state, pos, entity, 0.3); // 30% chance
+        super.onLandedUpon(world, state, pos, entity, fallDistance);
+
+    }
+
+    private void tryBreakJar(World world, BlockState state, BlockPos pos, Entity entity, double breakChance) {
+        if (this.breaksJar(world, entity)) {
+            if (!world.isClient && world.random.nextDouble() < breakChance) {
+                this.breakJar(world, pos, state);
+                entity.damage(world.getDamageSources().create(GLASS_DAMAGE), 2.0F);
+            }
+        }
+    }
+
+
+    private void breakJar(World world, BlockPos pos, BlockState state) {
+        world.playSound(null, pos, SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.BLOCKS, 0.7F, 0.9F + world.random.nextFloat() * 0.2F);
+        int currentJars = state.get(JARS);
+        if (currentJars <= 1) {
+            isRemovingJar.set(true); // Set flag to avoid dropping items
+            world.breakBlock(pos, false);
+            isRemovingJar.set(false); // Reset flag after breaking
+        } else {
+            world.setBlockState(pos, state.with(JARS, currentJars - 1), 2);
+            world.syncWorldEvent(2001, pos, Block.getRawIdFromState(state));
+            world.addParticle(new BlockStateParticleEffect(ParticleTypes.BLOCK, Blocks.GLASS.getDefaultState()), pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, 0.0, 0.0, 0.0); // Glass break particles
+        }
+    }
+
+    private boolean breaksJar(World world, Entity entity) {
+        return entity instanceof PlayerEntity;
     }
 }

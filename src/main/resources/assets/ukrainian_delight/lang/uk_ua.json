@@ -29,6 +29,9 @@
   "ukrainian_delight.advancement.borscht": "Де знайти червону воду!",
   "ukrainian_delight.advancement.borscht.desc": "Зваріть борщ",
   "ukrainian_delight.advancement.lean_borscht": "Те саме тільки з грибами",
-  "ukrainian_delight.advancement.lean_borscht.desc": "Зваріть пісний борщ"
+  "ukrainian_delight.advancement.lean_borscht.desc": "Зваріть пісний борщ",
+
+  "_comment6": "misc",
+  "death.attack.glass_damage": "%s був не дуже обережний зі склом"
 
 }
