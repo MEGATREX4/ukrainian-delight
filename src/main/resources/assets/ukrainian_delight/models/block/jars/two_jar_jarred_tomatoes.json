@@ -1,7 +1,7 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"inside": "ukrainian_delight:block/jars/canned_tomatoes",
+		"inside": "ukrainian_delight:block/jars/jarred_tomatoes",
 		"outside": "ukrainian_delight:block/jars/jar",
 		"particle": "ukrainian_delight:block/jars/jar"
 	},

@@ -35,7 +35,7 @@ public class UkrainianDelight implements ModInitializer {
 
 		BlockRenderLayerMap.INSTANCE.putBlock(FoodBlocks.JAR, RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(FoodBlocks.APPLE_JAM, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(FoodBlocks.CANNED_TOMATOES, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(FoodBlocks.JARRED_TOMATOES, RenderLayer.getCutout());
 
 
 		LOGGER.info("Hello Fabric world it's " + MOD_ID + "!");

@@ -1,10 +1,10 @@
 {
-    "_comment": "groups",
+    "_comment1": "groups",
   "itemgroup.meals_ukrainian_delight": "Ukrainian Delight",
   "itemgroup.ingredients_ukrainian_delight": "Ukrainian Delight Ingredients",
   "rei.ukrainian_delight": "Ukrainian Delight",
 
-  "_comment": "ingredients",
+  "_comment2": "ingredients",
   "item.ukrainian_delight.horseradish": "Horseradish",
   "item.ukrainian_delight.salt": "Salt",
   "item.ukrainian_delight.cucumber": "Cucumber",
@@ -13,21 +13,21 @@
   "item.ukrainian_delight.apple_slice": "Apple Slice",
   "item.ukrainian_delight.dried_apple_slice": "Dried Apple Slice",
 
-  "_comment": "meals",
+  "_comment3": "meals",
   "item.ukrainian_delight.varenyk": "Varenyk",
   "item.ukrainian_delight.borscht": "Borscht",
   "item.ukrainian_delight.lean_borscht": "Lean Borscht",
   "item.ukrainian_delight.homemade_sausage": "Homemade Sausage",
 
-  "_comment": "jars",
+  "_comment4": "jars",
   "block.ukrainian_delight.jar": "Jar",
   "block.ukrainian_delight.apple_jam": "Apple Jam",
-  "block.ukrainian_delight.canned_tomatoes": "Canned Tomatoes",
+  "block.ukrainian_delight.jarred_tomatoes": "Jarred Tomatoes",
 
-  "_comment": "blocks",
+  "_comment5": "blocks",
   "block.ukrainian_delight.salt_block": "Salt Block",
 
-  "_comment": "advancements",
+  "_comment6": "advancements",
   "ukrainian_delight.advancement.root": "Ukrainian Delight",
   "ukrainian_delight.advancement.root.desc": "The power of Ukrainian delicacies!",
 
@@ -36,8 +36,8 @@
   "ukrainian_delight.advancement.lean_borscht": "The same, but with mushrooms!",
   "ukrainian_delight.advancement.lean_borscht.desc": "Cook lean borscht",
 
-  "_comment": "misc",
-  "death.attack.glass_damage": "%s was not very careful with the glass",
+  "_comment7": "misc",
+  "death.attack.glass_damage": "%s was not careful with glass",
   "tooltip.ukrainian_delight.no_effects": "No effects",
 
   "amplifier.none": "",
