@@ -1,10 +1,12 @@
 package com.megatrex4.ukrainian_dlight.block;
 
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ShapeContext;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageType;
@@ -42,8 +44,6 @@ public class JarBlock extends Block {
     private static final Map<Integer, VoxelShape> SHAPES = new HashMap<>();
     private static final ThreadLocal<Boolean> isRemovingJar = ThreadLocal.withInitial(() -> false);
 
-
-
     static {
         SHAPES.put(1, Block.createCuboidShape(6, 0, 6, 10, 8, 10));
         SHAPES.put(2, Block.createCuboidShape(1, 0, 3, 14, 8, 12));
@@ -54,7 +54,13 @@ public class JarBlock extends Block {
     public JarBlock() {
         super(FabricBlockSettings.copyOf(Blocks.GLASS).strength(0.2F).nonOpaque().sounds(BlockSoundGroup.GLASS));
         this.setDefaultState(this.stateManager.getDefaultState().with(JARS, 1).with(FACING, Direction.NORTH)); // Start with 1 jar facing north
+        setRenderLayer();
     }
+
+    private void setRenderLayer() {
+        BlockRenderLayerMap.INSTANCE.putBlock(this, RenderLayer.getCutout());
+    }
+
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {

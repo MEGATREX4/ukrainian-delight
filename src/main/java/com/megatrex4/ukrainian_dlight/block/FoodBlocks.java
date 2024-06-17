@@ -1,9 +1,10 @@
 package com.megatrex4.ukrainian_dlight.block;
 
 import com.megatrex4.ukrainian_dlight.UkrainianDelight;
-import com.megatrex4.ukrainian_dlight.item.FoodBlockComponents;
-import com.megatrex4.ukrainian_dlight.item.FoodBlockItem; // Import the FoodBlockItem class
+import com.megatrex4.ukrainian_dlight.item.FoodBlockItem;
 import net.minecraft.block.Block;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.FoodComponent;
 import net.minecraft.item.Item;
@@ -15,15 +16,31 @@ public class FoodBlocks {
 
     // New Jar Blocks
     public static final Block JAR = registerBlock("jar", new JarBlock(), null);
-    public static final Block APPLE_JAM = registerBlock("apple_jam", new JarBlock(), FoodBlockComponents.APPLE_JAM);
-    public static final Block JARRED_TOMATOES = registerBlock("jarred_tomatoes", new JarBlock(), FoodBlockComponents.JARRED_TOMATOES);
 
-    private static Block registerBlock(String name, Block block, FoodComponent foodComponent){
+    //JAMS
+    public static final Block APPLE_JAM = registerBlock("apple_jam", new JarBlock(), new FoodComponent.Builder().hunger(4).saturationModifier(0.3f).build());
+
+    //JARRED VEGETABLES
+    public static final Block JARRED_TOMATOES = registerBlock("jarred_tomatoes", new JarBlock(), new FoodComponent.Builder()
+            .hunger(6).saturationModifier(0.6f)
+            .statusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 3 * 20, 3), 1.0f)
+            .build());
+
+    public static final Block JARRED_CABBAGE = registerBlock("jarred_cabbage", new JarBlock(), new FoodComponent.Builder()
+            .hunger(6).saturationModifier(0.6f)
+            .statusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 3 * 20, 3), 1.0f).build());
+
+    public static final Block JARRED_BEETROOT = registerBlock("jarred_beetroot", new JarBlock(), new FoodComponent.Builder()
+            .hunger(6).saturationModifier(0.6f)
+            .statusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 3 * 20, 3), 1.0f).build());
+
+
+    private static Block registerBlock(String name, Block block, FoodComponent foodComponent) {
         registerBlockItem(name, block, foodComponent);
         return Registry.register(Registries.BLOCK, new Identifier(UkrainianDelight.MOD_ID, name), block);
     }
 
-    private static Item registerBlockItem(String name, Block block, FoodComponent foodComponent){
+    private static Item registerBlockItem(String name, Block block, FoodComponent foodComponent) {
         Item item;
         if (foodComponent != null) {
             item = new FoodBlockItem(block, foodComponent);

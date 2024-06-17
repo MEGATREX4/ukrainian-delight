@@ -2,6 +2,7 @@
     "_comment1": "groups",
   "itemgroup.meals_ukrainian_delight": "Ukrainian Delight",
   "itemgroup.ingredients_ukrainian_delight": "Ukrainian Delight Ingredients",
+  "itemgroup.jars_ukrainian_delight": "Ukrainian Delight Jars",
   "rei.ukrainian_delight": "Ukrainian Delight",
 
   "_comment2": "ingredients",
@@ -22,7 +23,10 @@
   "_comment4": "jars",
   "block.ukrainian_delight.jar": "Jar",
   "block.ukrainian_delight.apple_jam": "Apple Jam",
+
   "block.ukrainian_delight.jarred_tomatoes": "Jarred Tomatoes",
+  "block.ukrainian_delight.jarred_cabbage": "Jarred Cabbage",
+  "block.ukrainian_delight.jarred_beetroot": "Jarred Beetroot",
 
   "_comment5": "blocks",
   "block.ukrainian_delight.salt_block": "Salt Block",

@@ -30,9 +30,6 @@ public class ModItemGroups {
                     .displayName(Text.translatable("itemgroup.ingredients_ukrainian_delight"))
                     .icon(() -> new ItemStack(ModItems.CUCUMBER))
                     .entries((displayContext, entries) -> {
-                        entries.add(FoodBlocks.JAR);
-                        entries.add(FoodBlocks.APPLE_JAM);
-                        entries.add(FoodBlocks.JARRED_TOMATOES);
                         entries.add(ModBlock.SALT_BLOCK);
                         entries.add(ModItems.SALT);
 
@@ -44,6 +41,18 @@ public class ModItemGroups {
                         entries.add(ModItems.DRIED_APPLE_SLICE);
                     }).build());
 
+    public static final ItemGroup JARS_UKRAINIAN_DELIGHT = Registry.register(Registries.ITEM_GROUP,
+            new Identifier(UkrainianDelight.MOD_ID, "jars_ukrainian_delight"),
+            FabricItemGroup.builder()
+                    .displayName(Text.translatable("itemgroup.jars_ukrainian_delight"))
+                    .icon(() -> new ItemStack(FoodBlocks.JARRED_TOMATOES))
+                    .entries((displayContext, entries) -> {
+                        entries.add(FoodBlocks.JAR);
+                        entries.add(FoodBlocks.APPLE_JAM);
+                        entries.add(FoodBlocks.JARRED_TOMATOES);
+                        entries.add(FoodBlocks.JARRED_CABBAGE);
+                        entries.add(FoodBlocks.JARRED_BEETROOT);
+                    }).build());
 
     public static void registerItemGroups() {
         UkrainianDelight.LOGGER.info("Registering Item Groups for " + UkrainianDelight.MOD_ID);

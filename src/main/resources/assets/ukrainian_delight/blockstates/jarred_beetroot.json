@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "jars=1": [
+      { "model": "ukrainian_delight:block/jars/one_jar_jarred_beetroot" },
+      { "model": "ukrainian_delight:block/jars/one_jar_jarred_beetroot", "y": 90 },
+      { "model": "ukrainian_delight:block/jars/one_jar_jarred_beetroot", "y": 180 },
+      { "model": "ukrainian_delight:block/jars/one_jar_jarred_beetroot", "y": 270 }
+    ],
+    "jars=2": [
+      { "model": "ukrainian_delight:block/jars/two_jar_jarred_beetroot" },
+      { "model": "ukrainian_delight:block/jars/two_jar_jarred_beetroot", "y": 90 },
+      { "model": "ukrainian_delight:block/jars/two_jar_jarred_beetroot", "y": 180 },
+      { "model": "ukrainian_delight:block/jars/two_jar_jarred_beetroot", "y": 270 }
+    ],
+    "jars=3": [
+      { "model": "ukrainian_delight:block/jars/three_jar_jarred_beetroot" },
+      { "model": "ukrainian_delight:block/jars/three_jar_jarred_beetroot", "y": 90 },
+      { "model": "ukrainian_delight:block/jars/three_jar_jarred_beetroot", "y": 180 },
+      { "model": "ukrainian_delight:block/jars/three_jar_jarred_beetroot", "y": 270 }
+    ],
+    "jars=4": [
+      { "model": "ukrainian_delight:block/jars/four_jar_jarred_beetroot" },
+      { "model": "ukrainian_delight:block/jars/four_jar_jarred_beetroot", "y": 90 },
+      { "model": "ukrainian_delight:block/jars/four_jar_jarred_beetroot", "y": 180 },
+      { "model": "ukrainian_delight:block/jars/four_jar_jarred_beetroot", "y": 270 }
+    ]
+  }
+}
