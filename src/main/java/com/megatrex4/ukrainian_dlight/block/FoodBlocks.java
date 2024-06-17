@@ -23,16 +23,28 @@ public class FoodBlocks {
     //JARRED VEGETABLES
     public static final Block JARRED_TOMATOES = registerBlock("jarred_tomatoes", new JarBlock(), new FoodComponent.Builder()
             .hunger(6).saturationModifier(0.6f)
-            .statusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 3 * 20, 3), 1.0f)
+            //.statusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 3 * 20, 3), 1.0f)
             .build());
 
     public static final Block JARRED_CABBAGE = registerBlock("jarred_cabbage", new JarBlock(), new FoodComponent.Builder()
             .hunger(6).saturationModifier(0.6f)
-            .statusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 3 * 20, 3), 1.0f).build());
+            .build());
 
     public static final Block JARRED_BEETROOT = registerBlock("jarred_beetroot", new JarBlock(), new FoodComponent.Builder()
             .hunger(6).saturationModifier(0.6f)
-            .statusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 3 * 20, 3), 1.0f).build());
+            .build());
+
+    public static final Block JARRED_CARROT = registerBlock("jarred_carrot", new JarBlock(), new FoodComponent.Builder()
+            .hunger(6).saturationModifier(0.6f)
+            .build());
+
+    public static final Block JARRED_ONION = registerBlock("jarred_onion", new JarBlock(), new FoodComponent.Builder()
+            .hunger(6).saturationModifier(0.6f)
+            .build());
+
+    public static final Block JARRED_BORSCHT = registerBlock("jarred_borscht", new JarBlock(), new FoodComponent.Builder()
+            .hunger(6).saturationModifier(0.6f)
+            .build());
 
 
     private static Block registerBlock(String name, Block block, FoodComponent foodComponent) {

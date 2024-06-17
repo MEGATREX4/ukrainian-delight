@@ -7,19 +7,10 @@
   "experience": 1.0,
   "ingredients": [
     {
-      "item": "minecraft:carrot"
+      "item": "ukrainian_delight:jarred_borscht"
     },
     {
       "item": "minecraft:potato"
-    },
-    {
-      "item": "minecraft:beetroot_soup"
-    },
-    {
-      "item": "farmersdelight:tomato_sauce"
-    },
-    {
-      "tag": "c:salad_ingredients"
     },
     {
       "tag": "c:mushrooms"
@@ -27,6 +18,7 @@
   ],
   "recipe_book_tab": "meals",
   "result": {
-    "item": "ukrainian_delight:lean_borscht"
+    "count": 2,
+    "item": "ukrainian_delight:borscht"
   }
 }

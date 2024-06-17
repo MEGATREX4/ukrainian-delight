@@ -1,0 +1,62 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"inside": "ukrainian_delight:block/jars/jarred_borscht",
+		"outside": "ukrainian_delight:block/jars/jar",
+		"particle": "ukrainian_delight:block/jars/jar"
+	},
+	"elements": [
+		{
+			"name": "glass",
+			"from": [5.85299, 0, 5.51641],
+			"to": [10.85299, 7, 10.51641],
+			"rotation": {"angle": 22.5, "axis": "y", "origin": [8.35299, 4, 8.01641]},
+			"faces": {
+				"north": {"uv": [0, 0, 5, 7], "texture": "#outside"},
+				"east": {"uv": [5, 0, 10, 7], "texture": "#outside"},
+				"south": {"uv": [0, 7, 5, 14], "texture": "#outside"},
+				"west": {"uv": [5, 7, 10, 14], "texture": "#outside"},
+				"up": {"uv": [15, 5, 10, 0], "texture": "#outside"},
+				"down": {"uv": [15, 5, 10, 10], "texture": "#outside"}
+			}
+		},
+		{
+			"name": "lid",
+			"from": [6.85299, 7, 6.51641],
+			"to": [9.85299, 7.75, 9.51641],
+			"rotation": {"angle": 22.5, "axis": "y", "origin": [8.35299, 4, 8.01641]},
+			"faces": {
+				"north": {"uv": [13, 10, 16, 11], "texture": "#outside"},
+				"east": {"uv": [13, 11, 16, 12], "texture": "#outside"},
+				"south": {"uv": [13, 12, 16, 13], "texture": "#outside"},
+				"west": {"uv": [13, 13, 16, 14], "texture": "#outside"},
+				"up": {"uv": [13, 13, 10, 10], "texture": "#outside"},
+				"down": {"uv": [13, 13, 10, 16], "texture": "#outside"}
+			}
+		},
+		{
+			"name": "inside",
+			"from": [6.10299, 0.25, 5.76641],
+			"to": [10.60299, 6.75, 10.26641],
+			"rotation": {"angle": 22.5, "axis": "y", "origin": [8.35299, 4, 8.01641]},
+			"faces": {
+				"north": {"uv": [0, 0, 4.5, 6.5], "texture": "#inside"},
+				"east": {"uv": [5, 0, 9.5, 6.5], "texture": "#inside"},
+				"south": {"uv": [0, 7, 4.5, 13.5], "texture": "#inside"},
+				"west": {"uv": [5, 7, 9.5, 13.5], "texture": "#inside"},
+				"up": {"uv": [14.5, 4.5, 10, 0], "texture": "#inside"},
+				"down": {"uv": [14.5, 5, 10, 9.5], "texture": "#inside"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "jar",
+			"origin": [8.35299, 3, 8.01641],
+			"color": 0,
+			"nbt": "{}",
+			"children": [0, 1]
+		},
+		2
+	]
+}

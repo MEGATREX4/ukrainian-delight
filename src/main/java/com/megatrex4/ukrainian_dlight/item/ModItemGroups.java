@@ -52,6 +52,9 @@ public class ModItemGroups {
                         entries.add(FoodBlocks.JARRED_TOMATOES);
                         entries.add(FoodBlocks.JARRED_CABBAGE);
                         entries.add(FoodBlocks.JARRED_BEETROOT);
+                        entries.add(FoodBlocks.JARRED_CARROT);
+                        entries.add(FoodBlocks.JARRED_ONION);
+                        entries.add(FoodBlocks.JARRED_BORSCHT);
                     }).build());
 
     public static void registerItemGroups() {

@@ -23,7 +23,13 @@
   "_comment4": "jars",
   "block.ukrainian_delight.jar": "Банка",
   "block.ukrainian_delight.apple_jam": "Яблучне варення",
+
   "block.ukrainian_delight.jarred_tomatoes": "Консервовані помідори",
+  "block.ukrainian_delight.jarred_cabbage": "Консервована капуста",
+  "block.ukrainian_delight.jarred_beetroot": "Консервований буряк",
+  "block.ukrainian_delight.jarred_carrot": "Консервована морква",
+  "block.ukrainian_delight.jarred_onion": "Консервована цибуля",
+  "block.ukrainian_delight.jarred_borscht": "Борщова заправка",
 
   "_comment5": "blocks",
   "block.ukrainian_delight.salt_block": "Солевий блок",
