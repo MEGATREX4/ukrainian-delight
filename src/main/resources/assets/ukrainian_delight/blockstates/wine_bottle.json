@@ -1,0 +1,40 @@
+{
+  "variants": {
+    "bottles=1": [
+      { "model": "ukrainian_delight:block/wines/one_wine_bottle", "particles": "minecraft:block/glass" },
+      { "model": "ukrainian_delight:block/wines/one_wine_bottle", "y": 90, "particles": "minecraft:block/glass" },
+      { "model": "ukrainian_delight:block/wines/one_wine_bottle", "y": 180, "particles": "minecraft:block/glass" },
+      { "model": "ukrainian_delight:block/wines/one_wine_bottle", "y": 270, "particles": "minecraft:block/glass" }
+    ],
+    "bottles=2": [
+      { "model": "ukrainian_delight:block/wines/two_wine_bottle", "particles": "minecraft:block/glass" },
+      { "model": "ukrainian_delight:block/wines/two_wine_bottle", "y": 90, "particles": "minecraft:block/glass" },
+      { "model": "ukrainian_delight:block/wines/two_wine_bottle", "y": 180, "particles": "minecraft:block/glass" },
+      { "model": "ukrainian_delight:block/wines/two_wine_bottle", "y": 270, "particles": "minecraft:block/glass" }
+    ],
+    "bottles=3": [
+      { "model": "ukrainian_delight:block/wines/three_wine_bottle", "particles": "minecraft:block/glass" },
+      { "model": "ukrainian_delight:block/wines/three_wine_bottle", "y": 90, "particles": "minecraft:block/glass" },
+      { "model": "ukrainian_delight:block/wines/three_wine_bottle", "y": 180, "particles": "minecraft:block/glass" },
+      { "model": "ukrainian_delight:block/wines/three_wine_bottle", "y": 270, "particles": "minecraft:block/glass" }
+    ],
+    "bottles=4": [
+      { "model": "ukrainian_delight:block/wines/four_wine_bottle", "particles": "minecraft:block/glass" },
+      { "model": "ukrainian_delight:block/wines/four_wine_bottle", "y": 90, "particles": "minecraft:block/glass" },
+      { "model": "ukrainian_delight:block/wines/four_wine_bottle", "y": 180, "particles": "minecraft:block/glass" },
+      { "model": "ukrainian_delight:block/wines/four_wine_bottle", "y": 270, "particles": "minecraft:block/glass" }
+    ],
+    "bottles=5": [
+      { "model": "ukrainian_delight:block/wines/five_wine_bottle", "particles": "minecraft:block/glass" },
+      { "model": "ukrainian_delight:block/wines/five_wine_bottle", "y": 90, "particles": "minecraft:block/glass" },
+      { "model": "ukrainian_delight:block/wines/five_wine_bottle", "y": 180, "particles": "minecraft:block/glass" },
+      { "model": "ukrainian_delight:block/wines/five_wine_bottle", "y": 270, "particles": "minecraft:block/glass" }
+    ],
+    "bottles=6": [
+      { "model": "ukrainian_delight:block/wines/six_wine_bottle", "particles": "minecraft:block/glass" },
+      { "model": "ukrainian_delight:block/wines/six_wine_bottle", "y": 90, "particles": "minecraft:block/glass" },
+      { "model": "ukrainian_delight:block/wines/six_wine_bottle", "y": 180, "particles": "minecraft:block/glass" },
+      { "model": "ukrainian_delight:block/wines/six_wine_bottle", "y": 270, "particles": "minecraft:block/glass" }
+    ]
+  }
+}

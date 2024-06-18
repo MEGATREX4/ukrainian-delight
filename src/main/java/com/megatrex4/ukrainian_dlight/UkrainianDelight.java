@@ -1,16 +1,14 @@
 package com.megatrex4.ukrainian_dlight;
 
-import com.megatrex4.ukrainian_dlight.block.FoodBlocks;
+import com.megatrex4.ukrainian_dlight.block.DrinkBottleBlock;
+import com.megatrex4.ukrainian_dlight.block.FoodJarBlocks;
 import com.megatrex4.ukrainian_dlight.block.ModBlock;
 import com.megatrex4.ukrainian_dlight.item.ModItemGroups;
 import com.megatrex4.ukrainian_dlight.item.ModItems;
 import com.megatrex4.ukrainian_dlight.item.ToolTipHelper;
 import net.fabricmc.api.ModInitializer;
 
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.damage.DamageType;
-import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
@@ -27,7 +25,8 @@ public class UkrainianDelight implements ModInitializer {
 	public void onInitialize() {
 		RegistryKey<DamageType> GLASS_DAMAGE;
 
-		FoodBlocks.registerFoodBlocks();
+		FoodJarBlocks.registerFoodBlocks();
+		DrinkBottleBlock.registerDrinkBlock();
 		ModBlock.registerModBlocks();
 		ModItems.registerModItems();
 		ModItemGroups.registerItemGroups();

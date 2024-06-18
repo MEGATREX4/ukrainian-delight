@@ -31,10 +31,13 @@
   "block.ukrainian_delight.jarred_onion": "Jarred Onion",
   "block.ukrainian_delight.jarred_borscht": "Jarred Borscht Dressing",
 
-  "_comment5": "blocks",
+  "_comment5": "drinks",
+  "block.ukrainian_delight.wine_bottle": "Wine Bottle",
+
+  "_comment6": "blocks",
   "block.ukrainian_delight.salt_block": "Salt Block",
 
-  "_comment6": "advancements",
+  "_comment7": "advancements",
   "ukrainian_delight.advancement.root": "Ukrainian Delight",
   "ukrainian_delight.advancement.root.desc": "The power of Ukrainian delicacies!",
 
@@ -43,7 +46,7 @@
   "ukrainian_delight.advancement.lean_borscht": "The same, but with mushrooms!",
   "ukrainian_delight.advancement.lean_borscht.desc": "Cook lean borscht",
 
-  "_comment7": "misc",
+  "_comment8": "misc",
   "death.attack.glass_damage": "%s was not careful with glass",
   "tooltip.ukrainian_delight.no_effects": "No effects",
 

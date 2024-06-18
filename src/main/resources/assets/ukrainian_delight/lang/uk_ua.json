@@ -31,10 +31,13 @@
   "block.ukrainian_delight.jarred_onion": "Консервована цибуля",
   "block.ukrainian_delight.jarred_borscht": "Борщова заправка",
 
-  "_comment5": "blocks",
+  "_comment5": "drinks",
+  "block.ukrainian_delight.wine_bottle": "Пляшка для вина",
+
+  "_comment6": "blocks",
   "block.ukrainian_delight.salt_block": "Солевий блок",
 
-  "_comment6": "advancements",
+  "_comment7": "advancements",
   "ukrainian_delight.advancement.root": "Українська насолода",
   "ukrainian_delight.advancement.root.desc": "Сила українських смаколиків!",
 
@@ -43,7 +46,7 @@
   "ukrainian_delight.advancement.lean_borscht": "Те саме тільки з грибами",
   "ukrainian_delight.advancement.lean_borscht.desc": "Зваріть пісний борщ",
 
-  "_comment7": "misc",
+  "_comment8": "misc",
   "death.attack.glass_damage": "%s був не обережний зі склом"
 
 }

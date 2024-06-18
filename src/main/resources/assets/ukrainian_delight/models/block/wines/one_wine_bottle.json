@@ -1,0 +1,88 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"bottle": "ukrainian_delight:block/wines/bottle",
+		"label": "ukrainian_delight:block/wines/label",
+		"particle": "ukrainian_delight:block/wines/bottle"
+	},
+	"elements": [
+		{
+			"from": [6.75, 14, 6.75],
+			"to": [9.25, 15, 9.25],
+			"rotation": {"angle": -22.5, "axis": "y", "origin": [8, 10.4375, 8]},
+			"faces": {
+				"north": {"uv": [7, 4, 8.25, 4.5], "texture": "#bottle"},
+				"east": {"uv": [7, 4.5, 8.25, 5], "texture": "#bottle"},
+				"south": {"uv": [7, 5, 8.25, 5.5], "texture": "#bottle"},
+				"west": {"uv": [7, 5.5, 8.25, 6], "texture": "#bottle"},
+				"up": {"uv": [8.25, 2.25, 7, 1], "texture": "#bottle"},
+				"down": {"uv": [8.25, 2.5, 7, 3.75], "texture": "#bottle"}
+			}
+		},
+		{
+			"name": "cork",
+			"from": [7.25, 15, 7.25],
+			"to": [8.75, 15.75, 8.75],
+			"rotation": {"angle": -22.5, "axis": "y", "origin": [8, 10.4375, 8]},
+			"faces": {
+				"north": {"uv": [7, 7, 7.75, 7.5], "texture": "#bottle"},
+				"east": {"uv": [2, 7.5, 2.75, 8], "texture": "#bottle"},
+				"south": {"uv": [3, 7.5, 3.75, 8], "texture": "#bottle"},
+				"west": {"uv": [4, 7.5, 4.75, 8], "texture": "#bottle"},
+				"up": {"uv": [6.75, 7.75, 6, 7], "texture": "#bottle"},
+				"down": {"uv": [7.75, 6, 7, 6.75], "texture": "#bottle"}
+			}
+		},
+		{
+			"name": "glass",
+			"from": [6, 0, 6],
+			"to": [10, 11, 10],
+			"rotation": {"angle": -22.5, "axis": "y", "origin": [8, 10.4375, 8]},
+			"faces": {
+				"north": {"uv": [0, 0, 2, 5.5], "texture": "#bottle"},
+				"east": {"uv": [2, 0, 4, 5.5], "texture": "#bottle"},
+				"south": {"uv": [4, 0, 6, 5.5], "texture": "#bottle"},
+				"west": {"uv": [0, 5.5, 2, 11], "texture": "#bottle"},
+				"up": {"uv": [4, 7.5, 2, 5.5], "texture": "#bottle"},
+				"down": {"uv": [6, 5.5, 4, 7.5], "texture": "#bottle"}
+			}
+		},
+		{
+			"name": "label",
+			"from": [5.9, 3.5, 5.9],
+			"to": [10.1, 8.5, 10.1],
+			"rotation": {"angle": -22.5, "axis": "y", "origin": [8, 10.4375, 8]},
+			"faces": {
+				"north": {"uv": [4, 4, 8, 9], "texture": "#label"},
+				"east": {"uv": [0, 4, 4, 9], "texture": "#label"},
+				"south": {"uv": [12, 4, 16, 9], "texture": "#label"},
+				"west": {"uv": [8, 4, 12, 9], "texture": "#label"},
+				"up": {"uv": [8, 4, 4, 0], "texture": "#label"},
+				"down": {"uv": [12, 0, 8, 4], "texture": "#label"}
+			}
+		},
+		{
+			"name": "glass",
+			"from": [7, 11, 7],
+			"to": [9, 14, 9],
+			"rotation": {"angle": -22.5, "axis": "y", "origin": [8, 10.4375, 8]},
+			"faces": {
+				"north": {"uv": [6, 0, 7, 1.5], "texture": "#bottle"},
+				"east": {"uv": [6, 1.5, 7, 3], "texture": "#bottle"},
+				"south": {"uv": [6, 3, 7, 4.5], "texture": "#bottle"},
+				"west": {"uv": [6, 4.5, 7, 6], "texture": "#bottle"},
+				"up": {"uv": [7, 7, 6, 6], "texture": "#bottle"},
+				"down": {"uv": [8, 0, 7, 1], "texture": "#bottle"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "group",
+			"origin": [0, 0, 0],
+			"color": 0,
+			"nbt": "{}",
+			"children": [0, 1, 2, 3, 4]
+		}
+	]
+}

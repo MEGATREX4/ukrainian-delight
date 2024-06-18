@@ -1,7 +1,8 @@
 package com.megatrex4.ukrainian_dlight.item;
 
 import com.megatrex4.ukrainian_dlight.UkrainianDelight;
-import com.megatrex4.ukrainian_dlight.block.FoodBlocks;
+import com.megatrex4.ukrainian_dlight.block.DrinkBottleBlock;
+import com.megatrex4.ukrainian_dlight.block.FoodJarBlocks;
 import com.megatrex4.ukrainian_dlight.block.ModBlock;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.item.ItemGroup;
@@ -45,16 +46,18 @@ public class ModItemGroups {
             new Identifier(UkrainianDelight.MOD_ID, "jars_ukrainian_delight"),
             FabricItemGroup.builder()
                     .displayName(Text.translatable("itemgroup.jars_ukrainian_delight"))
-                    .icon(() -> new ItemStack(FoodBlocks.JARRED_TOMATOES))
+                    .icon(() -> new ItemStack(FoodJarBlocks.JARRED_TOMATOES))
                     .entries((displayContext, entries) -> {
-                        entries.add(FoodBlocks.JAR);
-                        entries.add(FoodBlocks.APPLE_JAM);
-                        entries.add(FoodBlocks.JARRED_TOMATOES);
-                        entries.add(FoodBlocks.JARRED_CABBAGE);
-                        entries.add(FoodBlocks.JARRED_BEETROOT);
-                        entries.add(FoodBlocks.JARRED_CARROT);
-                        entries.add(FoodBlocks.JARRED_ONION);
-                        entries.add(FoodBlocks.JARRED_BORSCHT);
+                        entries.add(FoodJarBlocks.JAR);
+                        entries.add(FoodJarBlocks.APPLE_JAM);
+                        entries.add(FoodJarBlocks.JARRED_TOMATOES);
+                        entries.add(FoodJarBlocks.JARRED_CABBAGE);
+                        entries.add(FoodJarBlocks.JARRED_BEETROOT);
+                        entries.add(FoodJarBlocks.JARRED_CARROT);
+                        entries.add(FoodJarBlocks.JARRED_ONION);
+                        entries.add(FoodJarBlocks.JARRED_BORSCHT);
+
+                        entries.add(DrinkBottleBlock.WINE_BOTTLE);
                     }).build());
 
     public static void registerItemGroups() {
