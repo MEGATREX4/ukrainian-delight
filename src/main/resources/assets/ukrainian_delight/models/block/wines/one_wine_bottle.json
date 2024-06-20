@@ -1,12 +1,14 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
+		"particle": "ukrainian_delight:block/wines/bottle",
 		"bottle": "ukrainian_delight:block/wines/bottle",
 		"label": "ukrainian_delight:block/wines/label",
-		"particle": "ukrainian_delight:block/wines/bottle"
+		"item": "ukrainian_delight:block/wines/item"
 	},
 	"elements": [
 		{
+			"name": "glass2",
 			"from": [6.75, 14, 6.75],
 			"to": [9.25, 15, 9.25],
 			"rotation": {"angle": -22.5, "axis": "y", "origin": [8, 10.4375, 8]},
@@ -48,20 +50,6 @@
 			}
 		},
 		{
-			"name": "label",
-			"from": [5.9, 3.5, 5.9],
-			"to": [10.1, 8.5, 10.1],
-			"rotation": {"angle": -22.5, "axis": "y", "origin": [8, 10.4375, 8]},
-			"faces": {
-				"north": {"uv": [4, 4, 8, 9], "texture": "#label"},
-				"east": {"uv": [0, 4, 4, 9], "texture": "#label"},
-				"south": {"uv": [12, 4, 16, 9], "texture": "#label"},
-				"west": {"uv": [8, 4, 12, 9], "texture": "#label"},
-				"up": {"uv": [8, 4, 4, 0], "texture": "#label"},
-				"down": {"uv": [12, 0, 8, 4], "texture": "#label"}
-			}
-		},
-		{
 			"name": "glass",
 			"from": [7, 11, 7],
 			"to": [9, 14, 9],
@@ -74,6 +62,34 @@
 				"up": {"uv": [7, 7, 6, 6], "texture": "#bottle"},
 				"down": {"uv": [8, 0, 7, 1], "texture": "#bottle"}
 			}
+		},
+		{
+			"name": "label",
+			"from": [5.9, 3.5, 5.9],
+			"to": [10.1, 8.5, 10.1],
+			"rotation": {"angle": -22.5, "axis": "y", "origin": [8, 8, 8]},
+			"faces": {
+				"north": {"uv": [0, 4, 4, 9], "texture": "#label"},
+				"east": {"uv": [0, 4, 4, 9], "texture": "#label"},
+				"south": {"uv": [0, 4, 4, 9], "texture": "#label"},
+				"west": {"uv": [0, 4, 4, 9], "texture": "#label"},
+				"up": {"uv": [4, 4, 0, 0], "texture": "#label"},
+				"down": {"uv": [4, 0, 0, 4], "texture": "#label"}
+			}
+		},
+		{
+			"name": "Item",
+			"from": [5.8, 3.8, 5.8],
+			"to": [10.2, 8.2, 10.2],
+			"rotation": {"angle": -22.5, "axis": "y", "origin": [8, 6, 8]},
+			"faces": {
+				"north": {"uv": [8, 0, 16, 8], "texture": "#item"},
+				"east": {"uv": [8, 0, 16, 8], "texture": "#item"},
+				"south": {"uv": [8, 0, 16, 8], "texture": "#item"},
+				"west": {"uv": [8, 0, 16, 8], "texture": "#item"},
+				"up": {"uv": [8, 8, 0, 0], "rotation": 270, "texture": "#item"},
+				"down": {"uv": [0, 0, 8, 8], "rotation": 90, "texture": "#item"}
+			}
 		}
 	],
 	"groups": [
@@ -82,7 +98,7 @@
 			"origin": [0, 0, 0],
 			"color": 0,
 			"nbt": "{}",
-			"children": [0, 1, 2, 3, 4]
+			"children": [0, 1, 2, 3, 4, 5]
 		}
 	]
 }

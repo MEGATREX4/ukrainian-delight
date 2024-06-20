@@ -32,6 +32,7 @@ public class BottleBlock extends Block {
     public static final IntProperty BOTTLES = IntProperty.of("bottles", 1, 6);
     public static final DirectionProperty FACING = DirectionProperty.of("facing", Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST);
     private static final Map<Integer, VoxelShape> SHAPES = new HashMap<>();
+    private static final ThreadLocal<Boolean> isRemovingBottle = ThreadLocal.withInitial(() -> false);
 
     static {
         // Define shapes for different number of bottles here
@@ -77,7 +78,9 @@ public class BottleBlock extends Block {
         // Check if the player is using an empty hand to remove a bottle
         if (heldItem.isEmpty() && currentBottles > 0) {
             if (currentBottles == 1) {
+                isRemovingBottle.set(true);
                 world.setBlockState(pos, Blocks.AIR.getDefaultState()); // Break the block when the last bottle is removed
+                isRemovingBottle.set(false);
             } else {
                 world.setBlockState(pos, state.with(BOTTLES, currentBottles - 1)); // Reduce bottles by 1
             }
@@ -103,7 +106,7 @@ public class BottleBlock extends Block {
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         if (state.getBlock() != newState.getBlock()) {
             super.onStateReplaced(state, world, pos, newState, moved);
-            if (state.get(BOTTLES) > 0 && (newState.isAir() || newState.getBlock() != this)) {
+            if (!isRemovingBottle.get() && state.get(BOTTLES) > 0 && (newState.isAir() || newState.getBlock() != this)) {
                 dropBottleItem(world, pos, state.get(BOTTLES));
             }
         }
