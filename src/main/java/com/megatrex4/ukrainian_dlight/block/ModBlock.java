@@ -14,7 +14,8 @@ import net.minecraft.util.Identifier;
 public class ModBlock {
 
     public static final Block SALT_BLOCK = registerBlock("salt_block",
-            new Block(FabricBlockSettings.copyOf(Blocks.SAND).sounds(BlockSoundGroup.WET_GRASS)));
+            new Block(FabricBlockSettings.copyOf(Blocks.STONE).sounds(BlockSoundGroup.STONE)));
+
     public static final Block CUCUMBER_CRATE = registerBlock("cucumber_crate",
             new Block(FabricBlockSettings.copyOf(Blocks.OAK_PLANKS).sounds(BlockSoundGroup.WOOD)));
 
