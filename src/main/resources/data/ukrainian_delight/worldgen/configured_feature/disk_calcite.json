@@ -1,11 +1,11 @@
 {
   "type": "minecraft:disk",
   "config": {
-    "half_height": 4,
+    "half_height": 2,
     "radius": {
       "type": "minecraft:uniform",
       "value": {
-        "max_inclusive": 8,
+        "max_inclusive": 5,
         "min_inclusive": 2
       }
     },
@@ -13,7 +13,7 @@
       "fallback": {
         "type": "minecraft:simple_state_provider",
         "state": {
-          "Name": "ukrainian_delight:salt_block"
+          "Name": "minecaft:calcite"
         }
       },
       "rules": []
@@ -22,11 +22,7 @@
       "type": "minecraft:matching_blocks",
       "blocks": [
         "minecraft:dirt",
-        "minecraft:grass_block",
-        "minecraft:stone",
-        "minecraft:deepslate",
-        "minecraft:water",
-        "minecraft:clay"
+        "minecraft:grass_block"
       ]
     }
   }

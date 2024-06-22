@@ -1,9 +1,9 @@
 {
-  "feature": "ukrainian_delight:ore_salt",
+  "feature": "ukrainian_delight:ore_calcite",
   "placement": [
     {
       "type": "minecraft:count",
-      "count": 16
+      "count": 46
     },
     {
       "type": "minecraft:in_square"
@@ -11,12 +11,12 @@
     {
       "type": "minecraft:height_range",
       "height": {
-        "type": "minecraft:trapezoid",
+        "type": "minecraft:uniform",
         "max_inclusive": {
-          "absolute": 250
+          "absolute": 256
         },
         "min_inclusive": {
-          "absolute": -50
+          "above_bottom": 0
         }
       }
     },

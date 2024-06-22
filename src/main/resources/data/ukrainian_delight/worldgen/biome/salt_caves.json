@@ -22,8 +22,8 @@
       "sound": "minecraft:music.overworld.lush_caves"
     },
     "sky_color": 8103167,
-    "water_color": 4159204,
-    "water_fog_color": 329011
+    "water_color": 4566514,
+    "water_fog_color": 267827
   },
   "features": [
     [],
@@ -67,7 +67,8 @@
       "minecraft:ore_copper",
       "minecraft:underwater_magma",
       "ukrainian_delight:ore_salt",
-      "minecraft:disk_sand",
+      "ukrainian_delight:ore_calcite",
+      "ukrainian_delight:disk_calcite",
       "ukrainian_delight:disk_salt"
     ],
     [],
@@ -78,10 +79,12 @@
     [
       "minecraft:glow_lichen",
       "minecraft:patch_tall_grass_2",
+      "minecraft:lush_caves_ceiling_vegetation",
       "minecraft:cave_vines",
-      "minecraft:rooted_azalea_tree",
-      "minecraft:spore_blossom",
-      "minecraft:classic_vines_cave_feature"
+      "minecraft:lush_caves_clay",
+      "minecraft:lush_caves_vegetation",
+      "minecraft:classic_vines_cave_feature",
+      "ukrainian_delight:salt_column"
     ],
     [
       "minecraft:freeze_top_layer"
