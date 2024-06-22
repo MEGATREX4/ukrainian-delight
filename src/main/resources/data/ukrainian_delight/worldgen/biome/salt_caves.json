@@ -79,12 +79,11 @@
     [
       "minecraft:glow_lichen",
       "minecraft:patch_tall_grass_2",
-      "minecraft:lush_caves_ceiling_vegetation",
-      "minecraft:cave_vines",
-      "minecraft:lush_caves_clay",
-      "minecraft:lush_caves_vegetation",
+      "ukrainian_delight:salt_cave_salt",
+      "ukrainian_delight:salt_cave_vegetation",
       "minecraft:classic_vines_cave_feature",
-      "ukrainian_delight:salt_column"
+      "ukrainian_delight:salt_column",
+      "ukrainian_delight:salt_caves_ceiling_salt",
     ],
     [
       "minecraft:freeze_top_layer"

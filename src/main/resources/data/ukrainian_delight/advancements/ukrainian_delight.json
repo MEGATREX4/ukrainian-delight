@@ -12,7 +12,7 @@
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
-    "background": "ukrainian_delight:textures/block/cucumber_crate_side.png"
+    "background": "ukrainian_delight:textures/block/salt_block.png"
   },
   "criteria": {
     "requirement": {

@@ -1,9 +1,9 @@
 {
-  "feature": "ukrainian_delight:salt_column",
+  "feature": "ukrainian_delight:salt_patch_ceiling",
   "placement": [
     {
       "type": "minecraft:count",
-      "count": 60
+      "count": 80
     },
     {
       "type": "minecraft:in_square"
@@ -29,8 +29,7 @@
       "direction_of_search": "up",
       "max_steps": 12,
       "target_condition": {
-        "type": "minecraft:has_sturdy_face",
-        "direction": "down"
+        "type": "minecraft:solid"
       }
     },
     {
