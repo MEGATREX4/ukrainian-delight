@@ -31,6 +31,7 @@ public class ModItemGroups {
                     .displayName(Text.translatable("itemgroup.ingredients_ukrainian_delight"))
                     .icon(() -> new ItemStack(ModItems.CUCUMBER))
                     .entries((displayContext, entries) -> {
+                        entries.add(ModBlock.SALT_BAG);
                         entries.add(ModBlock.SALT_BLOCK);
                         entries.add(ModItems.SALT);
 

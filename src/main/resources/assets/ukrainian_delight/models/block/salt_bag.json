@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "ukrainian_delight:block/salt_bag_top",
+    "down": "ukrainian_delight:block/bag_bottom",
+    "up": "ukrainian_delight:block/salt_bag_top",
+    "north": "ukrainian_delight:block/bag_side_tied",
+    "south": "ukrainian_delight:block/bag_side_tied",
+    "east": "ukrainian_delight:block/bag_side",
+    "west": "ukrainian_delight:block/bag_side"
+  }
+}
