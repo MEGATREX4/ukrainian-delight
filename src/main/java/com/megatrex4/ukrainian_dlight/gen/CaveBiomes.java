@@ -32,7 +32,7 @@ public class CaveBiomes {
     private static final MultiNoiseUtil.ParameterRange DEFAULT_PARAMETER = MultiNoiseUtil.ParameterRange.of(-1.0f, 1.0f);
     static final ParameterRange ALL_HEIGHT_RANGE = ParameterRange.of(0.2f, 0.9f);
     static final ParameterRange ALL_HEIGHT_RANGE_DEEPER = ParameterRange.of(-0.2f, 0.9f);
-    static final ParameterRange HIGH_RANGE = ParameterRange.of(0.1f, 0.9f);
+    static final ParameterRange HIGH_RANGE = ParameterRange.of(0.55f, 0.9f);
 
     public final static ImmutableList<CaveBiome> DEFAULT_CAVE_BIOMES = ImmutableList.of(
             // Existing biomes
@@ -42,7 +42,7 @@ public class CaveBiomes {
                     DEFAULT_PARAMETER,
                     DEFAULT_PARAMETER,
                     ALL_HEIGHT_RANGE,
-                    ParameterRange.of(-1.0f, 1.0f),
+                    ParameterRange.of(0.5f, 1.0f),
                     0f,
                     BiomeKeys.SALT_CAVES
             )

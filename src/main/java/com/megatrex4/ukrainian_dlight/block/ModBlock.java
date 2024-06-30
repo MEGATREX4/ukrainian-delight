@@ -1,6 +1,7 @@
 package com.megatrex4.ukrainian_dlight.block;
 
 import com.megatrex4.ukrainian_dlight.UkrainianDelight;
+import com.megatrex4.ukrainian_dlight.block.custom.CustomSaltBlock;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -14,7 +15,7 @@ import net.minecraft.util.Identifier;
 public class ModBlock {
 
     public static final Block SALT_BLOCK = registerBlock("salt_block",
-            new Block(FabricBlockSettings.copyOf(Blocks.STONE).sounds(BlockSoundGroup.STONE)));
+            new CustomSaltBlock(Block.Settings.copy(Blocks.STONE).sounds(BlockSoundGroup.STONE)));
 
     public static final Block SALT_BAG = registerBlock("salt_bag",
     new Block(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL)));
