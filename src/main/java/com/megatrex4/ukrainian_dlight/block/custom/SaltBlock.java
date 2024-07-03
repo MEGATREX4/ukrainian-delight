@@ -9,10 +9,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
-public class CustomSaltBlock extends Block {
+public class SaltBlock extends Block {
     private static final int SCHEDULED_TICK_DELAY = 20;
 
-    public CustomSaltBlock(Settings settings) {
+    public SaltBlock(Settings settings) {
         super(settings);
     }
 

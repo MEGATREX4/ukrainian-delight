@@ -1,7 +1,8 @@
 package com.megatrex4.ukrainian_dlight.block;
 
 import com.megatrex4.ukrainian_dlight.UkrainianDelight;
-import com.megatrex4.ukrainian_dlight.block.custom.CustomSaltBlock;
+import com.megatrex4.ukrainian_dlight.block.custom.BrewingKegBlock;
+import com.megatrex4.ukrainian_dlight.block.custom.SaltBlock;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -12,16 +13,19 @@ import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 
-public class ModBlock {
+public class ModBlocks {
 
     public static final Block SALT_BLOCK = registerBlock("salt_block",
-            new CustomSaltBlock(Block.Settings.copy(Blocks.STONE).sounds(BlockSoundGroup.STONE)));
+            new SaltBlock(Block.Settings.copy(Blocks.STONE).sounds(BlockSoundGroup.STONE)));
 
     public static final Block SALT_BAG = registerBlock("salt_bag",
     new Block(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).sounds(BlockSoundGroup.WOOL)));
 
     public static final Block CUCUMBER_CRATE = registerBlock("cucumber_crate",
             new Block(FabricBlockSettings.copyOf(Blocks.OAK_PLANKS).sounds(BlockSoundGroup.WOOD)));
+
+    public static final Block BREWING_KEG = registerBlock("brewing_keg",
+            new BrewingKegBlock(FabricBlockSettings.copyOf(Blocks.OAK_PLANKS).sounds(BlockSoundGroup.WOOD).nonOpaque()));
 
     private static Block registerBlock(String name, Block block){
         registerBlockItem(name, block);

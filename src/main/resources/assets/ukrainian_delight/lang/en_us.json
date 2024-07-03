@@ -35,6 +35,7 @@
   "block.ukrainian_delight.wine_bottle": "Wine Bottle",
 
   "_comment6": "blocks",
+  "block.ukrainian_delight.brewing_keg": "Brewing Keg",
   "block.ukrainian_delight.salt_block": "Salt Block",
   "block.ukrainian_delight.salt_bag": "Salt Bag",
 
@@ -48,6 +49,7 @@
   "ukrainian_delight.advancement.lean_borscht.desc": "Cook lean borscht",
 
   "_comment8": "misc",
+  "gui.ukrainian_delight.brewing_keg": "Brewing Keg",
   "death.attack.glass_damage": "%s was not careful with glass",
   "tooltip.ukrainian_delight.no_effects": "No effects",
   "biome.ukrainian_delight.salt_caves": "Salt Caves",

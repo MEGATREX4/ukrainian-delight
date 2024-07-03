@@ -35,6 +35,7 @@
   "block.ukrainian_delight.wine_bottle": "Пляшка для вина",
 
   "_comment6": "blocks",
+  "block.ukrainian_delight.brewing_keg": "Бродило",
   "block.ukrainian_delight.salt_block": "Блок солі",
   "block.ukrainian_delight.salt_bag": "Мішок солі",
 
@@ -48,6 +49,7 @@
   "ukrainian_delight.advancement.lean_borscht.desc": "Зваріть пісний борщ",
 
   "_comment8": "misc",
+  "gui.ukrainian_delight.brewing_keg": "Бродило",
   "death.attack.glass_damage": "%s був не обережний зі склом"
 
 }
