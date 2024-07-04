@@ -1,0 +1,32 @@
+{
+  "type": "ukrainian_delight:brewing",
+  "container": {
+    "item": "minecraft:glass_bottle"
+  },
+  "brewingtime": 200,
+  "experience": 1.0,
+  "water": 100,
+  "ingredients": [
+    {
+      "item": "minecraft:wheat"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "item": "minecraft:nether_wart"
+    },
+    {
+      "item": "minecraft:carrot"
+    },
+    {
+      "tag": "minecraft:flowers"
+    },
+    {
+      "tag": "minecraft:seeds"
+    }
+  ],
+  "result": {
+    "item": "minecraft:potion"
+  }
+}
