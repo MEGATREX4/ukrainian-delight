@@ -1,6 +1,7 @@
 package com.megatrex4.ukrainian_dlight.screen;
 
 import com.megatrex4.ukrainian_dlight.block.entity.BrewingKegBlockEntity;
+import com.megatrex4.ukrainian_dlight.util.FluidStack;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -15,6 +16,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class BrewingKegScreenHandler extends ScreenHandler {
 
+    public FluidStack fluidStack;
     private final Inventory inventory;
     private final PropertyDelegate propertyDelegate;
     public final BrewingKegBlockEntity blockEntity;
@@ -32,6 +34,7 @@ public class BrewingKegScreenHandler extends ScreenHandler {
         inventory.onOpen(playerInventory.player);
         this.propertyDelegate = arrayPropertyDelegate;
         this.blockEntity = ((BrewingKegBlockEntity) blockEntity);
+        this.fluidStack = new FluidStack(((BrewingKegBlockEntity) blockEntity).fluidStorage.variant, ((BrewingKegBlockEntity) blockEntity).fluidStorage.amount);
 
         //add 6 ingredients slots
         int inputStartX = 53;
@@ -74,6 +77,13 @@ public class BrewingKegScreenHandler extends ScreenHandler {
 
         addProperties(arrayPropertyDelegate);
     }
+
+
+    public void setFluid(FluidStack stack) {
+        fluidStack = stack;
+    }
+
+
 
     public boolean isCrafting() {
         return propertyDelegate.get(0) > 0;
