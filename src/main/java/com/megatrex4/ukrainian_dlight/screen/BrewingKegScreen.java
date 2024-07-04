@@ -48,7 +48,7 @@ public class BrewingKegScreen extends HandledScreen<BrewingKegScreenHandler> {
         int maxWaterLevelHeight = 40; // Maximum height of the water level indicator
         int waterBarY = 12 + (maxWaterLevelHeight - waterLevelHeight); // Adjust Y position to start from the bottom
 
-        context.drawTexture(TEXTURE, x + 30, y + waterBarY, 178, 36, 17, waterLevelHeight);
+        context.drawTexture(TEXTURE, x + 30, y + waterBarY, 178, 35, 17, waterLevelHeight);
     }
 
     @Override
