@@ -34,17 +34,25 @@ public class BrewingKegScreen extends HandledScreen<BrewingKegScreenHandler> {
         context.drawTexture(TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight);
 
         renderProgressBar(context, x, y);
+        renderWaterLevel(context, x, y);
     }
 
     private void renderProgressBar(DrawContext context, int x, int y) {
-        if(handler.isCrafting()){
-            context.drawTexture(TEXTURE, x + 110, y + 27, 177, 17,18, handler.getScaledProgress());
+        if (handler.isCrafting()) {
+            context.drawTexture(TEXTURE, x + 110, y + 27, 177, 17, 18, handler.getScaledProgress());
         }
+    }
+
+    private void renderWaterLevel(DrawContext context, int x, int y) {
+        int waterLevelHeight = handler.getScaledWaterLevel();
+        int maxWaterLevelHeight = 40; // Maximum height of the water level indicator
+        int waterBarY = 12 + (maxWaterLevelHeight - waterLevelHeight); // Adjust Y position to start from the bottom
+
+        context.drawTexture(TEXTURE, x + 30, y + waterBarY, 178, 36, 17, waterLevelHeight);
     }
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        // Fix the renderBackground call by removing the extra parameters
         renderBackground(context);
         super.render(context, mouseX, mouseY, delta);
         drawMouseoverTooltip(context, mouseX, mouseY);

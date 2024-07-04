@@ -5,6 +5,7 @@ import com.megatrex4.ukrainian_dlight.networking.ModMessages;
 import com.megatrex4.ukrainian_dlight.recipe.BrewingRecipe;
 import com.megatrex4.ukrainian_dlight.screen.BrewingKegScreenHandler;
 import com.megatrex4.ukrainian_dlight.util.FluidStack;
+import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -70,7 +71,7 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
 
         @Override
         protected long getCapacity(FluidVariant variant) {
-            return FluidStack.convertDropletsToMb(FluidConstants.BUCKET) * 20; // 20k mB
+            return FluidStack.convertDropletsToMb(FluidConstants.BUCKET) * 5; // 5k mB
         }
 
         @Override
@@ -107,6 +108,10 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
                 return 2;
             }
         };
+    }
+
+    public long getMaxWaterLevel() {
+        return fluidStorage.getCapacity();
     }
 
     @Override
@@ -160,6 +165,9 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
             return;
         }
 
+        // Handle water bucket conversion
+        handleWaterBucket();
+
         if (isOutputSlotEmptyOrReceivable()) {
             if (this.hasRecipe() && hasEnoughFluid()) {
                 this.increaseCraftProgress();
@@ -176,6 +184,25 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
         } else {
             this.resetProgress();
             markDirty(world, pos, state);
+        }
+    }
+
+    private void handleWaterBucket() {
+        ItemStack waterBucketStack = this.getStack(WATER_SLOT);
+
+        if (waterBucketStack.getItem() == Items.WATER_BUCKET) {
+            try (Transaction transaction = Transaction.openOuter()) {
+                long amountToAdd = FluidStack.convertDropletsToMb(FluidConstants.BUCKET);
+                long insertedAmount = this.fluidStorage.insert(FluidVariant.of(Fluids.WATER), amountToAdd, transaction);
+
+                if (insertedAmount == amountToAdd) {
+                    // Successfully added water, replace the bucket with an empty one
+                    this.setStack(WATER_SLOT, new ItemStack(Items.BUCKET));
+                    transaction.commit();
+                    markDirty();
+                    sendFluidPacket();
+                }
+            }
         }
     }
 
@@ -250,4 +277,24 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
     private boolean isOutputSlotEmptyOrReceivable() {
         return this.getStack(OUTPUT_SLOT).isEmpty() || this.getStack(OUTPUT_SLOT).getCount() < this.getStack(OUTPUT_SLOT).getMaxCount();
     }
+
+    public void syncFluidToClient() {
+        if (this.world != null && !this.world.isClient) {
+            PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
+            fluidStorage.variant.toPacket(buf);
+            buf.writeLong(fluidStorage.amount);
+            buf.writeBlockPos(this.pos);
+
+            for (ServerPlayerEntity player : PlayerLookup.tracking(this)) {
+                ServerPlayNetworking.send(player, ModMessages.FLUID_SYNC, buf);
+            }
+        }
+    }
+
+    @Override
+    public void markDirty() {
+        super.markDirty();
+        syncFluidToClient();
+    }
+
 }

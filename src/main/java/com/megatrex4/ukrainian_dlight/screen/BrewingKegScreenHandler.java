@@ -83,8 +83,6 @@ public class BrewingKegScreenHandler extends ScreenHandler {
         fluidStack = stack;
     }
 
-
-
     public boolean isCrafting() {
         return propertyDelegate.get(0) > 0;
     }
@@ -95,6 +93,14 @@ public class BrewingKegScreenHandler extends ScreenHandler {
         int progressArrowSize = 19; // This is the width in pixels of your arrow
 
         return maxProgress != 0 && progress != 0 ? progress * progressArrowSize / maxProgress : 0;
+    }
+
+    public int getScaledWaterLevel() {
+        long waterLevel = this.fluidStack.amount;
+        long maxWaterLevel = this.blockEntity.getMaxWaterLevel();
+        int waterBarHeight = 40; // This is the height in pixels of your water level indicator
+
+        return maxWaterLevel != 0 && waterLevel != 0 ? (int)(waterLevel * waterBarHeight / maxWaterLevel) : 0;
     }
 
     @Override
