@@ -8,6 +8,7 @@ import com.megatrex4.ukrainian_dlight.item.ModItemGroups;
 import com.megatrex4.ukrainian_dlight.item.ModItems;
 import com.megatrex4.ukrainian_dlight.item.ToolTipHelper;
 import com.megatrex4.ukrainian_dlight.networking.ModMessages;
+import com.megatrex4.ukrainian_dlight.recipe.ModRecipes;
 import com.megatrex4.ukrainian_dlight.screen.ModScreenHandlers;
 import com.megatrex4.ukrainian_dlight.screen.ModScreens;
 import net.fabricmc.api.ModInitializer;
@@ -42,6 +43,7 @@ public class UkrainianDelight implements ModInitializer {
 		ModBlockEntities.registerBLockEntities();
 		ModScreenHandlers.registerModScreenHandlers();
 		ModMessages.registerS2CPackets();
+		ModRecipes.registerRecipes();
 
 		ModScreens.registerScreens();
 

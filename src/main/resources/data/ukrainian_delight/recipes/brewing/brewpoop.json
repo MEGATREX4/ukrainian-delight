@@ -1,0 +1,20 @@
+{
+  "type": "ukrainian_delight:brewing",
+  "container": {
+    "item": "minecraft:glass_bottle"
+  },
+  "brewingtime": 200,
+  "experience": 1.0,
+  "water": 100,
+  "ingredients": [
+    {
+      "item": "minecraft:wheat"
+    },
+    {
+      "item": "minecraft:sugar"
+    }
+  ],
+  "result": {
+    "item": "ukrainian_delight:wine_bottle"
+  }
+}

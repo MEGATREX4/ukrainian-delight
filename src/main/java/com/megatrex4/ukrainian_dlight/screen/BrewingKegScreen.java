@@ -6,8 +6,14 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+
+import java.util.List;
 
 public class BrewingKegScreen extends HandledScreen<BrewingKegScreenHandler> {
     private static final Identifier TEXTURE = new Identifier(UkrainianDelight.MOD_ID, "textures/gui/brewing_keg_gui.png");
@@ -56,5 +62,42 @@ public class BrewingKegScreen extends HandledScreen<BrewingKegScreenHandler> {
         renderBackground(context);
         super.render(context, mouseX, mouseY, delta);
         drawMouseoverTooltip(context, mouseX, mouseY);
+    }
+
+    @Override
+    protected void drawMouseoverTooltip(DrawContext context, int mouseX, int mouseY) {
+        super.drawMouseoverTooltip(context, mouseX, mouseY);
+
+        int x = (width - backgroundWidth) / 2;
+        int y = (height - backgroundHeight) / 2;
+
+        if (isMouseOverTankArea(mouseX, mouseY, x, y)) {
+            List<Text> tooltip = getTankTooltip();
+            context.drawTooltip(textRenderer, tooltip, mouseX, mouseY);
+        }
+    }
+
+    private boolean isMouseOverTankArea(int mouseX, int mouseY, int x, int y) {
+        int tankX = x + 30;
+        int tankY = y + 12;
+        int tankWidth = 16;
+        int tankHeight = 40;
+
+        return mouseX >= tankX && mouseX < tankX + tankWidth && mouseY >= tankY && mouseY < tankY + tankHeight;
+    }
+
+    private List<Text> getTankTooltip() {
+        long fluidAmount = handler.fluidStack.amount;
+        long maxFluidAmount = handler.getCapacity(); // Ensure this method exists in your handler
+        MutableText fluidName = Text.translatable("block." + Registries.FLUID.getId(handler.fluidStack.fluidVariant.getFluid()).toTranslationKey());
+
+        if (fluidAmount > 0) {
+            return List.of(
+                    fluidName,
+                    Text.translatable("text.megatrex4.water_amount", fluidAmount, maxFluidAmount).formatted(Formatting.GRAY)
+            );
+        } else {
+            return List.of(Text.translatable("text.megatrex4.empty"));
+        }
     }
 }

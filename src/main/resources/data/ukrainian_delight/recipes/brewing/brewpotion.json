@@ -1,32 +1,20 @@
 {
   "type": "ukrainian_delight:brewing",
   "container": {
-    "item": "minecraft:glass_bottle"
+    "item": "ukrainian_delight:wine_bottle"
   },
-  "brewingtime": 200,
+  "brewingtime": 20,
   "experience": 1.0,
-  "water": 100,
+  "water": 10,
   "ingredients": [
-    {
-      "item": "minecraft:wheat"
-    },
-    {
-      "item": "minecraft:sugar"
-    },
     {
       "item": "minecraft:nether_wart"
     },
     {
       "item": "minecraft:carrot"
-    },
-    {
-      "tag": "minecraft:flowers"
-    },
-    {
-      "tag": "minecraft:seeds"
     }
   ],
   "result": {
-    "item": "minecraft:potion"
+    "item": "minecraft:apple"
   }
 }

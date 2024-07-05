@@ -64,6 +64,9 @@
   "amplifier.7": " VII",
   "amplifier.8": " VIII",
   "amplifier.9": " IX",
-  "amplifier.10": " X"
+  "amplifier.10": " X",
+
+  "text.megatrex4.water_amount": "%d / %d mB",
+  "text.megatrex4.empty": "Empty"
 
 }

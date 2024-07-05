@@ -7,6 +7,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
@@ -16,10 +17,28 @@ import org.jetbrains.annotations.Nullable;
 
 public class BrewingKegScreenHandler extends ScreenHandler {
 
+    public static final int INGREDIENT_SLOT_1 = 0;
+    public static final int INGREDIENT_SLOT_2 = 1;
+    public static final int INGREDIENT_SLOT_3 = 2;
+    public static final int INGREDIENT_SLOT_4 = 3;
+    public static final int INGREDIENT_SLOT_5 = 4;
+    public static final int INGREDIENT_SLOT_6 = 5;
+    //adds container(like bottle of vial) input
+    public static final int CONTAINER_SLOT = 6;
+    //adds 1 input slot for water
+    public static final int WATER_SLOT = 7;
+    //adds 1 output slot and display slot
+    public static final int DRINKS_DISPLAY_SLOT = 8;
+    public static final int OUTPUT_SLOT = 9;
+
     public FluidStack fluidStack;
     private final Inventory inventory;
     private final PropertyDelegate propertyDelegate;
     public final BrewingKegBlockEntity blockEntity;
+
+    public long getCapacity() {
+        return blockEntity.getMaxWaterLevel();
+    }
 
     public BrewingKegScreenHandler(int syncId, PlayerInventory inventory, PacketByteBuf buf) {
         this(syncId, inventory, inventory.player.getWorld().getBlockEntity(buf.readBlockPos()),
@@ -104,29 +123,64 @@ public class BrewingKegScreenHandler extends ScreenHandler {
     }
 
     @Override
-    public ItemStack quickMove(PlayerEntity player, int invSlot) {
-        ItemStack newStack = ItemStack.EMPTY;
-        Slot slot = this.slots.get(invSlot);
-        if (slot != null && slot.hasStack()) {
-            ItemStack originalStack = slot.getStack();
-            newStack = originalStack.copy();
-            if (invSlot < this.inventory.size()) {
-                if (!this.insertItem(originalStack, this.inventory.size(), this.slots.size(), true)) {
+    public ItemStack quickMove(PlayerEntity playerIn, int index) {
+        if (index > this.slots.size() - 1) {
+            return ItemStack.EMPTY;
+        } else {
+            ItemStack itemStack = ItemStack.EMPTY;
+            Slot slot = (Slot)this.slots.get(index);
+            if (slot.hasStack()) {
+                ItemStack slotItemStack = slot.getStack();
+                itemStack = slotItemStack.copy();
+
+                // Adjusting the slot handling based on your custom slots
+                if (index == OUTPUT_SLOT) {
+                    if (!this.insertItem(slotItemStack, 9, 45, true)) {
+                        return ItemStack.EMPTY;
+                    }
+                } else if (index > OUTPUT_SLOT) {
+                    if (slotItemStack.getItem() == Items.BOWL &&
+                            !this.insertItem(slotItemStack, DRINKS_DISPLAY_SLOT, OUTPUT_SLOT, false) ||
+                            !this.insertItem(slotItemStack, 0, 6, false) ||
+                            !this.insertItem(slotItemStack, DRINKS_DISPLAY_SLOT, OUTPUT_SLOT, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                } else if (index == WATER_SLOT && slotItemStack.getItem() == Items.WATER_BUCKET) {
+                    // Inserting water bucket into WATER_SLOT first
+                    if (!this.insertItem(slotItemStack, WATER_SLOT, WATER_SLOT + 1, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                } else if (index == WATER_SLOT) {
+                    // If it's not a water bucket, but it's going into WATER_SLOT, try to insert
+                    if (!this.insertItem(slotItemStack, WATER_SLOT + 1, this.slots.size(), false)) {
+                        return ItemStack.EMPTY;
+                    }
+                } else if (!this.insertItem(slotItemStack, 9, 45, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.insertItem(originalStack, 0, this.inventory.size(), false)) {
-                return ItemStack.EMPTY;
+
+                if (slotItemStack.isEmpty()) {
+                    slot.setStack(ItemStack.EMPTY);
+                } else {
+                    slot.markDirty();
+                }
+
+                if (slotItemStack.getCount() == itemStack.getCount()) {
+                    return ItemStack.EMPTY;
+                }
+
+                slot.onTakeItem(playerIn, slotItemStack);
             }
 
-            if (originalStack.isEmpty()) {
-                slot.setStack(ItemStack.EMPTY);
-            } else {
-                slot.markDirty();
-            }
+            return itemStack;
         }
-
-        return newStack;
     }
+
+
+
+
+
+
 
     @Override
     public boolean canUse(PlayerEntity player) {
