@@ -1,6 +1,7 @@
 {
     "replace": false,
     "values": [
-        "ukrainian_delight:cucumber_crate"
+        "ukrainian_delight:cucumber_crate",
+        "ukrainian_delight:brewing_keg"
     ]
 }
