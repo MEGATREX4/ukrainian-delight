@@ -4,7 +4,7 @@
     "item": "minecraft:glass_bottle"
   },
   "brewingtime": 200,
-  "experience": 1.0,
+  "experience": 100.0,
   "water": 100,
   "ingredients": [
     {

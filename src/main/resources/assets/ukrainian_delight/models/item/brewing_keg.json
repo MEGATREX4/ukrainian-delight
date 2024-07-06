@@ -1,3 +1,6 @@
 {
-  "parent": "tutorialmod:block/brewing_keg"
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "ukrainian_delight:item/borscht"
+  }
 }

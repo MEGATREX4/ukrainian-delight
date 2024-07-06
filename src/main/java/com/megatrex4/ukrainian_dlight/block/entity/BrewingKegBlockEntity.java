@@ -8,6 +8,9 @@ import com.megatrex4.ukrainian_dlight.recipe.ModRecipes;
 import com.megatrex4.ukrainian_dlight.screen.BrewingKegScreenHandler;
 import com.megatrex4.ukrainian_dlight.util.FluidStack;
 import io.netty.buffer.Unpooled;
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectIterator;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -18,9 +21,11 @@ import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleVariantStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
+import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -33,14 +38,18 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.Recipe;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -50,6 +59,7 @@ import java.util.Optional;
 
 public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(10, ItemStack.EMPTY);
+
 
     //adds 6 input ingredients slot
     public static final int INGREDIENT_SLOT_1 = 0;
@@ -70,6 +80,7 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
     private int progress;
     private int maxProgress = 200;  // Adjusted to match the brewing time in the JSON
     private ItemStack drinkContainer = ItemStack.EMPTY;
+    private float totalExperience = 0;
 
     public final SingleVariantStorage<FluidVariant> fluidStorage = new SingleVariantStorage<FluidVariant>() {
         @Override
@@ -140,7 +151,11 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
         NbtCompound containerTag = new NbtCompound();
         drinkContainer.writeNbt(containerTag);
         nbt.put("Container", containerTag);
+
+        // Save totalExperience
+        nbt.putFloat("TotalExperience", totalExperience);
     }
+
 
     @Override
     public void readNbt(NbtCompound nbt) {
@@ -153,6 +168,11 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
         // Load drinkContainer
         NbtCompound containerTag = nbt.getCompound("Container");
         drinkContainer = ItemStack.fromNbt(containerTag);
+
+        // Load totalExperience
+        if (nbt.contains("TotalExperience", NbtType.FLOAT)) {
+            totalExperience = nbt.getFloat("TotalExperience");
+        }
     }
 
 
@@ -186,7 +206,11 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
         }
 
         handleWaterBucket();
+        processItemTransfer(world, pos, state);
+        processCrafting();
+    }
 
+    private void processItemTransfer(World world, BlockPos pos, BlockState state) {
         ItemStack displayStack = getStack(DRINKS_DISPLAY_SLOT);
         ItemStack containerStack = getStack(CONTAINER_SLOT);
         ItemStack outputStack = getStack(OUTPUT_SLOT);
@@ -211,10 +235,28 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
                     drinkContainer = ItemStack.EMPTY;
                 }
 
-                markDirty(world, pos, state);
+                markDirty(); // Mark the block entity as dirty
+
+                // Give experience to the closest player
+                giveExperience(world, pos);
             }
         }
+    }
 
+    private void giveExperience(World world, BlockPos pos) {
+        int xpToGive = MathHelper.floor(totalExperience);
+        if (xpToGive > 0) {
+            PlayerEntity player = world.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), -1.0, false);
+            if (player != null) {
+                player.addExperience(xpToGive);
+                totalExperience -= xpToGive;
+            }
+        }
+    }
+
+
+
+    private void processCrafting() {
         Optional<BrewingRecipe> match = getCurrentRecipe();
         if (match.isPresent()) {
             BrewingRecipe recipe = match.get();
@@ -225,20 +267,18 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
             boolean enoughFluid = hasEnoughFluid();
 
             if (validIngredients && displaySlotReceivable && hasRecipe && enoughFluid) {
-                // System.out.println("All conditions met, attempting to craft item.");
-                if (this.craftItem(recipe)) {
+                // Calculate crafted amount, assuming 1 for now
+                int craftedAmount = 1;
+                if (this.craftItem(recipe, craftedAmount)) { // Provide craftedAmount here
                     this.resetProgress();
                 }
             } else {
-                // System.out.println("Conditions not met, resetting progress.");
                 this.resetProgress();
             }
         } else {
-            // System.out.println("No matching recipe found, resetting progress.");
             this.resetProgress();
         }
     }
-
 
 
 
@@ -284,20 +324,10 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
     }
 
 
-
-
-
-
-
-
     private boolean isOutputSlotEmptyOrReceivable(ItemStack output) {
         ItemStack outputStack = this.getStack(OUTPUT_SLOT);
         return outputStack.isEmpty() || (ItemStack.canCombine(outputStack, output) && outputStack.getCount() < outputStack.getMaxCount());
     }
-
-
-
-
 
 
     private void handleWaterBucket() {
@@ -351,22 +381,27 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
         }
     }
 
+
     public void setFluidLevel(FluidVariant fluidVariant, long fluidLevel) {
         this.fluidStorage.variant = fluidVariant;
         this.fluidStorage.amount = fluidLevel;
     }
 
+
     private void resetProgress() {
         this.progress = 0;
     }
+
 
     private boolean hasCraftingFinished() {
         return progress >= maxProgress;
     }
 
+
     private void increaseCraftProgress() {
         progress++;
     }
+
 
     private Optional<BrewingRecipe> getCurrentRecipe() {
         if (world == null) return Optional.empty();
@@ -384,7 +419,7 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
     }
 
 
-    private boolean craftItem(BrewingRecipe recipe) {
+    private boolean craftItem(BrewingRecipe recipe, int craftedAmount) {
         if (this.world != null && recipe != null) {
             ++this.progress;
             this.maxProgress = recipe.getBrewingTime();
@@ -424,7 +459,12 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
                 }
 
                 // Decrement liquid amount here using extractFluid
-                extractFluid(recipe.getWaterAmount());
+                this.extractFluid(recipe.getWaterAmount());
+
+                // Calculate total experience and track it
+                float recipeExperience = recipe.getExperience();
+                float totalExperience = recipeExperience * craftedAmount;
+                this.trackRecipeExperience(totalExperience);
 
                 markDirty();
                 return true;
@@ -433,18 +473,6 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
             return false;
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -489,4 +517,8 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
         syncFluidToClient();
     }
 
+
+    public void trackRecipeExperience(float totalExperience) {
+        this.totalExperience += totalExperience;
+    }
 }
