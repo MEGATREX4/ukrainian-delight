@@ -75,11 +75,13 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
     private ItemStack drinkContainer = ItemStack.EMPTY;
     private float totalExperience = 0;
 
+
     public final SingleVariantStorage<FluidVariant> fluidStorage = new SingleVariantStorage<FluidVariant>() {
         @Override
         protected FluidVariant getBlankVariant() {
             return FluidVariant.blank();
         }
+
 
         @Override
         protected long getCapacity(FluidVariant variant) {
@@ -95,6 +97,7 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
             }
         }
     };
+
 
     public BrewingKegBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.BREWING_KEG_BLOCK_ENTITY, pos, state);
@@ -132,6 +135,35 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
         return inventory;
     }
 
+
+    public NbtCompound writeToNbtPublic(NbtCompound nbt) {
+        // Call the superclass method to ensure all necessary data is written
+        super.writeNbt(nbt); // Call super method to save base block entity data
+
+        // Save DRINKS_DISPLAY_SLOT to NBT
+        NbtCompound displaySlotTag = new NbtCompound();
+        this.getStack(DRINKS_DISPLAY_SLOT).writeNbt(displaySlotTag);
+        nbt.put("DisplaySlot", displaySlotTag);
+
+        // Save water amount
+        nbt.putLong("brewing_keg.fluid_amount", fluidStorage.amount);
+        nbt.put("brewing_keg.fluid_variant", fluidStorage.variant.toNbt());
+
+        // Save container
+        NbtCompound containerTag = new NbtCompound();
+        drinkContainer.writeNbt(containerTag);
+        nbt.put("Container", containerTag);
+
+        // Save experience
+        nbt.putFloat("TotalExperience", totalExperience);
+
+        // Return the modified NbtCompound
+        return nbt;
+    }
+
+
+
+
     @Override
     protected void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
@@ -147,9 +179,14 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
 
         // Save DRINKS_DISPLAY_SLOT
         NbtCompound displaySlotTag = new NbtCompound();
-        getStack(DRINKS_DISPLAY_SLOT).writeNbt(displaySlotTag);
+        ItemStack displayStack = getStack(DRINKS_DISPLAY_SLOT);
+        if (!displayStack.isEmpty()) {
+            displayStack.writeNbt(displaySlotTag);
+        }
         nbt.put("DisplaySlot", displaySlotTag);
 
+        // Save totalExperience
+        nbt.putFloat("TotalExperience", totalExperience);
     }
 
 
@@ -171,12 +208,13 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
         }
 
         // Load DRINKS_DISPLAY_SLOT
-        NbtCompound displaySlotTag = nbt.getCompound("DisplaySlot");
-        setStack(DRINKS_DISPLAY_SLOT, ItemStack.fromNbt(displaySlotTag));
-
+        if (nbt.contains("DisplaySlot", NbtType.COMPOUND)) {
+            NbtCompound displaySlotTag = nbt.getCompound("DisplaySlot");
+            setStack(DRINKS_DISPLAY_SLOT, ItemStack.fromNbt(displaySlotTag));
+        } else {
+            setStack(DRINKS_DISPLAY_SLOT, ItemStack.EMPTY); // Ensure it's clear if no DisplaySlot is found
+        }
     }
-
-
 
 
     private void debugFluidLevel() {
@@ -264,12 +302,6 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
     }
 
 
-
-
-
-
-
-
     private void processCrafting() {
         Optional<BrewingRecipe> match = getCurrentRecipe();
         if (match.isPresent()) {
@@ -293,9 +325,6 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
             this.resetProgress();
         }
     }
-
-
-
 
 
     private boolean hasValidIngredients(BrewingRecipe recipe) {
@@ -489,9 +518,6 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
     }
 
 
-
-
-
     private void extractFluid(int amount) {
         try (Transaction transaction = Transaction.openOuter()) {
             this.fluidStorage.extract(FluidVariant.of(Fluids.WATER), amount, transaction);
@@ -534,5 +560,7 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
 
     public void trackRecipeExperience(float totalExperience) {
         this.totalExperience += totalExperience;
+        markDirty();
     }
+
 }
