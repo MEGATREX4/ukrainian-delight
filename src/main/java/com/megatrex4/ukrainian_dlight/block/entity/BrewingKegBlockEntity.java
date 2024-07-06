@@ -60,12 +60,7 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
 
 
     //adds 6 input ingredients slot
-    public static final int INGREDIENT_SLOT_1 = 0;
-    public static final int INGREDIENT_SLOT_2 = 1;
-    public static final int INGREDIENT_SLOT_3 = 2;
-    public static final int INGREDIENT_SLOT_4 = 3;
-    public static final int INGREDIENT_SLOT_5 = 4;
-    public static final int INGREDIENT_SLOT_6 = 5;
+    public static final int[] INGREDIENT_SLOTS = {0, 1, 2, 3, 4, 5};
     //adds container(like bottle of vial) input
     public static final int CONTAINER_SLOT = 6;
     //adds 1 input slot for water
@@ -305,8 +300,8 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
 
     private boolean hasValidIngredients(BrewingRecipe recipe) {
         List<ItemStack> ingredients = new ArrayList<>();
-        for (int i = INGREDIENT_SLOT_1; i <= INGREDIENT_SLOT_6; i++) {
-            ingredients.add(getStack(i));
+        for (int slot : INGREDIENT_SLOTS) {
+            ingredients.add(getStack(slot));
         }
 
         List<Ingredient> recipeIngredients = recipe.getIngredients();
