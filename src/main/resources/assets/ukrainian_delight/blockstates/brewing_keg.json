@@ -1,10 +1,19 @@
 {
   "variants": {
-    "": [
-      { "model": "ukrainian_delight:block/brewing_keg" },
-      { "model": "ukrainian_delight:block/brewing_keg", "y": 90 },
-      { "model": "ukrainian_delight:block/brewing_keg", "y": 180 },
-      { "model": "ukrainian_delight:block/brewing_keg", "y": 270 }
-    ]
+    "facing=north": {
+      "model": "ukrainian_delight:block/brewing_keg"
+    },
+    "facing=south": {
+      "model": "ukrainian_delight:block/brewing_keg",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "ukrainian_delight:block/brewing_keg",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "ukrainian_delight:block/brewing_keg",
+      "y": 90
+    }
   }
 }
