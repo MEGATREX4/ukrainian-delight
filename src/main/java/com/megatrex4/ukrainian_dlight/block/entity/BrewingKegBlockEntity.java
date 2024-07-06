@@ -1,6 +1,7 @@
 package com.megatrex4.ukrainian_dlight.block.entity;
 
 import com.megatrex4.ukrainian_dlight.block.DrinkBottleBlock;
+import com.megatrex4.ukrainian_dlight.block.custom.BrewingKegBlock;
 import com.megatrex4.ukrainian_dlight.networking.ModMessages;
 import com.megatrex4.ukrainian_dlight.recipe.BrewingRecipe;
 import com.megatrex4.ukrainian_dlight.recipe.ModRecipes;
@@ -20,6 +21,7 @@ import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluids;
@@ -30,6 +32,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -37,9 +40,12 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory {
@@ -179,17 +185,13 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
             return;
         }
 
-        // Handle water bucket conversion
         handleWaterBucket();
 
-        // Check if a crafted item is ready to be moved to the OUTPUT_SLOT
         ItemStack displayStack = getStack(DRINKS_DISPLAY_SLOT);
         ItemStack containerStack = getStack(CONTAINER_SLOT);
         ItemStack outputStack = getStack(OUTPUT_SLOT);
 
-        // Check if the container matches the saved drinkContainer item
         if (!displayStack.isEmpty() && !containerStack.isEmpty() && containerStack.getItem() == drinkContainer.getItem()) {
-            // Only decrement the container if the OUTPUT_SLOT can receive more items
             if (isOutputSlotEmptyOrReceivable(outputStack)) {
                 containerStack.decrement(1);
 
@@ -204,7 +206,6 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
                     }
                 }
 
-                // Clear the DRINKS_DISPLAY_SLOT and drinkContainer if empty
                 if (displayStack.isEmpty()) {
                     setStack(DRINKS_DISPLAY_SLOT, ItemStack.EMPTY);
                     drinkContainer = ItemStack.EMPTY;
@@ -217,26 +218,76 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
         Optional<BrewingRecipe> match = getCurrentRecipe();
         if (match.isPresent()) {
             BrewingRecipe recipe = match.get();
-            ItemStack output = recipe.craft(this, world.getRegistryManager());
 
-            if (isDisplaySlotEmptyOrReceivable(output)) {
-                if (this.hasRecipe() && hasEnoughFluid()) {
-                    this.increaseCraftProgress();
-                    markDirty(world, pos, state);
+            boolean validIngredients = hasValidIngredients(recipe);
+            boolean displaySlotReceivable = isDisplaySlotEmptyOrReceivable(recipe.craft(this, world.getRegistryManager()));
+            boolean hasRecipe = hasRecipe();
+            boolean enoughFluid = hasEnoughFluid();
 
-                    if (hasCraftingFinished()) {
-                        this.craftItem();
-                        this.resetProgress();
-                    }
-                } else {
+            if (validIngredients && displaySlotReceivable && hasRecipe && enoughFluid) {
+                // System.out.println("All conditions met, attempting to craft item.");
+                if (this.craftItem(recipe)) {
                     this.resetProgress();
                 }
             } else {
+                // System.out.println("Conditions not met, resetting progress.");
                 this.resetProgress();
-                markDirty(world, pos, state);
             }
+        } else {
+            // System.out.println("No matching recipe found, resetting progress.");
+            this.resetProgress();
         }
     }
+
+
+
+
+
+
+    private boolean hasValidIngredients(BrewingRecipe recipe) {
+        List<ItemStack> ingredients = new ArrayList<>();
+        for (int i = INGREDIENT_SLOT_1; i <= INGREDIENT_SLOT_6; i++) {
+            ingredients.add(getStack(i));
+        }
+
+        List<Ingredient> recipeIngredients = recipe.getIngredients();
+
+        // Check if the number of ingredients in the recipe is greater than the number of slots
+        if (recipeIngredients.size() > ingredients.size()) {
+            return false;
+        }
+
+        // Check that each ingredient in the recipe can be found in the ingredient slots
+        for (Ingredient ingredient : recipeIngredients) {
+            boolean foundMatch = false;
+            for (ItemStack stack : ingredients) {
+                if (ingredient.test(stack)) {
+                    foundMatch = true;
+                    // Remove the matched ingredient to prevent duplicate matching
+                    ingredients.remove(stack);
+                    break;
+                }
+            }
+            if (!foundMatch) {
+                return false;
+            }
+        }
+
+        // Ensure the remaining slots are empty
+        for (ItemStack stack : ingredients) {
+            if (!stack.isEmpty()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
+
+
+
+
 
 
     private boolean isOutputSlotEmptyOrReceivable(ItemStack output) {
@@ -333,52 +384,59 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
     }
 
 
-    private void craftItem() {
-        Optional<BrewingRecipe> match = getCurrentRecipe();
-        if (match.isPresent()) {
-            BrewingRecipe recipe = match.get();
-            ItemStack output = recipe.craft(this, world.getRegistryManager());
+    private boolean craftItem(BrewingRecipe recipe) {
+        if (this.world != null && recipe != null) {
+            ++this.progress;
+            this.maxProgress = recipe.getBrewingTime();
 
-            // Check if all ingredient slots have enough items
-            for (int i = 0; i < 6; i++) {
-                ItemStack ingredientStack = getStack(i);
-                if (ingredientStack.getCount() <= 0) {
-                    return; // Stop crafting if any ingredient slot is empty
-                }
-            }
+            if (this.progress < this.maxProgress) {
+                return false;
+            } else {
+                this.progress = 0;
+                this.drinkContainer = recipe.getContainer();
+                ItemStack recipeOutput = recipe.craft(this, this.world.getRegistryManager());
+                ItemStack currentOutput = this.getStack(DRINKS_DISPLAY_SLOT);
 
-            // Ensure the crafting only starts if the DRINKS_DISPLAY_SLOT is empty or contains the same item
-            if (!getStack(DRINKS_DISPLAY_SLOT).isEmpty() && !ItemStack.canCombine(getStack(DRINKS_DISPLAY_SLOT), output)) {
-                return;
-            }
-
-            // Check if there's enough fluid for the recipe
-            if (hasEnoughFluid()) {
-                extractFluid(recipe.getWaterAmount());
-
-                // Decrement ingredients
-                for (int i = 0; i < 6; i++) {
-                    getStack(i).decrement(1);
+                if (currentOutput.isEmpty()) {
+                    this.setStack(DRINKS_DISPLAY_SLOT, recipeOutput.copy());
+                } else if (currentOutput.getItem() == recipeOutput.getItem()) {
+                    currentOutput.increment(recipeOutput.getCount());
                 }
 
-                // Move the crafted item to the DRINKS_DISPLAY_SLOT
-                if (!output.isEmpty()) {
-                    if (getStack(DRINKS_DISPLAY_SLOT).isEmpty()) {
-                        setStack(DRINKS_DISPLAY_SLOT, new ItemStack(output.getItem(), 1));  // Only one bottle
-                        drinkContainer = recipe.getContainer();  // Save the container item from the recipe
-                    } else if (ItemStack.canCombine(getStack(DRINKS_DISPLAY_SLOT), output)) {
-                        getStack(DRINKS_DISPLAY_SLOT).increment(1);  // Only increment by one
-                    } else {
-                        // Handle case where items cannot combine but DRINKS_DISPLAY_SLOT is not empty
-                        return;
+                for (int i = 0; i < 6; ++i) {
+                    ItemStack itemStack = this.getStack(i);
+                    for (Ingredient ingredient : recipe.getIngredients()) {
+                        if (ingredient.test(itemStack)) {
+                            if (itemStack.getItem().hasRecipeRemainder() && this.world != null) {
+                                Direction direction = this.getCachedState().get(BrewingKegBlock.FACING).rotateYCounterclockwise();
+                                double dropX = this.pos.getX() + 0.5 + direction.getOffsetX() * 0.25;
+                                double dropY = this.pos.getY() + 0.7;
+                                double dropZ = this.pos.getZ() + 0.5 + direction.getOffsetZ() * 0.25;
+                                ItemEntity entity = new ItemEntity(this.world, dropX, dropY, dropZ, new ItemStack(itemStack.getItem().getRecipeRemainder()));
+                                entity.setVelocity(direction.getOffsetX() * 0.08F, 0.25, direction.getOffsetZ() * 0.08F);
+                                this.world.spawnEntity(entity);
+                            }
+
+                            itemStack.decrement(1);
+                            break;
+                        }
                     }
                 }
 
-                // Mark the block entity as dirty after crafting
+                // Decrement liquid amount here using extractFluid
+                extractFluid(recipe.getWaterAmount());
+
                 markDirty();
+                return true;
             }
+        } else {
+            return false;
         }
     }
+
+
+
+
 
 
 
