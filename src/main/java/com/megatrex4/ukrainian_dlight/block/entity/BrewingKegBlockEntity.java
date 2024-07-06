@@ -45,11 +45,9 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -152,8 +150,11 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
         drinkContainer.writeNbt(containerTag);
         nbt.put("Container", containerTag);
 
-        // Save totalExperience
-        nbt.putFloat("TotalExperience", totalExperience);
+        // Save DRINKS_DISPLAY_SLOT
+        NbtCompound displaySlotTag = new NbtCompound();
+        getStack(DRINKS_DISPLAY_SLOT).writeNbt(displaySlotTag);
+        nbt.put("DisplaySlot", displaySlotTag);
+
     }
 
 
@@ -173,6 +174,11 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
         if (nbt.contains("TotalExperience", NbtType.FLOAT)) {
             totalExperience = nbt.getFloat("TotalExperience");
         }
+
+        // Load DRINKS_DISPLAY_SLOT
+        NbtCompound displaySlotTag = nbt.getCompound("DisplaySlot");
+        setStack(DRINKS_DISPLAY_SLOT, ItemStack.fromNbt(displaySlotTag));
+
     }
 
 
@@ -236,23 +242,36 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
                 }
 
                 markDirty(); // Mark the block entity as dirty
-
-                // Give experience to the closest player
                 giveExperience(world, pos);
             }
         }
     }
 
+
     private void giveExperience(World world, BlockPos pos) {
+        // Calculate experience to give based on totalExperience
         int xpToGive = MathHelper.floor(totalExperience);
         if (xpToGive > 0) {
-            PlayerEntity player = world.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), -1.0, false);
-            if (player != null) {
-                player.addExperience(xpToGive);
-                totalExperience -= xpToGive;
-            }
+            // Clear totalExperience
+            totalExperience = 0;
+
+            // Spawn experience orbs near the block
+            spawnExperienceOrb(world, pos, xpToGive);
+
+            // Mark the block entity as dirty to save changes
+            markDirty();
         }
     }
+
+    private void spawnExperienceOrb(World world, BlockPos pos, int xpAmount) {
+        ExperienceOrbEntity orb = new ExperienceOrbEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, xpAmount);
+        world.spawnEntity(orb);
+    }
+
+
+
+
+
 
 
 

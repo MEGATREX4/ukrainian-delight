@@ -1,7 +1,10 @@
 {
   "variants": {
-    "": {
-      "model": "ukrainian_delight:block/brewing_keg"
-    }
+    "": [
+      { "model": "ukrainian_delight:block/brewing_keg" },
+      { "model": "ukrainian_delight:block/brewing_keg", "y": 90 },
+      { "model": "ukrainian_delight:block/brewing_keg", "y": 180 },
+      { "model": "ukrainian_delight:block/brewing_keg", "y": 270 }
+    ]
   }
 }
