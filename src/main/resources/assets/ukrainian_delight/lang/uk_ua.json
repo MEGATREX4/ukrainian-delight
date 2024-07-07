@@ -50,6 +50,10 @@
 
   "_comment8": "misc",
   "gui.ukrainian_delight.brewing_keg": "Бродило",
-  "death.attack.glass_damage": "%s був не обережний зі склом"
+  "death.attack.glass_damage": "%s був не обережний зі склом",
 
+  "ukrainian_delight.tooltip.water_amount": "%d / %d мБ",
+  "ukrainian_delight.tooltip.tank_empty": "Пусто",
+
+  "ukrainian_delight.container.brewing_keg.served_on": "Розливається в: %s"
 }

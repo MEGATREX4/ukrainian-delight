@@ -1,22 +1,30 @@
 package com.megatrex4.ukrainian_dlight.screen;
 
 import com.megatrex4.ukrainian_dlight.UkrainianDelight;
+import com.megatrex4.ukrainian_dlight.block.entity.BrewingKegBlockEntity;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.nhoryzon.mc.farmersdelight.FarmersDelightMod;
+import com.nhoryzon.mc.farmersdelight.entity.block.CookingPotBlockEntity;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BrewingKegScreen extends HandledScreen<BrewingKegScreenHandler> {
     private static final Identifier TEXTURE = new Identifier(UkrainianDelight.MOD_ID, "textures/gui/brewing_keg_gui.png");
+
+
 
     public BrewingKegScreen(BrewingKegScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
@@ -61,13 +69,69 @@ public class BrewingKegScreen extends HandledScreen<BrewingKegScreenHandler> {
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         renderBackground(context);
         super.render(context, mouseX, mouseY, delta);
+        drawMouseoverTankTooltip(context, mouseX, mouseY);
+        // drawMouseoverSlotTooltip(context, mouseX, mouseY);
         drawMouseoverTooltip(context, mouseX, mouseY);
     }
 
+
+
     @Override
     protected void drawMouseoverTooltip(DrawContext context, int mouseX, int mouseY) {
-        super.drawMouseoverTooltip(context, mouseX, mouseY);
+        if (this.handler.getCursorStack().isEmpty() && this.focusedSlot != null) {
+            if (this.focusedSlot.id == BrewingKegBlockEntity.DRINKS_DISPLAY_SLOT && this.focusedSlot.hasStack()) {
+                List<Text> tooltip = new ArrayList<>();
 
+                ItemStack drink = focusedSlot.getStack();
+                Text text = drink.getName();
+                if (text instanceof MutableText mutableName) {
+                    tooltip.add(mutableName.formatted(drink.getRarity().formatting));
+                } else {
+                    tooltip.add(text);
+                }
+                drink.getItem().appendTooltip(drink, handler.blockEntity.getWorld(), tooltip, TooltipContext.Default.BASIC);
+
+                String container = ""; // Declare container outside of the if block
+
+                // Retrieve path for last crafted recipe
+                String lastCraftedRecipe = handler.blockEntity.getLastCraftedRecipeId();
+
+                // Retrieve container item based on last crafted recipe
+                ItemStack containerItem = handler.blockEntity.getItemFromLastCraft(lastCraftedRecipe);
+                if (!containerItem.isEmpty()) {
+                    // Get the item from the ItemStack
+                    Item item = containerItem.getItem();
+
+                    // Get the translation key for the item
+                    String translationKey = item.getTranslationKey();
+
+                    // Get the localized name using Text.translatable
+                    container = Text.translatable(translationKey).getString();
+                }
+
+                tooltip.add(UkrainianDelight.i18n("tooltip.slot_item", container).formatted(Formatting.GRAY));
+
+                // Add debugging output
+                System.out.println("Tooltip container: " + container);
+
+                context.drawTooltip(textRenderer, tooltip, mouseX, mouseY);
+            } else {
+                // Draw the typical tooltip for all other slots
+                context.drawItemTooltip(textRenderer, focusedSlot.getStack(), mouseX, mouseY);
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+    protected void drawMouseoverTankTooltip(DrawContext context, int mouseX, int mouseY) {
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
@@ -94,10 +158,11 @@ public class BrewingKegScreen extends HandledScreen<BrewingKegScreenHandler> {
         if (fluidAmount > 0) {
             return List.of(
                     fluidName,
-                    Text.translatable("text.megatrex4.water_amount", fluidAmount, maxFluidAmount).formatted(Formatting.GRAY)
+                    UkrainianDelight.i18n("tooltip.water_amount", fluidAmount, maxFluidAmount).formatted(Formatting.GRAY)
             );
         } else {
-            return List.of(Text.translatable("text.megatrex4.empty"));
+            return List.of(UkrainianDelight.i18n("tooltip.tank_empty"));
         }
     }
+
 }

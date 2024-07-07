@@ -66,7 +66,12 @@
   "amplifier.9": " IX",
   "amplifier.10": " X",
 
-  "text.megatrex4.water_amount": "%d / %d mB",
-  "text.megatrex4.empty": "Empty"
+  "ukrainian_delight.tooltip.water_amount": "%d / %d mB",
+  "ukrainian_delight.tooltip.tank_empty": "Empty",
+
+  "ukrainian_delight.tooltip.slot_empty": "Slot is empty",
+  "ukrainian_delight.tooltip.slot_item": "Poured into %s",
+
+  "ukrainian_delight.container.brewing_keg.served_on": "Served on %s"
 
 }

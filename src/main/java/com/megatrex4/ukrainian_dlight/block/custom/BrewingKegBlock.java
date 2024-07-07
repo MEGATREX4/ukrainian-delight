@@ -2,7 +2,6 @@ package com.megatrex4.ukrainian_dlight.block.custom;
 
 import com.megatrex4.ukrainian_dlight.block.entity.BrewingKegBlockEntity;
 import com.megatrex4.ukrainian_dlight.block.entity.ModBlockEntities;
-import com.nhoryzon.mc.farmersdelight.block.state.CookingPotSupport;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -116,6 +115,9 @@ public class BrewingKegBlock extends BlockWithEntity implements BlockEntityProvi
                 }
                 dropSlotContents(world, pos, brewingKegEntity, BrewingKegBlockEntity.WATER_SLOT);
 
+                // Drop the OUTPUT_SLOT
+                dropSlotContents(world, pos, brewingKegEntity, BrewingKegBlockEntity.OUTPUT_SLOT);
+
                 // Spawn the item entity with the BlockEntityTag and DisplaySlot NBT
                 ItemEntity itemEntity = new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), itemStack);
                 world.spawnEntity(itemEntity);
@@ -133,6 +135,7 @@ public class BrewingKegBlock extends BlockWithEntity implements BlockEntityProvi
             brewingKegEntity.setStack(slot, ItemStack.EMPTY);
         }
     }
+
 
 
     @Override
