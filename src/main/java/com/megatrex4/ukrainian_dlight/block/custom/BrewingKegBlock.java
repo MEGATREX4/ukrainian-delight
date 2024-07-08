@@ -96,25 +96,10 @@ public class BrewingKegBlock extends BlockWithEntity implements BlockEntityProvi
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof BrewingKegBlockEntity) {
                 BrewingKegBlockEntity brewingKegEntity = (BrewingKegBlockEntity) blockEntity;
-
-                // Save the ItemStack in REQUIRE_CONTAINER slot to block entity NBT
-                NbtCompound tag = new NbtCompound();
-                ItemStack requireContainerStack = brewingKegEntity.getStack(REQUIRE_CONTAINER);
-                if (!requireContainerStack.isEmpty()) {
-                    NbtCompound requireContainerTag = new NbtCompound();
-                    requireContainerStack.writeNbt(requireContainerTag);
-                    tag.put("requireContainer", requireContainerTag);
-                }
-
-                // Save other necessary data to the tag if needed
-                // Example: Save fluid variant and amount
-                tag.put("fluid_variant", brewingKegEntity.fluidStorage.variant.toNbt());
-                tag.putLong("fluid_amount", brewingKegEntity.fluidStorage.amount);
-
-                brewingKegEntity.writeToNbtPublic(tag); // Save updated NBT to block entity
-
-                // Spawn the item entity with the Block's item and custom NBT
+                // Create an item stack with the block's item
                 ItemStack itemStack = new ItemStack(this.asItem());
+                // Save BlockEntity data to NBT
+                NbtCompound tag = brewingKegEntity.writeToNbtPublic(new NbtCompound()); // Use the public method to get NBT
                 itemStack.setSubNbt("BlockEntityTag", tag);
 
                 // Save DRINKS_DISPLAY_SLOT to NBT and remove from block entity
@@ -122,10 +107,26 @@ public class BrewingKegBlock extends BlockWithEntity implements BlockEntityProvi
                 brewingKegEntity.getStack(DRINKS_DISPLAY_SLOT).writeNbt(displaySlotTag);
                 itemStack.setSubNbt("DisplaySlot", displaySlotTag);
 
+                // Save REQUARE_CONTAINER to NBT and remove from block entity
+                NbtCompound requireContainerTag = new NbtCompound();
+                brewingKegEntity.getStack(REQUIRE_CONTAINER).writeNbt(requireContainerTag);
+                itemStack.setSubNbt("requireContainer", requireContainerTag);
+
+                // Drop items from INGREDIENT_SLOTS (0-7) and WATER_SLOT (9)
+                for (int slot : BrewingKegBlockEntity.INGREDIENT_SLOTS) {
+                    if (slot != BrewingKegBlockEntity.WATER_SLOT) { // Skip WATER_SLOT
+                        dropSlotContents(world, pos, brewingKegEntity, slot);
+                    }
+                }
+                dropSlotContents(world, pos, brewingKegEntity, BrewingKegBlockEntity.WATER_SLOT);
+
+                // Drop the OUTPUT_SLOT
+                dropSlotContents(world, pos, brewingKegEntity, BrewingKegBlockEntity.OUTPUT_SLOT);
+
+                // Spawn the item entity with the BlockEntityTag and DisplaySlot NBT
                 ItemEntity itemEntity = new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), itemStack);
                 world.spawnEntity(itemEntity);
             }
-
             world.removeBlockEntity(pos); // Remove the block entity from the world
             super.onStateReplaced(state, world, pos, newState, moved);
         }
