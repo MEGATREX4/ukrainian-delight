@@ -69,7 +69,7 @@ public class BrewingKegScreenHandler extends ScreenHandler {
         // Add water slot
         this.addSlot(new Slot(tileEntity, WATER_SLOT, 30, 59));
         // Add require container slot
-        this.addSlot(new Slot(tileEntity, REQUIRE_CONTAINER, 10, 10) {
+        this.addSlot(new Slot(tileEntity, REQUIRE_CONTAINER, 1000000000, 1000000000) {
             @Override
             public boolean canInsert(ItemStack stack) {
                 return false;

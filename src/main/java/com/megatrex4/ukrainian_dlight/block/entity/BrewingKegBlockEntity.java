@@ -91,7 +91,7 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
 
 
         @Override
-        protected long getCapacity(FluidVariant variant) {
+        public long getCapacity(FluidVariant variant) {
             return FluidStack.convertDropletsToMb(FluidConstants.BUCKET) * 15; // 5k mB
         }
 

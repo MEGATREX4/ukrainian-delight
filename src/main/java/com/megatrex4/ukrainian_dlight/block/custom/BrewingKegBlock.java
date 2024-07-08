@@ -1,25 +1,35 @@
 package com.megatrex4.ukrainian_dlight.block.custom;
 
+import com.megatrex4.ukrainian_dlight.UkrainianDelight;
 import com.megatrex4.ukrainian_dlight.block.entity.BrewingKegBlockEntity;
 import com.megatrex4.ukrainian_dlight.block.entity.ModBlockEntities;
+import com.megatrex4.ukrainian_dlight.util.CompoundTagUtils;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
+import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.state.property.Property;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.*;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
@@ -28,19 +38,18 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public class BrewingKegBlock extends BlockWithEntity implements BlockEntityProvider {
 
-    //adds 6 input ingredients slot
     public static final int[] INGREDIENT_SLOTS = {0, 1, 2, 3, 4, 5};
-    //adds container(like bottle of vial) input
     public static final int CONTAINER_SLOT = 6;
-    //adds 1 input slot for water
-    public static final int WATER_SLOT = 7;
-    //adds 1 output slot and display slot
-    public static final int DRINKS_DISPLAY_SLOT = 8;
-    public static final int OUTPUT_SLOT = 9;
+    public static final int REQUIRE_CONTAINER = 7;
+    public static final int WATER_SLOT = 8;
+    public static final int DRINKS_DISPLAY_SLOT = 9;
+    public static final int OUTPUT_SLOT = 10;
 
-    public static final int REQUIRE_CONTAINER = 10;
+    public static final int INVENTORY_SIZE = OUTPUT_SLOT + 1;
 
 
     private static final VoxelShape SHAPE = Block.createCuboidShape(0, 0, 0, 16, 12, 16);
@@ -72,6 +81,45 @@ public class BrewingKegBlock extends BlockWithEntity implements BlockEntityProvi
         FluidState fluidState = world.getFluidState(blockPos);
         return (BlockState)((BlockState)((BlockState)this.getDefaultState().with(FACING, context.getHorizontalPlayerFacing().getOpposite())));
     }
+
+
+    @Override
+    @Environment(value = EnvType.CLIENT)
+    public void appendTooltip(ItemStack stack, @Nullable BlockView world, List<Text> tooltip, TooltipContext options) {
+        super.appendTooltip(stack, world, tooltip, options);
+        NbtCompound tag = stack.getSubNbt("BlockEntityTag");
+        if (tag != null) {
+            // Display the item in the display slot
+            if (tag.contains("DisplaySlot", NbtElement.COMPOUND_TYPE)) {
+                NbtCompound displaySlotTag = tag.getCompound("DisplaySlot");
+                ItemStack drink = ItemStack.fromNbt(displaySlotTag);
+                if (!drink.isEmpty()) {
+                    MutableText servingsOf = drink.getCount() == 1
+                            ? UkrainianDelight.i18n("tooltip.single_serving")
+                            : UkrainianDelight.i18n("tooltip.many_servings", drink.getCount());
+                    tooltip.add(servingsOf.formatted(Formatting.GRAY));
+                    MutableText drinkName = drink.getName().copy();
+                    tooltip.add(drinkName.formatted(drink.getRarity().formatting));
+                } else {
+                    tooltip.add(UkrainianDelight.i18n("tooltip.empty").formatted(Formatting.GRAY));
+                }
+            } else {
+                tooltip.add(UkrainianDelight.i18n("tooltip.empty").formatted(Formatting.GRAY));
+            }
+
+            // Display the fluid amount
+            if (tag.contains("fluid_amount", NbtElement.INT_TYPE)) {
+
+                int fluidAmount = tag.getInt("fluid_amount");
+                MutableText fluidAmountText = UkrainianDelight.i18n("tooltip.fluid_amount", fluidAmount);
+                tooltip.add(fluidAmountText.formatted(Formatting.GRAY));
+            }
+        } else {
+            tooltip.add(UkrainianDelight.i18n("tooltip.empty").formatted(Formatting.GRAY));
+        }
+    }
+
+
 
 
     @Override

@@ -69,6 +69,10 @@
   "ukrainian_delight.tooltip.water_amount": "%d / %d mB",
   "ukrainian_delight.tooltip.tank_empty": "Empty",
 
-  "ukrainian_delight.tooltip.slot_item": "Poured into %s"
+  "ukrainian_delight.tooltip.slot_item": "Poured into %s",
 
+  "ukrainian_delight.tooltip.empty": "Empty",
+  "ukrainian_delight.tooltip.single_serving": "Holds 1 serving of:",
+  "ukrainian_delight.tooltip.many_servings": "Holds %s servings of:",
+  "ukrainian_delight.tooltip.fluid_amount": "Fluid Amount: %s"
 }
