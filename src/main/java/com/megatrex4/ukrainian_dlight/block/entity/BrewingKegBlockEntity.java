@@ -192,6 +192,7 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
         // Save water amount
         tag.putLong("fluid_amount", fluidStorage.amount);
         tag.put("fluid_variant", fluidStorage.variant.toNbt());
+        tag.putLong("capacity", getMaxWaterLevel());
 
         // Save container
         tag.put(CompoundTagUtils.TAG_KEY_CONTAINER, drinkContainer.writeNbt(new NbtCompound()));
@@ -249,6 +250,7 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
         tag.putInt("progress", progress);
         tag.put("fluid_variant", fluidStorage.variant.toNbt());
         tag.putLong("fluid_amount", fluidStorage.amount);
+        tag.putLong("capacity", getMaxWaterLevel());
 
         // Save the last crafted recipe map
         NbtCompound lastCraftedRecipeTag = new NbtCompound();
@@ -288,6 +290,7 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
         progress = tag.getInt("progress");
         fluidStorage.variant = FluidVariant.fromNbt(tag.getCompound("fluid_variant"));
         fluidStorage.amount = tag.getLong("fluid_amount");
+
 
         // Load the last crafted recipe map
         NbtCompound lastCraftedRecipeTag = tag.getCompound("last_crafted_recipe");
