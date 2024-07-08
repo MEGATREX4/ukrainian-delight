@@ -56,18 +56,15 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 
 public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory {
-    private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(10, ItemStack.EMPTY);
+    private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(INVENTORY_SIZE, ItemStack.EMPTY);
 
 
-    //adds 6 input ingredients slot
     public static final int[] INGREDIENT_SLOTS = {0, 1, 2, 3, 4, 5};
-    //adds container(like bottle of vial) input
     public static final int CONTAINER_SLOT = 6;
-    //adds 1 input slot for water
-    public static final int WATER_SLOT = 7;
-    //adds 1 output slot and display slot
-    public static final int DRINKS_DISPLAY_SLOT = 8;
-    public static final int OUTPUT_SLOT = 9;
+    public static final int REQUIRE_CONTAINER = 7;
+    public static final int WATER_SLOT = 8;
+    public static final int DRINKS_DISPLAY_SLOT = 9;
+    public static final int OUTPUT_SLOT = 10;
 
     public static final int INVENTORY_SIZE = OUTPUT_SLOT + 1;
 
@@ -187,12 +184,18 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
         this.getStack(DRINKS_DISPLAY_SLOT).writeNbt(displaySlotTag);
         tag.put("DisplaySlot", displaySlotTag);
 
+        // Save REQUIRE_CONTAINER to NBT
+        NbtCompound requireContainerTag = new NbtCompound();
+        this.getStack(REQUIRE_CONTAINER).writeNbt(requireContainerTag);
+        tag.put("requireContainer", requireContainerTag);
+
         // Save water amount
         tag.putLong("fluid_amount", fluidStorage.amount);
         tag.put("fluid_variant", fluidStorage.variant.toNbt());
 
         // Save container
         tag.put(CompoundTagUtils.TAG_KEY_CONTAINER, drinkContainer.writeNbt(new NbtCompound()));
+
 
         // Save experience
         tag.putFloat("TotalExperience", totalExperience);
@@ -202,12 +205,12 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
     }
 
 
-    public ItemStack getMeal() {
+    public ItemStack getDrink() {
         return getStack(DRINKS_DISPLAY_SLOT);
     }
 
-    public NbtCompound writeMeal(NbtCompound tag) {
-        if (getMeal().isEmpty()) {
+    public NbtCompound writeDrink(NbtCompound tag) {
+        if (getDrink().isEmpty()) {
             return tag;
         }
 
@@ -265,6 +268,14 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
         }
         tag.put("DisplaySlot", displaySlotTag);
 
+        // Save requireContainer
+        NbtCompound requireContainerTag = new NbtCompound();
+        ItemStack requireContainer = getStack(REQUIRE_CONTAINER);
+        if (!requireContainer.isEmpty()) {
+            requireContainer.writeNbt(requireContainerTag);
+        }
+        tag.put("requireContainer", requireContainerTag);
+
         // Save totalExperience
         tag.putFloat("TotalExperience", totalExperience);
     }
@@ -299,6 +310,14 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
         } else {
             setStack(DRINKS_DISPLAY_SLOT, ItemStack.EMPTY); // Ensure it's clear if no DisplaySlot is found
         }
+        // Load requireContainer
+        if (tag.contains("requireContainer", NbtType.COMPOUND)) {
+            NbtCompound requireContainerTag = tag.getCompound("requireContainer");
+            setStack(REQUIRE_CONTAINER, ItemStack.fromNbt(requireContainerTag));
+        } else {
+            setStack(REQUIRE_CONTAINER, ItemStack.EMPTY);
+        }
+
     }
 
 
@@ -570,10 +589,14 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
             if (this.progress < this.maxProgress) {
                 return false;
             } else {
-                this.progress = 0;
-                drinkContainer = recipe.getContainer().copy(); // Ensure a copy is made to avoid side effects
+                this.progress = 0;; // Ensure a copy is made to avoid side effects
                 ItemStack recipeOutput = recipe.craft(this, this.world.getRegistryManager());
                 ItemStack currentOutput = this.getStack(DRINKS_DISPLAY_SLOT);
+                drinkContainer = recipe.getContainer().copy();
+                // Replace REQUIRE_CONTAINER with item from drinkContainer
+                ItemStack requireContainerItem = this.getStack(REQUIRE_CONTAINER);
+                requireContainerItem = recipe.getContainer().copy();
+                this.setStack(REQUIRE_CONTAINER, requireContainerItem);
 
                 if (currentOutput.isEmpty()) {
                     this.setStack(DRINKS_DISPLAY_SLOT, recipeOutput.copy());
@@ -602,6 +625,8 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
             return false;
         }
     }
+
+
 
     private void saveLastCraftedRecipe(BrewingRecipe recipe) {
         // Assuming recipe.getId() gives the unique ID of the recipe
@@ -634,8 +659,8 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
 
 
 
-    private boolean doesDrinkHaveContainer(ItemStack meal) {
-        return !drinkContainer.isEmpty() || meal.getItem().hasRecipeRemainder();
+    private boolean doesDrinkHaveContainer(ItemStack drink) {
+        return !drinkContainer.isEmpty() || drink.getItem().hasRecipeRemainder();
     }
 
 

@@ -17,6 +17,7 @@ public class DrinkBottleBlock {
     public static final Block WINE_BOTTLE = registerBlock("wine_bottle", new BottleBlock(), new FoodComponent.Builder()
             .hunger(6).saturationModifier(0.6f)
             .statusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 3 * 20, 3), 1.0f)
+            .alwaysEdible()
             .build());
 
     private static Block registerBlock(String name, Block block, FoodComponent foodComponent) {
