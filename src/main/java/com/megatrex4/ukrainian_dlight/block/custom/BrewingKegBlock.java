@@ -6,6 +6,7 @@ import com.megatrex4.ukrainian_dlight.block.entity.ModBlockEntities;
 import com.megatrex4.ukrainian_dlight.util.CompoundTagUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -20,6 +21,7 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
+import net.minecraft.registry.Registries;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
@@ -38,6 +40,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class BrewingKegBlock extends BlockWithEntity implements BlockEntityProvider {
@@ -107,17 +110,47 @@ public class BrewingKegBlock extends BlockWithEntity implements BlockEntityProvi
                 tooltip.add(UkrainianDelight.i18n("tooltip.empty").formatted(Formatting.GRAY));
             }
 
-            // Display the fluid amount
-            if (tag.contains("fluid_amount", NbtElement.INT_TYPE)) {
+            // Display the fluid amount and capacity only if fluid_amount > 0
+            if (tag.contains("fluid_amount", NbtElement.LONG_TYPE)) {
+                long fluidAmount = tag.getLong("fluid_amount");
+                if (fluidAmount > 0) { // Only show fluid-related tooltips if fluid_amount is greater than 0
+                    long capacity = tag.contains("capacity", NbtElement.LONG_TYPE) ? tag.getLong("capacity") : 0L;
 
-                int fluidAmount = tag.getInt("fluid_amount");
-                MutableText fluidAmountText = UkrainianDelight.i18n("tooltip.fluid_amount", fluidAmount);
-                tooltip.add(fluidAmountText.formatted(Formatting.GRAY));
+                    // Display the fluid name
+                    if (tag.contains("fluid_variant", NbtElement.COMPOUND_TYPE)) {
+                        NbtCompound fluidVariantTag = tag.getCompound("fluid_variant");
+                        FluidVariant fluidVariant = FluidVariant.fromNbt(fluidVariantTag);
+                        String fluidKey = Registries.FLUID.getId(fluidVariant.getFluid()).toTranslationKey();
+                        MutableText fluidName = Text.translatable("block." + fluidKey);
+
+                        // Format the tooltip with fluid name, amount, and capacity
+                        MutableText fluidAmountText = UkrainianDelight.i18n("tooltip.fluid_amount", fluidName.getString(), fluidAmount, capacity);
+                        tooltip.add(fluidAmountText.formatted(Formatting.GRAY));
+                    } else {
+                        // If fluid_variant is not present, display the amount without fluid name
+                        MutableText fluidAmountText = UkrainianDelight.i18n("tooltip.fluid_amount_no_fluid", fluidAmount, capacity);
+                        tooltip.add(fluidAmountText.formatted(Formatting.GRAY));
+                    }
+                }
             }
         } else {
             tooltip.add(UkrainianDelight.i18n("tooltip.empty").formatted(Formatting.GRAY));
         }
+
+        // Remove the last "block.minecraft.empty" tooltip if present
+        Iterator<Text> iterator = tooltip.iterator();
+        while (iterator.hasNext()) {
+            Text text = iterator.next();
+            if (text.getString().equals("block.minecraft.empty")) {
+                iterator.remove();
+            }
+        }
     }
+
+
+
+
+
 
 
 
