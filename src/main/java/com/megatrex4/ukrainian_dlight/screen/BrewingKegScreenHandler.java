@@ -21,6 +21,8 @@ import java.util.List;
 
 public class BrewingKegScreenHandler extends ScreenHandler {
 
+
+
     public static final int[] INGREDIENT_SLOTS = {0, 1, 2, 3, 4, 5};
     public static final int CONTAINER_SLOT = 6;
     public static final int REQUIRE_CONTAINER = 7;
@@ -35,6 +37,9 @@ public class BrewingKegScreenHandler extends ScreenHandler {
     private final Inventory tileEntity;
     private final PropertyDelegate propertyDelegate;
     public final BrewingKegBlockEntity blockEntity;
+    public final PlayerEntity player;
+
+
 
     public long getCapacity() {
         return blockEntity.getMaxWaterLevel();
@@ -49,6 +54,7 @@ public class BrewingKegScreenHandler extends ScreenHandler {
         checkSize(((Inventory) blockEntity), INVENTORY_SIZE);
 
         this.tileEntity = ((Inventory) blockEntity);
+        this.player = playerInventory.player;
         tileEntity.onOpen(playerInventory.player);
         this.propertyDelegate = arrayPropertyDelegate;
         this.blockEntity = ((BrewingKegBlockEntity) blockEntity);
