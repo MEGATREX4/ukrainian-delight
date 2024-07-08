@@ -137,32 +137,31 @@ public class BrewingKegScreenHandler extends ScreenHandler {
             return ItemStack.EMPTY;
         } else {
             ItemStack itemStack = ItemStack.EMPTY;
-            Slot slot = (Slot)this.slots.get(index);
+            Slot slot = this.slots.get(index);
             if (slot.hasStack()) {
                 ItemStack slotItemStack = slot.getStack();
                 itemStack = slotItemStack.copy();
 
                 if (index == OUTPUT_SLOT) {
-                    if (!this.insertItem(slotItemStack, 9, 45, true)) {
+                    // Transfer items from OUTPUT_SLOT to player inventory
+                    if (!this.insertItem(slotItemStack, 11, 47, true)) {
                         return ItemStack.EMPTY;
                     }
-                } else if (index > OUTPUT_SLOT) {
-                    if (slotItemStack.getItem() == Items.GLASS_BOTTLE &&
-                            !this.insertItem(slotItemStack, DRINKS_DISPLAY_SLOT, REQUIRE_CONTAINER, false) ||
-                            !this.insertItem(slotItemStack, 0, 6, false) ||
-                            !this.insertItem(slotItemStack, DRINKS_DISPLAY_SLOT, REQUIRE_CONTAINER, false)) {
+                    slot.onQuickTransfer(slotItemStack, itemStack);
+                } else if (index >= 11 && index < 47) {
+                    // Transfer items from player inventory
+                    if (slotItemStack.getItem() == Items.WATER_BUCKET) {
+                        if (!this.insertItem(slotItemStack, WATER_SLOT, WATER_SLOT + 1, false)) {
+                            return ItemStack.EMPTY;
+                        }
+                    } else if (!this.insertItem(slotItemStack, 0, 6, false)) {
                         return ItemStack.EMPTY;
                     }
-                } else if (index == WATER_SLOT && slotItemStack.getItem() == Items.WATER_BUCKET) {
-                    if (!this.insertItem(slotItemStack, WATER_SLOT, WATER_SLOT + 1, false)) {
+                } else {
+                    // For items in container slots, transfer to player inventory
+                    if (!this.insertItem(slotItemStack, 11, 47, false)) {
                         return ItemStack.EMPTY;
                     }
-                } else if (index == WATER_SLOT) {
-                    if (!this.insertItem(slotItemStack, WATER_SLOT + 1, this.slots.size(), false)) {
-                        return ItemStack.EMPTY;
-                    }
-                } else if (!this.insertItem(slotItemStack, 9, 45, false)) {
-                    return ItemStack.EMPTY;
                 }
 
                 if (slotItemStack.isEmpty()) {
@@ -181,6 +180,10 @@ public class BrewingKegScreenHandler extends ScreenHandler {
             return itemStack;
         }
     }
+
+
+
+
 
     @Override
     public boolean canUse(PlayerEntity player) {
