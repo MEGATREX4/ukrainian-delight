@@ -7,10 +7,13 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.render.GameRenderer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
+import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -120,10 +123,6 @@ public class BrewingKegScreen extends HandledScreen<BrewingKegScreenHandler> {
     }
 
 
-
-
-
-
     protected void drawMouseoverTankTooltip(DrawContext context, int mouseX, int mouseY) {
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
@@ -151,7 +150,7 @@ public class BrewingKegScreen extends HandledScreen<BrewingKegScreenHandler> {
         if (fluidAmount > 0) {
             return List.of(
                     fluidName,
-                    UkrainianDelight.i18n("tooltip.water_amount", fluidAmount, maxFluidAmount).formatted(Formatting.GRAY)
+                    UkrainianDelight.i18n("tooltip.tank_amount", fluidAmount, maxFluidAmount).formatted(Formatting.GRAY)
             );
         } else {
             return List.of(UkrainianDelight.i18n("tooltip.tank_empty"));
