@@ -55,5 +55,5 @@
   "ukrainian_delight.tooltip.water_amount": "%d / %d мБ",
   "ukrainian_delight.tooltip.tank_empty": "Пусто",
 
-  "ukrainian_delight.container.brewing_keg.served_on": "Розливається в: %s"
+  "ukrainian_delight.tooltip.slot_item": "Розливається в: %s"
 }
