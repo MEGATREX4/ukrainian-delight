@@ -55,7 +55,7 @@ public class BrewingKegBlock extends BlockWithEntity implements BlockEntityProvi
     public static final int INVENTORY_SIZE = OUTPUT_SLOT + 1;
 
 
-    private static final VoxelShape SHAPE = Block.createCuboidShape(0, 0, 0, 16, 12, 16);
+    private static final VoxelShape SHAPE = Block.createCuboidShape(0, 0, 0, 16, 13, 16);
     public static final DirectionProperty FACING;
 
     public BrewingKegBlock(Settings settings) {

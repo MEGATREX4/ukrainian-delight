@@ -8,6 +8,8 @@ import com.megatrex4.ukrainian_dlight.recipe.ModRecipes;
 import com.megatrex4.ukrainian_dlight.screen.BrewingKegScreenHandler;
 import com.megatrex4.ukrainian_dlight.util.FluidStack;
 import com.nhoryzon.mc.farmersdelight.FarmersDelightMod;
+import com.nhoryzon.mc.farmersdelight.entity.block.CookingPotBlockEntity;
+import com.nhoryzon.mc.farmersdelight.registry.ParticleTypesRegistry;
 import com.nhoryzon.mc.farmersdelight.util.CompoundTagUtils;
 import io.netty.buffer.Unpooled;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
@@ -39,17 +41,21 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.*;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -368,6 +374,7 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
         handleWaterBucket();
         processItemTransfer(world, pos, state);
         processCrafting();
+        spawnParticles(world, pos, state);
     }
 
     private void processItemTransfer(World world, BlockPos pos, BlockState state) {
@@ -439,6 +446,8 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
                 int craftedAmount = 1;
                 if (this.craftItem(recipe, craftedAmount)) { // Provide craftedAmount here
                     this.resetProgress();
+                    // Play brewing sound effect
+                    playBrewingSound();
                 }
             } else {
                 this.resetProgress();
@@ -447,6 +456,26 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
             this.resetProgress();
         }
     }
+
+    private void playBrewingSound() {
+        if (world != null && !world.isClient) {
+            world.playSound(null, pos, SoundEvents.BLOCK_BREWING_STAND_BREW, SoundCategory.BLOCKS, 1.0f, 1.0f);
+        }
+    }
+
+    public static void spawnParticles(World world, BlockPos pos, BlockState state) {
+        if (world != null && !world.isClient) {
+            Random random = world.random;
+            if (random.nextFloat() < .05f) {
+                double baseX = pos.getX() + .5d + (random.nextDouble() * .4d - .2d);
+                double baseY = pos.getY() + .5d;
+                double baseZ = pos.getZ() + .5d + (random.nextDouble() * .4d - .2d);
+                double motionY = random.nextBoolean() ? .015d : .005d;
+                world.addParticle(ParticleTypesRegistry.STEAM.get(), baseX, baseY, baseZ, .0d, motionY, .0d);
+            }
+        }
+    }
+
 
 
     private boolean hasValidIngredients(BrewingRecipe recipe) {
@@ -509,6 +538,11 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
                     transaction.commit();
                     markDirty();
                     sendFluidPacket();
+
+                    // Play water pouring sound effect
+                    if (!this.world.isClient) {
+                        this.world.playSound(null, this.pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                    }
                 }
             }
         }
@@ -592,7 +626,7 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
             if (this.progress < this.maxProgress) {
                 return false;
             } else {
-                this.progress = 0;; // Ensure a copy is made to avoid side effects
+                this.progress = 0; // Ensure a copy is made to avoid side effects
                 ItemStack recipeOutput = recipe.craft(this, this.world.getRegistryManager());
                 ItemStack currentOutput = this.getStack(DRINKS_DISPLAY_SLOT);
                 drinkContainer = recipe.getContainer().copy();
@@ -620,6 +654,8 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
                 float recipeExperience = recipe.getExperience();
                 float totalExperience = recipeExperience * craftedAmount;
                 this.trackRecipeExperience(totalExperience);
+
+                this.world.playSound(null, this.pos, SoundEvents.BLOCK_FURNACE_FIRE_CRACKLE, SoundCategory.BLOCKS, 1.0F, 1.0F);
 
                 markDirty();
                 return true;
