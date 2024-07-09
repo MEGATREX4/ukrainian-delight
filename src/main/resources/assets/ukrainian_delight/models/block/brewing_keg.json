@@ -2,22 +2,169 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [32, 32],
 	"textures": {
-		"0": "ukrainian_delight:block/brewing_keg",
-		"particle": "ukrainian_delight:block/brewing_keg"
+		"brewing_keg": "ukrainian_delight:block/brewing_keg"
 	},
 	"elements": [
 		{
-			"from": [4, 0, 1],
-			"to": [12, 8, 15],
-			"rotation": {"angle": 0, "axis": "y", "origin": [1, 0, 1]},
+			"name": "barrel",
+			"from": [0.5, 0, 1],
+			"to": [7.5, 7, 14],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-0.5, -2, 1]},
 			"faces": {
-				"north": {"uv": [0, 8, 4, 12], "texture": "#0"},
-				"east": {"uv": [0, 0, 7, 4], "texture": "#0"},
-				"south": {"uv": [11, 0, 15, 4], "texture": "#0"},
-				"west": {"uv": [0, 4, 7, 8], "texture": "#0"},
-				"up": {"uv": [11, 7, 7, 0], "texture": "#0"},
-				"down": {"uv": [11, 7, 7, 14], "texture": "#0"}
+				"north": {"uv": [7, 0, 10.5, 3.5], "texture": "#brewing_keg"},
+				"east": {"uv": [3.5, 6.5, 10, 10], "texture": "#brewing_keg"},
+				"south": {"uv": [7, 0, 10.5, 3.5], "texture": "#brewing_keg"},
+				"west": {"uv": [3.5, 6.5, 10, 10], "texture": "#brewing_keg"},
+				"up": {"uv": [3.5, 13, 0, 6.5], "texture": "#brewing_keg"},
+				"down": {"uv": [3.5, 6.5, 0, 13], "texture": "#brewing_keg"}
+			}
+		},
+		{
+			"from": [8.5, 0, 1],
+			"to": [15.5, 13, 8],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7.5, -2, 1]},
+			"faces": {
+				"north": {"uv": [0, 0, 3.5, 6.5], "texture": "#brewing_keg"},
+				"east": {"uv": [0, 0, 3.5, 6.5], "texture": "#brewing_keg"},
+				"south": {"uv": [0, 0, 3.5, 6.5], "texture": "#brewing_keg"},
+				"west": {"uv": [0, 0, 3.5, 6.5], "texture": "#brewing_keg"},
+				"up": {"uv": [7, 3.5, 3.5, 0], "texture": "#brewing_keg"},
+				"down": {"uv": [7, 0, 3.5, 3.5], "texture": "#brewing_keg"}
+			}
+		},
+		{
+			"from": [7.8, 3.33, 8.87],
+			"to": [13.13, 3.67, 14.2],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7.8, 0, 14.2]},
+			"faces": {
+				"north": {"uv": [5, 6, 7.5, 6.5], "texture": "#brewing_keg", "cullface": "east"},
+				"east": {"uv": [7.5, 6, 10, 6.5], "texture": "#brewing_keg", "cullface": "south"},
+				"south": {"uv": [7.5, 6, 10, 6.5], "texture": "#brewing_keg", "cullface": "west"},
+				"west": {"uv": [5, 6, 7.5, 6.5], "texture": "#brewing_keg", "cullface": "north"},
+				"up": {"uv": [9, 6, 6.5, 3.5], "texture": "#brewing_keg", "cullface": "up"},
+				"down": {"uv": [11.5, 3.5, 9, 6], "texture": "#brewing_keg"}
+			}
+		},
+		{
+			"from": [7.8, 3.67, 13.53],
+			"to": [13.13, 5.33, 14.2],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7.8, 0, 14.2]},
+			"faces": {
+				"north": {"uv": [3.5, 10, 6, 11], "texture": "#brewing_keg", "cullface": "up"},
+				"east": {"uv": [6, 4.5, 6.5, 5.5], "texture": "#brewing_keg", "cullface": "south"},
+				"south": {"uv": [6, 10, 8.5, 11], "texture": "#brewing_keg", "cullface": "west"},
+				"west": {"uv": [4, 11, 4.5, 12], "texture": "#brewing_keg", "cullface": "north"},
+				"up": {"uv": [12.5, 10, 10, 9.5], "texture": "#brewing_keg", "cullface": "up"}
+			}
+		},
+		{
+			"from": [7.8, 3.67, 8.87],
+			"to": [13.13, 5.33, 9.53],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7.8, 0, 14.2]},
+			"faces": {
+				"north": {"uv": [3.5, 10, 6, 11], "texture": "#brewing_keg", "cullface": "east"},
+				"east": {"uv": [4.5, 11, 5, 12], "texture": "#brewing_keg", "cullface": "south"},
+				"south": {"uv": [6, 10, 8.5, 11], "texture": "#brewing_keg", "cullface": "up"},
+				"west": {"uv": [5, 11, 5.5, 12], "texture": "#brewing_keg", "cullface": "north"},
+				"up": {"uv": [13, 3.5, 10.5, 3], "texture": "#brewing_keg", "cullface": "up"}
+			}
+		},
+		{
+			"from": [7.8, 3.67, 9.53],
+			"to": [8.47, 5.33, 13.53],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7.8, 0, 14.2]},
+			"faces": {
+				"east": {"uv": [10, 7.5, 12, 8.5], "texture": "#brewing_keg", "cullface": "up"},
+				"west": {"uv": [8.5, 10, 10.5, 11], "texture": "#brewing_keg", "cullface": "north"},
+				"up": {"uv": [11, 12, 10.5, 10], "texture": "#brewing_keg", "cullface": "up"}
+			}
+		},
+		{
+			"from": [12.47, 3.67, 9.53],
+			"to": [13.13, 5.33, 13.53],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7.8, 0, 14.2]},
+			"faces": {
+				"east": {"uv": [10, 8.5, 12, 9.5], "texture": "#brewing_keg", "cullface": "south"},
+				"west": {"uv": [10.5, 0, 12.5, 1], "texture": "#brewing_keg", "cullface": "up"},
+				"up": {"uv": [4, 13, 3.5, 11], "texture": "#brewing_keg", "cullface": "up"}
+			}
+		},
+		{
+			"from": [9.13, 1.33, 10.2],
+			"to": [11.8, 3.33, 12.87],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7.8, 0, 14.2]},
+			"faces": {
+				"north": {"uv": [10.5, 1, 12, 2], "texture": "#brewing_keg"},
+				"east": {"uv": [10.5, 2, 12, 3], "texture": "#brewing_keg"},
+				"south": {"uv": [10.5, 2, 12, 3], "texture": "#brewing_keg"},
+				"west": {"uv": [10.5, 1, 12, 2], "texture": "#brewing_keg"},
+				"down": {"uv": [11.5, 6, 10, 7.5], "texture": "#brewing_keg"}
+			}
+		},
+		{
+			"from": [7.55, 1.33, 10.87],
+			"to": [9.13, 2.67, 12.2],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7.8, 0, 14.2]},
+			"faces": {
+				"north": {"uv": [5.5, 11, 6.5, 11.5], "texture": "#brewing_keg"},
+				"south": {"uv": [6.5, 11, 7.5, 11.5], "texture": "#brewing_keg"},
+				"west": {"uv": [6, 5.5, 6.5, 6], "texture": "#brewing_keg", "cullface": "north"},
+				"up": {"uv": [8.5, 11.5, 7.5, 11], "texture": "#brewing_keg"},
+				"down": {"uv": [9.5, 11, 8.5, 11.5], "texture": "#brewing_keg"}
+			}
+		},
+		{
+			"from": [6.5, 9, 4],
+			"to": [8.5, 10, 5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7.5, 9, 4]},
+			"faces": {
+				"north": {"uv": [3.5, 3.5, 4.5, 4], "texture": "#brewing_keg"},
+				"east": {"uv": [5.5, 5.5, 6, 6], "texture": "#brewing_keg"},
+				"south": {"uv": [3.5, 4, 4.5, 4.5], "texture": "#brewing_keg"},
+				"west": {"uv": [3.5, 6, 4, 6.5], "texture": "#brewing_keg"},
+				"up": {"uv": [4.5, 5, 3.5, 4.5], "texture": "#brewing_keg"},
+				"down": {"uv": [5.5, 3.5, 4.5, 4], "texture": "#brewing_keg"}
+			}
+		},
+		{
+			"from": [6.5, 8, 5],
+			"to": [7.5, 10, 6],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7.5, 9, 4]},
+			"faces": {
+				"north": {"uv": [4.5, 4, 5, 5], "texture": "#brewing_keg"},
+				"east": {"uv": [3.5, 5, 4, 6], "texture": "#brewing_keg"},
+				"south": {"uv": [4, 5, 4.5, 6], "texture": "#brewing_keg"},
+				"west": {"uv": [5, 4, 5.5, 5], "texture": "#brewing_keg"},
+				"up": {"uv": [6.5, 4, 6, 3.5], "texture": "#brewing_keg"},
+				"down": {"uv": [4.5, 6, 4, 6.5], "texture": "#brewing_keg"}
+			}
+		},
+		{
+			"from": [5.5, 7, 5],
+			"to": [6.5, 9, 6],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7.5, 9, 4]},
+			"faces": {
+				"north": {"uv": [4.5, 5, 5, 6], "texture": "#brewing_keg"},
+				"east": {"uv": [5, 5, 5.5, 6], "texture": "#brewing_keg"},
+				"south": {"uv": [5.5, 3.5, 6, 4.5], "texture": "#brewing_keg"},
+				"west": {"uv": [5.5, 4.5, 6, 5.5], "texture": "#brewing_keg"},
+				"up": {"uv": [6.5, 4.5, 6, 4], "texture": "#brewing_keg"},
+				"down": {"uv": [5, 6, 4.5, 6.5], "texture": "#brewing_keg"}
 			}
 		}
+	],
+	"groups": [
+		0,
+		1,
+		{
+			"name": "hopper",
+			"origin": [0, 0, 0],
+			"color": 0,
+			"nbt": "{}",
+			"children": [2, 3, 4, 5, 6, 7, 8]
+		},
+		9,
+		10,
+		11
 	]
 }
