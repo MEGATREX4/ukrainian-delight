@@ -4,6 +4,7 @@ import com.megatrex4.ukrainian_dlight.UkrainianDelight;
 import com.megatrex4.ukrainian_dlight.block.entity.BrewingKegBlockEntity;
 import com.megatrex4.ukrainian_dlight.block.entity.ModBlockEntities;
 import com.megatrex4.ukrainian_dlight.util.CompoundTagUtils;
+import com.nhoryzon.mc.farmersdelight.registry.ParticleTypesRegistry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
@@ -21,6 +22,7 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registries;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.state.StateManager;
@@ -32,8 +34,10 @@ import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.*;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
@@ -55,18 +59,18 @@ public class BrewingKegBlock extends BlockWithEntity implements BlockEntityProvi
     public static final int INVENTORY_SIZE = OUTPUT_SLOT + 1;
 
 
-    private static final VoxelShape SHAPE = Block.createCuboidShape(0, 0, 0, 16, 13, 16);
+    private static final VoxelShape SHAPE = Block.createCuboidShape(1, 0, 1, 15, 16, 15);
     public static final DirectionProperty FACING;
 
     public BrewingKegBlock(Settings settings) {
         super(settings);
-        this.setDefaultState((BlockState)((BlockState)((BlockState)((BlockState)this.getStateManager().getDefaultState()).with(FACING, Direction.NORTH))));
+        this.setDefaultState((BlockState) ((BlockState) this.getStateManager().getDefaultState()).with(FACING, Direction.NORTH));
     }
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         super.appendProperties(builder);
-        builder.add(new Property[]{FACING});
+        builder.add(FACING);
     }
 
     public BlockState rotate(BlockState state, BlockRotation rotation) {
@@ -111,26 +115,21 @@ public class BrewingKegBlock extends BlockWithEntity implements BlockEntityProvi
             }
 
             // Display the fluid amount and capacity only if fluid_amount > 0
-            if (tag.contains("fluid_amount", NbtElement.LONG_TYPE)) {
-                long fluidAmount = tag.getLong("fluid_amount");
+            if (tag.contains("TankContent", NbtElement.COMPOUND_TYPE)) {
+                NbtCompound tankContent = tag.getCompound("TankContent");
+                long fluidAmount = tankContent.getLong("Amount");
                 if (fluidAmount > 0) { // Only show fluid-related tooltips if fluid_amount is greater than 0
-                    long capacity = tag.contains("capacity", NbtElement.LONG_TYPE) ? tag.getLong("capacity") : 0L;
+                    long capacity = tankContent.getLong("Capacity");
 
                     // Display the fluid name
-                    if (tag.contains("fluid_variant", NbtElement.COMPOUND_TYPE)) {
-                        NbtCompound fluidVariantTag = tag.getCompound("fluid_variant");
-                        FluidVariant fluidVariant = FluidVariant.fromNbt(fluidVariantTag);
-                        String fluidKey = Registries.FLUID.getId(fluidVariant.getFluid()).toTranslationKey();
-                        MutableText fluidName = Text.translatable("block." + fluidKey);
+                    NbtCompound fluidVariantTag = tankContent.getCompound("Variant");
+                    FluidVariant fluidVariant = FluidVariant.fromNbt(fluidVariantTag);
+                    String fluidKey = Registries.FLUID.getId(fluidVariant.getFluid()).toTranslationKey();
+                    MutableText fluidName = Text.translatable("block." + fluidKey);
 
-                        // Format the tooltip with fluid name, amount, and capacity
-                        MutableText fluidAmountText = UkrainianDelight.i18n("tooltip.fluid_amount", fluidName.getString(), fluidAmount, capacity);
-                        tooltip.add(fluidAmountText.formatted(Formatting.GRAY));
-                    } else {
-                        // If fluid_variant is not present, display the amount without fluid name
-                        MutableText fluidAmountText = UkrainianDelight.i18n("tooltip.fluid_amount_no_fluid", fluidAmount, capacity);
-                        tooltip.add(fluidAmountText.formatted(Formatting.GRAY));
-                    }
+                    // Format the tooltip with fluid name, amount, and capacity
+                    MutableText fluidAmountText = UkrainianDelight.i18n("tooltip.fluid_amount", fluidName.getString(), fluidAmount, capacity);
+                    tooltip.add(fluidAmountText.formatted(Formatting.GRAY));
                 }
             }
         } else {
@@ -146,13 +145,6 @@ public class BrewingKegBlock extends BlockWithEntity implements BlockEntityProvi
             }
         }
     }
-
-
-
-
-
-
-
 
 
     @Override
@@ -222,12 +214,26 @@ public class BrewingKegBlock extends BlockWithEntity implements BlockEntityProvi
         }
     }
 
+    public static void spawnParticles(World world, BlockPos pos, BlockState state) {
+        Random random = world.random;
+        if (world != null) {
+            if (random.nextFloat() < .1f) {
+                double baseX = pos.getX() + .5d + (random.nextDouble() * .4d - .2d);
+                double baseY = pos.getY() + 1.1;
+                double baseZ = pos.getZ() + .5d + (random.nextDouble() * .4d - .2d);
+                // Debug particle spawn
+                // System.out.println("Spawning steam");
+                double motionY = random.nextBoolean() ? .015d : .005d;
+                world.addParticle(ParticleTypesRegistry.STEAM.get(), baseX, baseY, baseZ, .0d, motionY, .0d);
+            }
+        }
+    }
 
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, net.minecraft.util.hit.BlockHitResult hit) {
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (!world.isClient) {
-            NamedScreenHandlerFactory screenHandlerFactory = (BrewingKegBlockEntity) world.getBlockEntity(pos);
+            NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
             if (screenHandlerFactory != null) {
                 player.openHandledScreen(screenHandlerFactory);
             }
@@ -238,7 +244,10 @@ public class BrewingKegBlock extends BlockWithEntity implements BlockEntityProvi
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntities.BREWING_KEG_BLOCK_ENTITY, (world1, pos, state1, blockEntity) -> blockEntity.tick(world1, pos, state1));
+        return checkType(type, ModBlockEntities.BREWING_KEG_BLOCK_ENTITY, (world1, pos, state1, blockEntity) -> {
+            blockEntity.tick(world1, pos, state1);
+            BrewingKegBlock.spawnParticles(world1, pos, state1);
+        });
     }
 
     static {
