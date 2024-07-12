@@ -17,6 +17,8 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.BlockMirror;
+import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -35,7 +37,6 @@ public class BottleBlock extends Block {
     private static final ThreadLocal<Boolean> isRemovingBottle = ThreadLocal.withInitial(() -> false);
 
     static {
-        // Define shapes for different number of bottles here
         SHAPES.put(1, Block.createCuboidShape(6, 0, 6, 10, 15, 10));
         SHAPES.put(2, Block.createCuboidShape(1, 0, 3, 14, 15, 12));
         SHAPES.put(3, Block.createCuboidShape(1, 0, 1, 14, 15, 14));
@@ -66,6 +67,10 @@ public class BottleBlock extends Block {
 
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
+        PlayerEntity player = ctx.getPlayer();
+        if (player != null && !player.isSneaking()) {
+            return null; // Prevent placing the block if the player is not sneaking
+        }
         Direction facing = ctx.getHorizontalPlayerFacing().getOpposite();
         return this.getDefaultState().with(BOTTLES, 1).with(FACING, facing);
     }
@@ -75,8 +80,8 @@ public class BottleBlock extends Block {
         int currentBottles = state.get(BOTTLES);
         ItemStack heldItem = player.getStackInHand(hand);
 
-        // Check if the player is using an empty hand to remove a bottle
-        if (heldItem.isEmpty() && currentBottles > 0) {
+        // Check if the player is using an empty main hand to remove a bottle
+        if (hand == Hand.MAIN_HAND && heldItem.isEmpty() && currentBottles > 0) {
             if (currentBottles == 1) {
                 isRemovingBottle.set(true);
                 world.setBlockState(pos, Blocks.AIR.getDefaultState()); // Break the block when the last bottle is removed
@@ -90,7 +95,7 @@ public class BottleBlock extends Block {
         }
 
         // Check if the player is holding a bottle block item to add a bottle and it matches the current block
-        if (!heldItem.isEmpty() && currentBottles < 6 && heldItem.getItem() == this.asItem()) {
+        if (hand == Hand.MAIN_HAND && !heldItem.isEmpty() && currentBottles < 6 && heldItem.getItem() == this.asItem()) {
             world.setBlockState(pos, state.with(BOTTLES, currentBottles + 1));
             if (!player.isCreative()) {
                 heldItem.decrement(1);
@@ -101,6 +106,8 @@ public class BottleBlock extends Block {
 
         return ActionResult.PASS;
     }
+
+
 
     @Override
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
@@ -117,5 +124,15 @@ public class BottleBlock extends Block {
             ItemStack bottleItemStack = new ItemStack(this.asItem(), count);
             Block.dropStack(world, pos, bottleItemStack);
         }
+    }
+
+    @Override
+    public BlockState rotate(BlockState state, BlockRotation rotation) {
+        return state.with(FACING, rotation.rotate(state.get(FACING)));
+    }
+
+    @Override
+    public BlockState mirror(BlockState state, BlockMirror mirror) {
+        return state.rotate(mirror.getRotation(state.get(FACING)));
     }
 }
