@@ -1,28 +1,23 @@
 {
   "variants": {
-    "jars=1": [
-      { "model": "ukrainian_delight:block/jars/one_jar_jarred_cabbage" },
-      { "model": "ukrainian_delight:block/jars/one_jar_jarred_cabbage", "y": 90 },
-      { "model": "ukrainian_delight:block/jars/one_jar_jarred_cabbage", "y": 180 },
-      { "model": "ukrainian_delight:block/jars/one_jar_jarred_cabbage", "y": 270 }
-    ],
-    "jars=2": [
-      { "model": "ukrainian_delight:block/jars/two_jar_jarred_cabbage" },
-      { "model": "ukrainian_delight:block/jars/two_jar_jarred_cabbage", "y": 90 },
-      { "model": "ukrainian_delight:block/jars/two_jar_jarred_cabbage", "y": 180 },
-      { "model": "ukrainian_delight:block/jars/two_jar_jarred_cabbage", "y": 270 }
-    ],
-    "jars=3": [
-      { "model": "ukrainian_delight:block/jars/three_jar_jarred_cabbage" },
-      { "model": "ukrainian_delight:block/jars/three_jar_jarred_cabbage", "y": 90 },
-      { "model": "ukrainian_delight:block/jars/three_jar_jarred_cabbage", "y": 180 },
-      { "model": "ukrainian_delight:block/jars/three_jar_jarred_cabbage", "y": 270 }
-    ],
-    "jars=4": [
-      { "model": "ukrainian_delight:block/jars/four_jar_jarred_cabbage" },
-      { "model": "ukrainian_delight:block/jars/four_jar_jarred_cabbage", "y": 90 },
-      { "model": "ukrainian_delight:block/jars/four_jar_jarred_cabbage", "y": 180 },
-      { "model": "ukrainian_delight:block/jars/four_jar_jarred_cabbage", "y": 270 }
-    ]
+    "jars=1,facing=north": { "model": "ukrainian_delight:block/jars/one_jar_jarred_cabbage", "particles": "minecraft:block/glass" },
+    "jars=1,facing=east": { "model": "ukrainian_delight:block/jars/one_jar_jarred_cabbage", "y": 90, "particles": "minecraft:block/glass" },
+    "jars=1,facing=south": { "model": "ukrainian_delight:block/jars/one_jar_jarred_cabbage", "y": 180, "particles": "minecraft:block/glass" },
+    "jars=1,facing=west": { "model": "ukrainian_delight:block/jars/one_jar_jarred_cabbage", "y": 270, "particles": "minecraft:block/glass" },
+
+    "jars=2,facing=north": { "model": "ukrainian_delight:block/jars/two_jar_jarred_cabbage", "particles": "minecraft:block/glass" },
+    "jars=2,facing=east": { "model": "ukrainian_delight:block/jars/two_jar_jarred_cabbage", "y": 90, "particles": "minecraft:block/glass" },
+    "jars=2,facing=south": { "model": "ukrainian_delight:block/jars/two_jar_jarred_cabbage", "y": 180, "particles": "minecraft:block/glass" },
+    "jars=2,facing=west": { "model": "ukrainian_delight:block/jars/two_jar_jarred_cabbage", "y": 270, "particles": "minecraft:block/glass" },
+
+    "jars=3,facing=north": { "model": "ukrainian_delight:block/jars/three_jar_jarred_cabbage", "particles": "minecraft:block/glass" },
+    "jars=3,facing=east": { "model": "ukrainian_delight:block/jars/three_jar_jarred_cabbage", "y": 90, "particles": "minecraft:block/glass" },
+    "jars=3,facing=south": { "model": "ukrainian_delight:block/jars/three_jar_jarred_cabbage", "y": 180, "particles": "minecraft:block/glass" },
+    "jars=3,facing=west": { "model": "ukrainian_delight:block/jars/three_jar_jarred_cabbage", "y": 270, "particles": "minecraft:block/glass" },
+
+    "jars=4,facing=north": { "model": "ukrainian_delight:block/jars/four_jar_jarred_cabbage", "particles": "minecraft:block/glass" },
+    "jars=4,facing=east": { "model": "ukrainian_delight:block/jars/four_jar_jarred_cabbage", "y": 90, "particles": "minecraft:block/glass" },
+    "jars=4,facing=south": { "model": "ukrainian_delight:block/jars/four_jar_jarred_cabbage", "y": 180, "particles": "minecraft:block/glass" },
+    "jars=4,facing=west": { "model": "ukrainian_delight:block/jars/four_jar_jarred_cabbage", "y": 270, "particles": "minecraft:block/glass" }
   }
 }
