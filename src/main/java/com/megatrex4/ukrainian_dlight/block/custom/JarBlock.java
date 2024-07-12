@@ -23,6 +23,8 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.BlockMirror;
+import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -59,11 +61,22 @@ public class JarBlock extends Block {
         BlockRenderLayerMap.INSTANCE.putBlock(this, RenderLayer.getCutout());
     }
 
-
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(JARS, FACING);
     }
+
+    @Override
+    public BlockState rotate(BlockState state, BlockRotation rotation) {
+        return state.with(FACING, rotation.rotate(state.get(FACING)));
+    }
+
+    @Override
+    public BlockState mirror(BlockState state, BlockMirror mirror) {
+        return state.rotate(mirror.getRotation(state.get(FACING)));
+    }
+
+
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, ShapeContext context) {
@@ -81,8 +94,8 @@ public class JarBlock extends Block {
         int currentJars = state.get(JARS);
         ItemStack heldItem = player.getStackInHand(hand);
 
-        // Check if the player is using an empty hand to remove a jar
-        if (heldItem.isEmpty() && currentJars > 0) {
+        // Check if the player is using an empty main hand to remove a jar
+        if (hand == Hand.MAIN_HAND && heldItem.isEmpty() && currentJars > 0) {
             if (currentJars == 1) {
                 isRemovingJar.set(true); // Set flag to indicate the jar is being removed
                 world.setBlockState(pos, Blocks.AIR.getDefaultState()); // Break the block when the last jar is removed
@@ -96,7 +109,7 @@ public class JarBlock extends Block {
         }
 
         // Check if the player is holding a jar block item to add a jar and it matches the current block
-        if (!heldItem.isEmpty() && currentJars < 4 && heldItem.getItem() == this.asItem()) {
+        if (hand == Hand.MAIN_HAND && !heldItem.isEmpty() && currentJars < 4 && heldItem.getItem() == this.asItem()) {
             world.setBlockState(pos, state.with(JARS, currentJars + 1));
             if (!player.isCreative()) {
                 heldItem.decrement(1);
@@ -107,6 +120,7 @@ public class JarBlock extends Block {
 
         return ActionResult.PASS;
     }
+
 
     @Override
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
@@ -137,8 +151,6 @@ public class JarBlock extends Block {
         this.tryBreakJar(world, state, pos, entity, 0.3); // 30% chance to break the jar
     }
 
-
-
     private void tryBreakJar(World world, BlockState state, BlockPos pos, Entity entity, double breakChance) {
         if (this.breaksJar(world, entity)) {
             if (!world.isClient && world.random.nextDouble() < breakChance) {
@@ -147,7 +159,6 @@ public class JarBlock extends Block {
             }
         }
     }
-
 
     private void breakJar(World world, BlockPos pos, BlockState state) {
         world.playSound(null, pos, SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.BLOCKS, 0.7F, 0.9F + world.random.nextFloat() * 0.2F);
