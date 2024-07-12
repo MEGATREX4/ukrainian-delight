@@ -60,5 +60,10 @@
   "ukrainian_delight.tooltip.fluid_amount": "%s - %d / %d мБ",
   "ukrainian_delight.tooltip.empty": "Порожньо",
   "ukrainian_delight.tooltip.single_serving": "Містить 1 склянку:",
-  "ukrainian_delight.tooltip.many_servings": "Містить %s склянок:"
+  "ukrainian_delight.tooltip.many_servings": "Містить %s склянок:",
+
+  "ukrainian_delight.tooltip.light_drink": "Легкий напій",
+  "ukrainian_delight.tooltip.mid_drink": "Середній напій",
+  "ukrainian_delight.tooltip.strong_drink": "Міцний напій"
+
 }
