@@ -74,5 +74,10 @@
   "ukrainian_delight.tooltip.fluid_amount": "%s %d / %d mB",
   "ukrainian_delight.tooltip.empty": "Empty",
   "ukrainian_delight.tooltip.single_serving": "Holds 1 drink of:",
-  "ukrainian_delight.tooltip.many_servings": "Holds %s drinks of:"
+  "ukrainian_delight.tooltip.many_servings": "Holds %s drinks of:",
+
+  "ukrainian_delight.tooltip.light_drink": "Light Drink",
+  "ukrainian_delight.tooltip.mid_drink": "Medium Drink",
+  "ukrainian_delight.tooltip.strong_drink": "Strong Drink"
+
 }
