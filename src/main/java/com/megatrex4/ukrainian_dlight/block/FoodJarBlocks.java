@@ -17,7 +17,10 @@ public class FoodJarBlocks {
     public static final Block JAR = registerBlock("jar", new JarBlock(), null);
 
     //JAMS
-    public static final Block APPLE_JAM = registerBlock("apple_jam", new JarBlock(), new FoodComponent.Builder().hunger(4).saturationModifier(0.3f).build());
+    public static final Block APPLE_JAM = registerBlock("apple_jam", new JarBlock(), new FoodComponent.Builder()
+            .hunger(4)
+            .saturationModifier(0.3f)
+            .build());
 
     //JARRED VEGETABLES
     public static final Block JARRED_TOMATOES = registerBlock("jarred_tomatoes", new JarBlock(), new FoodComponent.Builder()
