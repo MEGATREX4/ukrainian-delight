@@ -6,11 +6,9 @@ import com.megatrex4.ukrainian_dlight.networking.ModMessages;
 import com.megatrex4.ukrainian_dlight.recipe.BrewingRecipe;
 import com.megatrex4.ukrainian_dlight.recipe.ModRecipes;
 import com.megatrex4.ukrainian_dlight.screen.BrewingKegScreenHandler;
+import com.megatrex4.ukrainian_dlight.util.CompoundTagUtils;
 import com.megatrex4.ukrainian_dlight.util.FluidStack;
-import com.nhoryzon.mc.farmersdelight.FarmersDelightMod;
-import com.nhoryzon.mc.farmersdelight.entity.block.CookingPotBlockEntity;
-import com.nhoryzon.mc.farmersdelight.registry.ParticleTypesRegistry;
-import com.nhoryzon.mc.farmersdelight.util.CompoundTagUtils;
+
 import io.netty.buffer.Unpooled;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
@@ -495,25 +493,34 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
         ItemStack waterBucketStack = this.getStack(WATER_SLOT);
 
         if (waterBucketStack.getItem() == Items.WATER_BUCKET) {
-            try (Transaction transaction = Transaction.openOuter()) {
-                long amountToAdd = FluidStack.convertDropletsToMb(FluidConstants.BUCKET);
-                long insertedAmount = this.fluidStorage.insert(FluidVariant.of(Fluids.WATER), amountToAdd, transaction);
+            boolean success = this.addWater(1000); // 1000 mb equals one bucket
 
-                if (insertedAmount == amountToAdd) {
-                    // Successfully added water, replace the bucket with an empty one
-                    this.setStack(WATER_SLOT, new ItemStack(Items.BUCKET));
-                    transaction.commit();
-                    markDirty();
-                    sendFluidPacket();
+            if (success) {
+                // Successfully added water, replace the bucket with an empty one
+                this.setStack(WATER_SLOT, new ItemStack(Items.BUCKET));
+                markDirty();
+                sendFluidPacket();
 
-                    // Play water pouring sound effect
-                    if (!this.world.isClient) {
-                        this.world.playSound(null, this.pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                    }
+                // Play water pouring sound effect
+                if (!this.world.isClient) {
+                    this.world.playSound(null, this.pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
                 }
             }
         }
     }
+
+    public boolean addWater(long WaterAmountAdd) {
+        try (Transaction transaction = Transaction.openOuter()) {
+            long insertedAmount = this.fluidStorage.insert(FluidVariant.of(Fluids.WATER), WaterAmountAdd, transaction);
+
+            if (insertedAmount == WaterAmountAdd) {
+                transaction.commit();
+                return true; // Successfully added water
+            }
+        }
+        return false; // Failed to add water
+    }
+
 
 
     private static void transferFluidToFluidStorage(BrewingKegBlockEntity entity) {
@@ -535,8 +542,17 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
         return false;
     }
 
+    public long getWaterAmount() {
+        return fluidStorage.amount;
+    }
 
-    private void sendFluidPacket() {
+    public long getWaterCapacity() {
+        return fluidStorage.getCapacity();
+    }
+
+
+
+    public void sendFluidPacket() {
         PacketByteBuf data = PacketByteBufs.create();
         fluidStorage.variant.toPacket(data);
         data.writeLong(fluidStorage.amount);

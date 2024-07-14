@@ -22,19 +22,22 @@ public class StatusEffectUtil {
         int amplifier = mainEffect.getAmplifier() + 1;
 
         if (player.getInventory().contains(ModTags.LIGHT_DRINK)) {
-            applyWeakness(player, duration / 2, (int) (amplifier * 1.3)); // Convert to int after multiplication
-            applyNausea(player, duration / 2, (int) (amplifier * 1.3)); // Convert to int after multiplication
+            applyWeakness(player, duration / 2, (int) (amplifier * 1.3));
+            applyNausea(player, duration / 2, (int) (amplifier * 1.3));
+            if (RANDOM.nextFloat() < 0.2) {
+                applyBlindness(player, (int) (duration * 0.7), (int) (amplifier * 1.3));
+            }
         } else if (player.getInventory().contains(ModTags.MID_DRINK)) {
-            applyWeakness(player, (int) (duration * 0.7), (int) (amplifier * 1.7)); // Convert to int after multiplication
-            applyNausea(player, (int) (duration * 0.7), (int) (amplifier * 1.7)); // Convert to int after multiplication
-            if (RANDOM.nextFloat() < 0.5) {
-                applyBlindness(player, (int) (duration * 0.7), (int) (amplifier * 1.7)); // Convert to int after multiplication
+            applyWeakness(player, (int) (duration * 0.7), (int) (amplifier * 1.5));
+            applyNausea(player, (int) (duration * 0.7), (int) (amplifier * 1.5));
+            if (RANDOM.nextFloat() < 0.7) {
+                applyBlindness(player, (int) (duration * 0.7), (int) (amplifier * 1.5));
             }
         } else if (player.getInventory().contains(ModTags.STRONG_DRINK)) {
-            applyWeakness(player, (int) (duration * 0.9), (int) (amplifier * 2.2)); // Convert to int after multiplication
-            applyNausea(player, (int) (duration * 0.9), (int) (amplifier * 2.2)); // Convert to int after multiplication
-            if (RANDOM.nextFloat() < 0.7) {
-                applyBlindness(player, (int) (duration * 0.9), (int) (amplifier * 2.2)); // Convert to int after multiplication
+            applyWeakness(player, (int) (duration * 0.9), (int) (amplifier * 1.7));
+            applyNausea(player, (int) (duration * 0.9), (int) (amplifier * 1.7));
+            if (RANDOM.nextFloat() < 0.8) {
+                applyBlindness(player, (int) (duration * 0.9), (int) (amplifier * 2.2));
             }
         }
     }

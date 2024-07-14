@@ -113,7 +113,7 @@ public class DrinkBlockItem extends BlockItem {
                 activeHandlers.remove(this);
 
                 // Optionally, you can unregister from the event here if it supports it
-                // ServerTickEvents.END_SERVER_TICK.unregister(this);
+                ServerTickEvents.END_SERVER_TICK.equals(this);
             }
         }
     }

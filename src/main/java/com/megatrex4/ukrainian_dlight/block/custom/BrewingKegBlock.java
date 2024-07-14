@@ -20,11 +20,14 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registries;
 import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.EnumProperty;
@@ -233,13 +236,89 @@ public class BrewingKegBlock extends BlockWithEntity implements BlockEntityProvi
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (!world.isClient) {
-            NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
-            if (screenHandlerFactory != null) {
-                player.openHandledScreen(screenHandlerFactory);
+            BrewingKegBlockEntity blockEntity = (BrewingKegBlockEntity) world.getBlockEntity(pos);
+            if (blockEntity == null) {
+                return ActionResult.PASS;
             }
+
+            if (hand == Hand.MAIN_HAND) {
+                ItemStack heldItem = player.getStackInHand(hand);
+                if (heldItem.isOf(Items.WATER_BUCKET)) {
+                    return handleWaterBucket(world, pos, player, hand, blockEntity);
+                } else {
+                    return handleContainerFill(world, pos, player, hand, blockEntity);
+                }
+            }
+
+            openScreenForPlayer(state, world, pos, player);
         }
         return ActionResult.SUCCESS;
     }
+
+    private ActionResult handleWaterBucket(World world, BlockPos pos, PlayerEntity player, Hand hand, BrewingKegBlockEntity blockEntity) {
+        ItemStack heldItem = player.getStackInHand(hand);
+        long waterAmount = blockEntity.getWaterAmount();
+        long waterCapacity = blockEntity.getWaterCapacity();
+
+        if (waterAmount + 1000 <= waterCapacity) {
+            blockEntity.addWater(1000);
+            if (!world.isClient) {
+                world.playSound(null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
+            }
+            if (!player.isCreative()) {
+                player.setStackInHand(hand, new ItemStack(Items.BUCKET));
+            }
+            return ActionResult.SUCCESS;
+        }
+        return ActionResult.FAIL;
+    }
+
+    private ActionResult handleContainerFill(World world, BlockPos pos, PlayerEntity player, Hand hand, BrewingKegBlockEntity blockEntity) {
+        ItemStack heldItem = player.getStackInHand(hand);
+        ItemStack requiredContainer = blockEntity.getStack(REQUIRE_CONTAINER);
+
+        if (heldItem.isOf(requiredContainer.getItem())) {
+            ItemStack displayItem = blockEntity.getStack(DRINKS_DISPLAY_SLOT);
+
+            if (!displayItem.isEmpty() && displayItem.getCount() > 0) {
+                ItemStack filledContainer = displayItem.copy();
+                filledContainer.setCount(1);
+
+                displayItem.decrement(1);
+                heldItem.decrement(1);
+
+                if (!giveItemToPlayerOrDrop(world, player, filledContainer)) {
+                    return ActionResult.FAIL;
+                }
+
+                blockEntity.markDirty();
+                blockEntity.sendFluidPacket();
+                return ActionResult.SUCCESS;
+            }
+        }
+        return ActionResult.FAIL;
+    }
+
+    private boolean giveItemToPlayerOrDrop(World world, PlayerEntity player, ItemStack itemStack) {
+        if (!player.getInventory().insertStack(itemStack)) {
+            ItemEntity itemEntity = new ItemEntity(world, player.getX(), player.getY(), player.getZ(), itemStack);
+            world.spawnEntity(itemEntity);
+            return false;
+        }
+        return true;
+    }
+
+    private void openScreenForPlayer(BlockState state, World world, BlockPos pos, PlayerEntity player) {
+        NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
+        if (screenHandlerFactory != null) {
+            player.openHandledScreen(screenHandlerFactory);
+        }
+    }
+
+
+
+
+
 
     @Nullable
     @Override
