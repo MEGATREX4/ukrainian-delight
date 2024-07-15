@@ -46,7 +46,7 @@ public class UkrainianDelight implements ModInitializer {
 		ModItems.registerModItems();
 		ModItemGroups.registerItemGroups();
 		ToolTipHelper.registerTooltip();
-		ModBlockEntities.registerBLockEntities();
+		ModBlockEntities.registerBlockEntities();
 		ModScreenHandlers.registerModScreenHandlers();
 		ModMessages.registerS2CPackets();
 		ModRecipes.registerRecipes();
