@@ -70,6 +70,14 @@ public class BrewingKegBlock extends BlockWithEntity implements BlockEntityProvi
         this.setDefaultState((BlockState) ((BlockState) this.getStateManager().getDefaultState()).with(FACING, Direction.NORTH));
     }
 
+
+    @Nullable
+    @Override
+    public NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        return blockEntity instanceof NamedScreenHandlerFactory ? (NamedScreenHandlerFactory) blockEntity : null;
+    }
+
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         super.appendProperties(builder);
@@ -236,68 +244,108 @@ public class BrewingKegBlock extends BlockWithEntity implements BlockEntityProvi
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (!world.isClient) {
+            ItemStack heldItem = player.getStackInHand(hand);
             BrewingKegBlockEntity blockEntity = (BrewingKegBlockEntity) world.getBlockEntity(pos);
+
             if (blockEntity == null) {
                 return ActionResult.PASS;
             }
 
             if (hand == Hand.MAIN_HAND) {
-                ItemStack heldItem = player.getStackInHand(hand);
                 if (heldItem.isOf(Items.WATER_BUCKET)) {
-                    return handleWaterBucket(world, pos, player, hand, blockEntity);
+                    long waterAmount = blockEntity.getWaterAmount();
+                    long waterCapacity = blockEntity.getWaterCapacity();
+
+                    if (waterAmount + 1000 <= waterCapacity) {
+                        blockEntity.addWater(1000);
+                        if (!world.isClient) {
+                            world.playSound(null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                        }
+                        if (!player.isCreative()) {
+                            player.setStackInHand(hand, new ItemStack(Items.BUCKET));
+                        }
+                        return ActionResult.SUCCESS;
+                    }
                 } else {
-                    return handleContainerFill(world, pos, player, hand, blockEntity);
+                    ItemStack requiredContainer = blockEntity.getStack(REQUIRE_CONTAINER);
+
+                    if (heldItem.isOf(requiredContainer.getItem())) {
+                        ItemStack displayItem = blockEntity.getStack(DRINKS_DISPLAY_SLOT);
+
+                        if (!displayItem.isEmpty() && displayItem.getCount() > 0) {
+
+                            ItemStack filledContainer = displayItem.copy(); // Use the display item as the filled container
+                            filledContainer.setCount(1);
+
+                            displayItem.decrement(1);
+                            heldItem.decrement(1);
+
+                            // Attempt to give the filled container to the player
+                            if (!player.getInventory().insertStack(filledContainer)) {
+                                // If player inventory is full, spawn it as an entity at player's position
+                                ItemEntity itemEntity = new ItemEntity(world, player.getX(), player.getY(), player.getZ(), filledContainer);
+                                world.spawnEntity(itemEntity);
+                            }
+
+                            blockEntity.markDirty();
+                            blockEntity.sendFluidPacket();
+                            return ActionResult.SUCCESS;
+                        }
+                    }
                 }
             }
 
-            openScreenForPlayer(state, world, pos, player);
+            NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
+            if (screenHandlerFactory != null) {
+                player.openHandledScreen(screenHandlerFactory);
+            }
         }
         return ActionResult.SUCCESS;
     }
 
-    private ActionResult handleWaterBucket(World world, BlockPos pos, PlayerEntity player, Hand hand, BrewingKegBlockEntity blockEntity) {
-        ItemStack heldItem = player.getStackInHand(hand);
-        long waterAmount = blockEntity.getWaterAmount();
-        long waterCapacity = blockEntity.getWaterCapacity();
-
-        if (waterAmount + 1000 <= waterCapacity) {
-            blockEntity.addWater(1000);
-            if (!world.isClient) {
-                world.playSound(null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
-            }
-            if (!player.isCreative()) {
-                player.setStackInHand(hand, new ItemStack(Items.BUCKET));
-            }
-            return ActionResult.SUCCESS;
-        }
-        return ActionResult.FAIL;
-    }
-
-    private ActionResult handleContainerFill(World world, BlockPos pos, PlayerEntity player, Hand hand, BrewingKegBlockEntity blockEntity) {
-        ItemStack heldItem = player.getStackInHand(hand);
-        ItemStack requiredContainer = blockEntity.getStack(REQUIRE_CONTAINER);
-
-        if (heldItem.isOf(requiredContainer.getItem())) {
-            ItemStack displayItem = blockEntity.getStack(DRINKS_DISPLAY_SLOT);
-
-            if (!displayItem.isEmpty() && displayItem.getCount() > 0) {
-                ItemStack filledContainer = displayItem.copy();
-                filledContainer.setCount(1);
-
-                displayItem.decrement(1);
-                heldItem.decrement(1);
-
-                if (!giveItemToPlayerOrDrop(world, player, filledContainer)) {
-                    return ActionResult.FAIL;
-                }
-
-                blockEntity.markDirty();
-                blockEntity.sendFluidPacket();
-                return ActionResult.SUCCESS;
-            }
-        }
-        return ActionResult.FAIL;
-    }
+//    private ActionResult handleWaterBucket(World world, BlockPos pos, PlayerEntity player, Hand hand, BrewingKegBlockEntity blockEntity) {
+//        ItemStack heldItem = player.getStackInHand(hand);
+//        long waterAmount = blockEntity.getWaterAmount();
+//        long waterCapacity = blockEntity.getWaterCapacity();
+//
+//        if (waterAmount + 1000 <= waterCapacity) {
+//            blockEntity.addWater(1000);
+//            if (!world.isClient) {
+//                world.playSound(null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
+//            }
+//            if (!player.isCreative()) {
+//                player.setStackInHand(hand, new ItemStack(Items.BUCKET));
+//            }
+//            return ActionResult.SUCCESS;
+//        }
+//        return ActionResult.FAIL;
+//    }
+//
+//    private ActionResult handleContainerFill(World world, BlockPos pos, PlayerEntity player, Hand hand, BrewingKegBlockEntity blockEntity) {
+//        ItemStack heldItem = player.getStackInHand(hand);
+//        ItemStack requiredContainer = blockEntity.getStack(REQUIRE_CONTAINER);
+//
+//        if (heldItem.isOf(requiredContainer.getItem())) {
+//            ItemStack displayItem = blockEntity.getStack(DRINKS_DISPLAY_SLOT);
+//
+//            if (!displayItem.isEmpty() && displayItem.getCount() > 0) {
+//                ItemStack filledContainer = displayItem.copy();
+//                filledContainer.setCount(1);
+//
+//                displayItem.decrement(1);
+//                heldItem.decrement(1);
+//
+//                if (!giveItemToPlayerOrDrop(world, player, filledContainer)) {
+//                    return ActionResult.FAIL;
+//                }
+//
+//                blockEntity.markDirty();
+//                blockEntity.sendFluidPacket();
+//                return ActionResult.SUCCESS;
+//            }
+//        }
+//        return ActionResult.FAIL;
+//    }
 
     private boolean giveItemToPlayerOrDrop(World world, PlayerEntity player, ItemStack itemStack) {
         if (!player.getInventory().insertStack(itemStack)) {
@@ -308,12 +356,6 @@ public class BrewingKegBlock extends BlockWithEntity implements BlockEntityProvi
         return true;
     }
 
-    private void openScreenForPlayer(BlockState state, World world, BlockPos pos, PlayerEntity player) {
-        NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
-        if (screenHandlerFactory != null) {
-            player.openHandledScreen(screenHandlerFactory);
-        }
-    }
 
 
 
