@@ -34,7 +34,7 @@ import java.util.List;
 public class FluidStackRenderer implements IIngredientRenderer<FluidStack> {
     private static final NumberFormat nf = NumberFormat.getIntegerInstance();
     public final long capacityMb;
-    public final long ItemCapacityMb;
+    public final long ItemCapacityMb = FluidStack.convertDropletsToMb(FluidConstants.BUCKET) * 50;
     private final TooltipMode tooltipMode;
     private final int width;
     private final int height;
