@@ -2,11 +2,16 @@ package com.megatrex4.ukrainian_dlight.screen;
 
 import com.megatrex4.ukrainian_dlight.UkrainianDelight;
 import com.megatrex4.ukrainian_dlight.block.entity.BrewingKegBlockEntity;
+import com.megatrex4.ukrainian_dlight.screen.renderer.FluidStackRenderer;
+import com.megatrex4.ukrainian_dlight.util.FluidStack;
+import com.megatrex4.ukrainian_dlight.util.MouseUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
@@ -21,6 +26,7 @@ import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class BrewingKegScreen extends HandledScreen<BrewingKegScreenHandler> {
     private static final Identifier TEXTURE = new Identifier(UkrainianDelight.MOD_ID, "textures/gui/brewing_keg_gui.png");
@@ -35,6 +41,8 @@ public class BrewingKegScreen extends HandledScreen<BrewingKegScreenHandler> {
 
     public static final int INVENTORY_SIZE = OUTPUT_SLOT + 1;
 
+    private FluidStackRenderer fluidStackRenderer;
+
 
     public BrewingKegScreen(BrewingKegScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
@@ -45,6 +53,11 @@ public class BrewingKegScreen extends HandledScreen<BrewingKegScreenHandler> {
         super.init();
         titleX = 53;
         playerInventoryTitleY = 1000;
+        assignFluidStackRenderer();
+    }
+
+    private void assignFluidStackRenderer() {
+        fluidStackRenderer = new FluidStackRenderer(FluidStack.convertDropletsToMb(FluidConstants.BUCKET) * 50, true, 16, 40);
     }
 
     @Override
@@ -58,8 +71,17 @@ public class BrewingKegScreen extends HandledScreen<BrewingKegScreenHandler> {
         context.drawTexture(TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight);
 
         renderProgressBar(context, x, y);
-        renderWaterLevel(context, x, y);
+
+        // Use the instance to call drawFluid
+        fluidStackRenderer.drawFluid(context, handler.fluidStack, x + 30, y + 12, 16, 40,
+                FluidStack.convertDropletsToMb(FluidConstants.BUCKET) * 50);
     }
+
+
+    protected void renderTooltip(MatrixStack matrices, List<Text> text, int x, int y) {
+        this.renderTooltip(matrices, text, x, y);
+    }
+
 
     private void renderProgressBar(DrawContext context, int x, int y) {
         if (handler.isCrafting()) {
@@ -67,13 +89,6 @@ public class BrewingKegScreen extends HandledScreen<BrewingKegScreenHandler> {
         }
     }
 
-    private void renderWaterLevel(DrawContext context, int x, int y) {
-        int waterLevelHeight = handler.getScaledWaterLevel();
-        int maxWaterLevelHeight = 40; // Maximum height of the water level indicator
-        int waterBarY = 12 + (maxWaterLevelHeight - waterLevelHeight); // Adjust Y position to start from the bottom
-
-        context.drawTexture(TEXTURE, x + 30, y + waterBarY, 178, 35, 17, waterLevelHeight);
-    }
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
@@ -127,33 +142,19 @@ public class BrewingKegScreen extends HandledScreen<BrewingKegScreenHandler> {
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
 
-        if (isMouseOverTankArea(mouseX, mouseY, x, y)) {
-            List<Text> tooltip = getTankTooltip();
+        if (isMouseAboveArea(mouseX, mouseY, x, y, 30, 12, fluidStackRenderer)) {
+            List<Text> tooltip = fluidStackRenderer.getTooltip(handler.fluidStack, TooltipContext.Default.BASIC);
             context.drawTooltip(textRenderer, tooltip, mouseX, mouseY);
         }
     }
 
-    private boolean isMouseOverTankArea(int mouseX, int mouseY, int x, int y) {
-        int tankX = x + 30;
-        int tankY = y + 12;
-        int tankWidth = 16;
-        int tankHeight = 40;
 
-        return mouseX >= tankX && mouseX < tankX + tankWidth && mouseY >= tankY && mouseY < tankY + tankHeight;
+    private boolean isMouseAboveArea(int pMouseX, int pMouseY, int x, int y, int offsetX, int offsetY, FluidStackRenderer renderer) {
+        return MouseUtil.isMouseOver(pMouseX, pMouseY, x + offsetX, y + offsetY, renderer.getWidth(), renderer.getHeight());
     }
 
-    private List<Text> getTankTooltip() {
-        long fluidAmount = handler.fluidStack.amount;
-        long maxFluidAmount = handler.getCapacity(); // Ensure this method exists in your handler
-        MutableText fluidName = Text.translatable("block." + Registries.FLUID.getId(handler.fluidStack.fluidVariant.getFluid()).toTranslationKey());
-
-        if (fluidAmount > 0) {
-            return List.of(
-                    fluidName,
-                    UkrainianDelight.i18n("tooltip.tank_amount", fluidAmount, maxFluidAmount).formatted(Formatting.GRAY)
-            );
-        } else {
-            return List.of(UkrainianDelight.i18n("tooltip.tank_empty"));
-        }
+    private boolean isMouseAboveArea(int pMouseX, int pMouseY, int x, int y, int offsetX, int offsetY, int width, int height) {
+        return MouseUtil.isMouseOver(pMouseX, pMouseY, x + offsetX, y + offsetY, width, height);
     }
+
 }

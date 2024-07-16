@@ -52,7 +52,8 @@
   "gui.ukrainian_delight.brewing_keg": "Бродило",
   "death.attack.glass_damage": "%s був не обережний зі склом",
 
-  "ukrainian_delight.tooltip.tank_amount": "%d / %d мБ",
+  "ukrainian_delight.tooltip.tank_amount_with_capacity": "%d / %d мБ",
+  "ukrainian_delight.tooltip.tank_amount": "%d мБ",
   "ukrainian_delight.tooltip.tank_empty": "Порожньо",
 
   "ukrainian_delight.tooltip.slot_item": "Розливається в: %s",

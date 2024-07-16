@@ -66,12 +66,14 @@
   "amplifier.9": " IX",
   "amplifier.10": " X",
 
-  "ukrainian_delight.tooltip.tank_amount": "%d / %d mB",
+  "ukrainian_delight.tooltip.tank_amount_with_capacity": "%d / %d mB",
+  "ukrainian_delight.tooltip.tank_amount": "%d mB",
   "ukrainian_delight.tooltip.tank_empty": "Empty",
 
   "ukrainian_delight.tooltip.slot_item": "Poured into %s",
 
-  "ukrainian_delight.tooltip.fluid_amount": "%s %d / %d mB",
+  "ukrainian_delight.tooltip.item_amout_with_capacity": "[%s] %d / %d mB",
+  "ukrainian_delight.tooltip.item_tank_amount": "[%s] %d mB",
   "ukrainian_delight.tooltip.empty": "Empty",
   "ukrainian_delight.tooltip.single_serving": "Holds 1 drink of:",
   "ukrainian_delight.tooltip.many_servings": "Holds %s drinks of:",

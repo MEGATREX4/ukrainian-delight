@@ -3,7 +3,9 @@ package com.megatrex4.ukrainian_dlight.block.custom;
 import com.megatrex4.ukrainian_dlight.UkrainianDelight;
 import com.megatrex4.ukrainian_dlight.block.entity.BrewingKegBlockEntity;
 import com.megatrex4.ukrainian_dlight.block.entity.ModBlockEntities;
+import com.megatrex4.ukrainian_dlight.screen.renderer.FluidStackRenderer;
 import com.megatrex4.ukrainian_dlight.util.CompoundTagUtils;
+import com.megatrex4.ukrainian_dlight.util.FluidStack;
 import com.nhoryzon.mc.farmersdelight.registry.ParticleTypesRegistry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -102,7 +104,7 @@ public class BrewingKegBlock extends BlockWithEntity implements BlockEntityProvi
 
 
     @Override
-    @Environment(value = EnvType.CLIENT)
+    @Environment(EnvType.CLIENT)
     public void appendTooltip(ItemStack stack, @Nullable BlockView world, List<Text> tooltip, TooltipContext options) {
         super.appendTooltip(stack, world, tooltip, options);
         NbtCompound tag = stack.getSubNbt("BlockEntityTag");
@@ -128,34 +130,32 @@ public class BrewingKegBlock extends BlockWithEntity implements BlockEntityProvi
             // Display the fluid amount and capacity only if fluid_amount > 0
             if (tag.contains("TankContent", NbtElement.COMPOUND_TYPE)) {
                 NbtCompound tankContent = tag.getCompound("TankContent");
-                long fluidAmount = tankContent.getLong("Amount");
-                if (fluidAmount > 0) { // Only show fluid-related tooltips if fluid_amount is greater than 0
-                    long capacity = tankContent.getLong("Capacity");
 
-                    // Display the fluid name
-                    NbtCompound fluidVariantTag = tankContent.getCompound("Variant");
-                    FluidVariant fluidVariant = FluidVariant.fromNbt(fluidVariantTag);
-                    String fluidKey = Registries.FLUID.getId(fluidVariant.getFluid()).toTranslationKey();
-                    MutableText fluidName = Text.translatable("block." + fluidKey);
+                // Create a FluidStack from NBT data
+                FluidStack fluidStack = createFluidStackFromNbt(tankContent); // Replace with your actual method
 
-                    // Format the tooltip with fluid name, amount, and capacity
-                    MutableText fluidAmountText = UkrainianDelight.i18n("tooltip.fluid_amount", fluidName.getString(), fluidAmount, capacity);
-                    tooltip.add(fluidAmountText.formatted(Formatting.GRAY));
-                }
+                // Render fluid tooltips using your FluidStackRenderer
+                FluidStackRenderer fluidRenderer = new FluidStackRenderer();
+                List<Text> fluidTooltip = fluidRenderer.getItemTooltip(fluidStack, TooltipContext.Default.BASIC);
+
+                // Add the fluid-related tooltips to the main tooltip list
+                tooltip.addAll(fluidTooltip);
             }
         } else {
             tooltip.add(UkrainianDelight.i18n("tooltip.empty").formatted(Formatting.GRAY));
         }
 
         // Remove the last "block.minecraft.empty" tooltip if present
-        Iterator<Text> iterator = tooltip.iterator();
-        while (iterator.hasNext()) {
-            Text text = iterator.next();
-            if (text.getString().equals("block.minecraft.empty")) {
-                iterator.remove();
-            }
-        }
+        tooltip.removeIf(text -> text.getString().equals("block.minecraft.empty"));
     }
+
+    // Example method to create FluidStack from NBT data
+    private FluidStack createFluidStackFromNbt(NbtCompound tag) {
+        FluidVariant fluidVariant = FluidVariant.fromNbt(tag.getCompound("Variant"));
+        long amount = tag.getLong("Amount");
+        return new FluidStack(fluidVariant, amount);
+    }
+
 
 
     @Override
@@ -303,49 +303,6 @@ public class BrewingKegBlock extends BlockWithEntity implements BlockEntityProvi
         return ActionResult.SUCCESS;
     }
 
-//    private ActionResult handleWaterBucket(World world, BlockPos pos, PlayerEntity player, Hand hand, BrewingKegBlockEntity blockEntity) {
-//        ItemStack heldItem = player.getStackInHand(hand);
-//        long waterAmount = blockEntity.getWaterAmount();
-//        long waterCapacity = blockEntity.getWaterCapacity();
-//
-//        if (waterAmount + 1000 <= waterCapacity) {
-//            blockEntity.addWater(1000);
-//            if (!world.isClient) {
-//                world.playSound(null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
-//            }
-//            if (!player.isCreative()) {
-//                player.setStackInHand(hand, new ItemStack(Items.BUCKET));
-//            }
-//            return ActionResult.SUCCESS;
-//        }
-//        return ActionResult.FAIL;
-//    }
-//
-//    private ActionResult handleContainerFill(World world, BlockPos pos, PlayerEntity player, Hand hand, BrewingKegBlockEntity blockEntity) {
-//        ItemStack heldItem = player.getStackInHand(hand);
-//        ItemStack requiredContainer = blockEntity.getStack(REQUIRE_CONTAINER);
-//
-//        if (heldItem.isOf(requiredContainer.getItem())) {
-//            ItemStack displayItem = blockEntity.getStack(DRINKS_DISPLAY_SLOT);
-//
-//            if (!displayItem.isEmpty() && displayItem.getCount() > 0) {
-//                ItemStack filledContainer = displayItem.copy();
-//                filledContainer.setCount(1);
-//
-//                displayItem.decrement(1);
-//                heldItem.decrement(1);
-//
-//                if (!giveItemToPlayerOrDrop(world, player, filledContainer)) {
-//                    return ActionResult.FAIL;
-//                }
-//
-//                blockEntity.markDirty();
-//                blockEntity.sendFluidPacket();
-//                return ActionResult.SUCCESS;
-//            }
-//        }
-//        return ActionResult.FAIL;
-//    }
 
     private boolean giveItemToPlayerOrDrop(World world, PlayerEntity player, ItemStack itemStack) {
         if (!player.getInventory().insertStack(itemStack)) {
@@ -355,11 +312,6 @@ public class BrewingKegBlock extends BlockWithEntity implements BlockEntityProvi
         }
         return true;
     }
-
-
-
-
-
 
 
     @Nullable

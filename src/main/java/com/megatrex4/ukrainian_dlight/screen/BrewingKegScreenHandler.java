@@ -58,6 +58,9 @@ public class BrewingKegScreenHandler extends ScreenHandler {
         tileEntity.onOpen(playerInventory.player);
         this.propertyDelegate = arrayPropertyDelegate;
         this.blockEntity = ((BrewingKegBlockEntity) blockEntity);
+
+        // Ensure you provide capacity value
+        long capacity = ((BrewingKegBlockEntity) blockEntity).fluidStorage.getCapacity(); // Updated line
         this.fluidStack = new FluidStack(((BrewingKegBlockEntity) blockEntity).fluidStorage.variant, ((BrewingKegBlockEntity) blockEntity).fluidStorage.amount);
 
         // Add 6 ingredient slots
@@ -87,7 +90,8 @@ public class BrewingKegScreenHandler extends ScreenHandler {
             }
         });
 
-        // Add drinks display slot
+
+    // Add drinks display slot
         this.addSlot(new Slot(tileEntity, DRINKS_DISPLAY_SLOT, 131, 28) {
             @Override
             public boolean canInsert(ItemStack stack) {
