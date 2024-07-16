@@ -29,6 +29,7 @@ import java.util.List;
 
 // CREDIT: https://github.com/mezz/JustEnoughItems by mezz (Forge Version)
 // HIGHLY EDITED VERSION FOR FABRIC by Kaupenjoe
+// UPDATE for my porpose by MEGATREX4
 // Under MIT-License: https://github.com/mezz/JustEnoughItems/blob/1.18/LICENSE.txt
 public class FluidStackRenderer implements IIngredientRenderer<FluidStack> {
     private static final NumberFormat nf = NumberFormat.getIntegerInstance();
