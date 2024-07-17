@@ -80,6 +80,11 @@
 
   "ukrainian_delight.tooltip.light_drink": "Light Drink",
   "ukrainian_delight.tooltip.mid_drink": "Medium Drink",
-  "ukrainian_delight.tooltip.strong_drink": "Strong Drink"
+  "ukrainian_delight.tooltip.strong_drink": "Strong Drink",
 
+  "_comment9": "config",
+
+  "ukrainian_delight.title.config": "Ukrainian Delight Configuration",
+  "ukrainian_delight.category.general": "General Settings",
+  "ukrainian_delight.option.brewing_keg_capacity": "Brewing Keg Capacity"
 }
