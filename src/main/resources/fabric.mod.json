@@ -24,6 +24,9 @@
 		],
 		"rei_client": [
 			"com.megatrex4.ukrainian_dlight.compat.UkrainianDeligthREIClientPlugin"
+		],
+		"modmenu": [
+			"com.megatrex4.ukrainian_dlight.compat.UkrainianDelightModMenuIntegration"
 		]
 	},
 	"mixins": [
@@ -37,6 +40,7 @@
 		"farmersdelight": "*"
 	},
 	"suggests": {
-		"another-mod": "*"
+		"modmenu": "*",
+		"cloth-config": "*"
 	}
 }
