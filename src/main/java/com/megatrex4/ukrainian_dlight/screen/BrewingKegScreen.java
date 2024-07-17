@@ -2,6 +2,7 @@ package com.megatrex4.ukrainian_dlight.screen;
 
 import com.megatrex4.ukrainian_dlight.UkrainianDelight;
 import com.megatrex4.ukrainian_dlight.block.entity.BrewingKegBlockEntity;
+import com.megatrex4.ukrainian_dlight.config.ModConfig;
 import com.megatrex4.ukrainian_dlight.screen.renderer.FluidStackRenderer;
 import com.megatrex4.ukrainian_dlight.util.FluidStack;
 import com.megatrex4.ukrainian_dlight.util.MouseUtil;
@@ -57,7 +58,7 @@ public class BrewingKegScreen extends HandledScreen<BrewingKegScreenHandler> {
     }
 
     private void assignFluidStackRenderer() {
-        fluidStackRenderer = new FluidStackRenderer(FluidStack.convertDropletsToMb(FluidConstants.BUCKET) * 50, true, 16, 40);
+        fluidStackRenderer = new FluidStackRenderer(ModConfig.getBrewingKegCapacity(), true, 16, 40);
     }
 
     @Override
@@ -74,7 +75,7 @@ public class BrewingKegScreen extends HandledScreen<BrewingKegScreenHandler> {
 
         // Use the instance to call drawFluid
         fluidStackRenderer.drawFluid(context, handler.fluidStack, x + 30, y + 12, 16, 40,
-                FluidStack.convertDropletsToMb(FluidConstants.BUCKET) * 50);
+                ModConfig.getBrewingKegCapacity());
     }
 
 
