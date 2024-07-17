@@ -11,8 +11,10 @@ base {
 }
 
 repositories {
-	// rei maven
-	maven { url "https://maven.shedaniel.me" }
+	/* REI Integration */
+	maven { url "https://maven.shedaniel.me/" }
+	/* Mod Menu Integration */
+	maven { url "https://maven.terraformersmc.com/releases/" }
 
 	exclusiveContent {
 		forRepository {
@@ -25,12 +27,6 @@ repositories {
 			includeGroup "maven.modrinth"
 		}
 	}
-
-	// Add repositories to retrieve artifacts from in here.
-	// You should only use this when depending on other mods because
-	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
-	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
-	// for more information about repositories.
 }
 
 fabricApi {
@@ -47,11 +43,20 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 	/* REI Integration */
-	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:12.1.725"
-	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:12.1.725"
+	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_api_version}"
+	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
 
 	// Farmers Delight API
-	modImplementation "maven.modrinth:farmers-delight-fabric:1.4.2"
+	modImplementation "maven.modrinth:farmers-delight-fabric:${project.farmersdelight_version}"
+
+	// Mod Menu (optional)
+	modCompileOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
+
+
+	modCompileOnly("me.shedaniel.cloth:cloth-config-fabric:$clothconfig_version") {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
+
 }
 
 processResources {
@@ -78,7 +83,7 @@ java {
 
 jar {
 	from("LICENSE") {
-		rename { "${it}_${project.base.archivesName.get()}"}
+		rename { "${it}_${project.base.archivesName.get()}" }
 	}
 }
 
