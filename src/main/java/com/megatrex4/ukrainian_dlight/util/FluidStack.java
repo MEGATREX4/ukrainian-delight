@@ -33,9 +33,7 @@ public class FluidStack {
         return droplets / DROPLETS_PER_MILLIBUCKET;
     }
 
-
     public static long convertMbToDroplets(long millibuckets) {
         return millibuckets * DROPLETS_PER_MILLIBUCKET;
     }
-
 }

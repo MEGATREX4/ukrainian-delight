@@ -41,7 +41,7 @@ public class ToolTipHelper extends Item {
                     int amplifier = instance.getAmplifier() + 1;
                     String amplifierString = StatusEffectUtil.formatAmplifier(amplifier);
                     String durationString = formatDuration(duration);
-                    tooltip.add(Text.translatable(effectName).append(Text.of(amplifierString)).append(Text.of(" (" + durationString + ") ")).formatted(Formatting.BLUE));
+                    tooltip.add(Text.translatable(effectName).append(Text.of(" " + amplifierString)).append(Text.of(" (" + durationString + ") ")).formatted(Formatting.BLUE));
                 }
             }
         }

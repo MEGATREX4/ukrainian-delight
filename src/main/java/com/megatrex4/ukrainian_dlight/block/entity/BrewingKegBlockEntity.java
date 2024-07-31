@@ -517,13 +517,14 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
 
 
     private static void transferFluidToFluidStorage(BrewingKegBlockEntity entity) {
-        try(Transaction transaction = Transaction.openOuter()) {
-            entity.fluidStorage.insert(FluidVariant.of(Fluids.WATER),
-                    FluidStack.convertMbToDroplets(FluidConstants.BUCKET), transaction);
+        try (Transaction transaction = Transaction.openOuter()) {
+            // Directly insert the fluid in millibuckets
+            entity.fluidStorage.insert(FluidVariant.of(Fluids.WATER), FluidConstants.BUCKET, transaction);
             transaction.commit();
             entity.setStack(0, new ItemStack(Items.BUCKET));
         }
     }
+
 
 
     private boolean hasEnoughFluid() {

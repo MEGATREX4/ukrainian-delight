@@ -86,5 +86,7 @@
 
   "ukrainian_delight.title.config": "Ukrainian Delight Configuration",
   "ukrainian_delight.category.general": "General Settings",
-  "ukrainian_delight.option.brewing_keg_capacity": "Brewing Keg Capacity"
+  "ukrainian_delight.option.brewing_keg_capacity": "Brewing Keg Capacity",
+  "tooltip.ukrainian_delight.brewing_keg_capacity": "%s",
+  "tooltip.ukrainian_delight.brewing_keg_amount": "%s"
 }

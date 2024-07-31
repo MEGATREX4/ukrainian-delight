@@ -17,8 +17,12 @@ public class ClothConfigScreen {
         ConfigEntryBuilder entryBuilder = builder.entryBuilder();
 
         general.addEntry(entryBuilder.startIntField(UkrainianDelight.i18n("option.brewing_keg_capacity"), ModConfig.brewingKegCapacity)
-                .setDefaultValue(20000)
-                .setSaveConsumer(newValue -> ModConfig.brewingKegCapacity = newValue)
+                .setDefaultValue(20)
+                .setSaveConsumer(newValue -> {
+                    ModConfig.brewingKegCapacity = newValue;
+                    // Update config
+                    ModConfig.saveConfig();
+                })
                 .build());
 
         builder.setSavingRunnable(ModConfig::saveConfig);
