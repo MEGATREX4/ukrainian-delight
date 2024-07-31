@@ -77,12 +77,12 @@ public class FluidStackRenderer implements IIngredientRenderer<FluidStack> {
         // Set texture to the block atlas texture
         RenderSystem.setShaderTexture(0, PlayerScreenHandler.BLOCK_ATLAS_TEXTURE);
 
-        // Calculate the height of the fluid based on the current amount
+        // Calculate the height of the fluid based on the current amount in millibuckets
         y += height;
         final Sprite sprite = FluidVariantRendering.getSprite(fluid.getFluidVariant());
         int color = FluidVariantRendering.getColor(fluid.getFluidVariant());
 
-        final int drawHeight = (int) (fluid.getAmount() / (maxCapacity * 1F) * height);
+        final int drawHeight = (int) (FluidStack.convertDropletsToMb(fluid.getAmount()) / (maxCapacity * 1F) * height);
         final int iconHeight = sprite.getContents().getHeight();
         int offsetHeight = drawHeight;
 
@@ -114,6 +114,7 @@ public class FluidStackRenderer implements IIngredientRenderer<FluidStack> {
 
 
 
+
     @Override
     public List<Text> getTooltip(FluidStack fluidStack, TooltipContext tooltipFlag) {
         List<Text> tooltip = new ArrayList<>();
@@ -122,7 +123,7 @@ public class FluidStackRenderer implements IIngredientRenderer<FluidStack> {
             return tooltip;
         }
 
-        long amount = fluidStack.getAmount();
+        long amount = FluidStack.convertDropletsToMb(fluidStack.getAmount()); // Convert amount to Mb
         if (amount > 0) {
             MutableText displayName = Text.translatable("block." + Registries.FLUID.getId(fluidStack.getFluidVariant().getFluid()).toTranslationKey());
             tooltip.add(displayName);
@@ -143,6 +144,7 @@ public class FluidStackRenderer implements IIngredientRenderer<FluidStack> {
 
 
 
+
     // get tooltip for items like [ %s ] - %d / %d mb
     public List<Text> getItemTooltip(FluidStack fluidStack, TooltipContext tooltipFlag) {
         List<Text> tooltip = new ArrayList<>();
@@ -151,7 +153,7 @@ public class FluidStackRenderer implements IIngredientRenderer<FluidStack> {
             return tooltip;
         }
 
-        long amount = fluidStack.getAmount();
+        long amount = FluidStack.convertDropletsToMb(fluidStack.getAmount()); // Convert amount to Mb
         if (amount > 0) {
             MutableText displayName = Text.translatable("block." + Registries.FLUID.getId(fluidStack.getFluidVariant().getFluid()).toTranslationKey());
 
@@ -159,7 +161,7 @@ public class FluidStackRenderer implements IIngredientRenderer<FluidStack> {
                 MutableText amountString = UkrainianDelight.i18n("tooltip.item_amout_with_capacity", displayName, nf.format(amount), nf.format(ItemCapacityMb));
                 tooltip.add(amountString.fillStyle(Style.EMPTY.withColor(Formatting.DARK_GRAY)));
             } else if (tooltipMode == TooltipMode.SHOW_AMOUNT) {
-                MutableText amountString = UkrainianDelight.i18n("tooltip.item_tank_amount",displayName, nf.format(amount));
+                MutableText amountString = UkrainianDelight.i18n("tooltip.item_tank_amount", displayName, nf.format(amount));
                 tooltip.add(amountString.fillStyle(Style.EMPTY.withColor(Formatting.DARK_GRAY)));
             }
         } else {

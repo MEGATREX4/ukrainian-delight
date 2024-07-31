@@ -5,6 +5,7 @@ import com.megatrex4.ukrainian_dlight.util.FluidStack;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -134,7 +135,7 @@ public class BrewingKegScreenHandler extends ScreenHandler {
     }
 
     public int getScaledWaterLevel() {
-        long waterLevel = this.fluidStack.amount;
+        long waterLevel = FluidStack.convertDropletsToMb(this.fluidStack.amount);
         long maxWaterLevel = this.blockEntity.getMaxWaterLevel();
         int waterBarHeight = 40;
 

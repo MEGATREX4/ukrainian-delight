@@ -35,7 +35,6 @@ public class BrewingKegScreen extends HandledScreen<BrewingKegScreenHandler> {
 
     public static final int[] INGREDIENT_SLOTS = {0, 1, 2, 3, 4, 5};
     public static final int CONTAINER_SLOT = 6;
-    public static final int REQUIRE_CONTAINER = 7;
     public static final int WATER_SLOT = 8;
     public static final int DRINKS_DISPLAY_SLOT = 9;
     public static final int OUTPUT_SLOT = 10;
@@ -117,8 +116,8 @@ public class BrewingKegScreen extends HandledScreen<BrewingKegScreenHandler> {
                     }
                     drink.getItem().appendTooltip(drink, handler.blockEntity.getWorld(), tooltip, TooltipContext.Default.BASIC);
 
-                    // Get the item in REQUIRE_CONTAINER (slot ID 7)
-                    ItemStack containerItem = handler.blockEntity.getStack(REQUIRE_CONTAINER);
+                    // Get the item from nbt requireContainer
+                    ItemStack containerItem = handler.blockEntity.getRequiredContainer();
                     String containerName = "";
                     if (!containerItem.isEmpty()) {
                         Item container = containerItem.getItem();

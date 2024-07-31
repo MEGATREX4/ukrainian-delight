@@ -84,7 +84,7 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
 
         @Override
         public long getCapacity(FluidVariant variant) {
-            return com.megatrex4.ukrainian_dlight.config.ModConfig.getBrewingKegCapacity();
+            return FluidStack.convertMbToDroplets(ModConfig.getBrewingKegCapacity());
         }
 
 
@@ -504,9 +504,10 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
 
     public boolean addWater(long WaterAmountAdd) {
         try (Transaction transaction = Transaction.openOuter()) {
-            long insertedAmount = this.fluidStorage.insert(FluidVariant.of(Fluids.WATER), WaterAmountAdd, transaction);
+            long dropletsToAdd = FluidStack.convertMbToDroplets(WaterAmountAdd);
+            long insertedAmount = this.fluidStorage.insert(FluidVariant.of(Fluids.WATER), dropletsToAdd, transaction);
 
-            if (insertedAmount == WaterAmountAdd) {
+            if (insertedAmount == dropletsToAdd) {
                 transaction.commit();
                 return true; // Successfully added water
             }
@@ -531,17 +532,18 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
         Optional<BrewingRecipe> match = getCurrentRecipe();
         if (match.isPresent()) {
             BrewingRecipe recipe = match.get();
-            return fluidStorage.amount >= recipe.getWaterAmount();
+            long requiredFluid = FluidStack.convertMbToDroplets(recipe.getWaterAmount());
+            return fluidStorage.amount >= requiredFluid;
         }
         return false;
     }
 
     public long getWaterAmount() {
-        return fluidStorage.amount;
+        return FluidStack.convertDropletsToMb(fluidStorage.amount);
     }
 
     public long getWaterCapacity() {
-        return fluidStorage.getCapacity();
+        return FluidStack.convertDropletsToMb(fluidStorage.getCapacity());
     }
 
 
