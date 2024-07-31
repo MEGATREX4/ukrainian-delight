@@ -316,11 +316,9 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
 
 
     private void debugFluidLevel() {
-        System.out.println("Fluid Variant: " + fluidStorage.variant.getFluid().toString());
-        System.out.println("Fluid Amount: " + fluidStorage.amount + " mB");
-        System.out.println("Fluid Capacity: " + fluidStorage.getCapacity() + " mB");
+        System.out.println("Fluid: " + fluidStorage.variant.getFluid().toString());
+        System.out.println("Amount: " + fluidStorage.amount + " mB");
     }
-
 
     @Override
     public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
@@ -519,7 +517,7 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
     private static void transferFluidToFluidStorage(BrewingKegBlockEntity entity) {
         try(Transaction transaction = Transaction.openOuter()) {
             entity.fluidStorage.insert(FluidVariant.of(Fluids.WATER),
-                    FluidStack.convertMbToDroplets(FluidConstants.BUCKET), transaction);
+                    FluidStack.convertDropletsToMb(FluidConstants.BUCKET), transaction);
             transaction.commit();
             entity.setStack(0, new ItemStack(Items.BUCKET));
         }

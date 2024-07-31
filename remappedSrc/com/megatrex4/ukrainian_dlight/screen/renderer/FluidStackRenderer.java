@@ -55,7 +55,7 @@ public class FluidStackRenderer implements IIngredientRenderer<FluidStack> {
         this(capacityMb, showCapacity ? TooltipMode.SHOW_AMOUNT_AND_CAPACITY : TooltipMode.SHOW_AMOUNT, width, height);
     }
 
-    public FluidStackRenderer(long capacityMb, TooltipMode tooltipMode, int width, int height) {
+    private FluidStackRenderer(long capacityMb, TooltipMode tooltipMode, int width, int height) {
         Preconditions.checkArgument(capacityMb > 0, "capacity must be > 0");
         Preconditions.checkArgument(width > 0, "width must be > 0");
         Preconditions.checkArgument(height > 0, "height must be > 0");

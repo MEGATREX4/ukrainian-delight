@@ -11,8 +11,6 @@ public class FluidStack {
         this.amount = amount;
     }
 
-    public static final long DROPLETS_PER_MILLIBUCKET = 81;
-
     public FluidVariant getFluidVariant() {
         return fluidVariant;
     }
@@ -30,12 +28,10 @@ public class FluidStack {
     }
 
     public static long convertDropletsToMb(long droplets) {
-        return droplets / DROPLETS_PER_MILLIBUCKET;
+        return (droplets / 81);
     }
 
-
-    public static long convertMbToDroplets(long millibuckets) {
-        return millibuckets * DROPLETS_PER_MILLIBUCKET;
+    public static long convertMbToDroplets(long mb) {
+        return mb * 81;
     }
-
 }
