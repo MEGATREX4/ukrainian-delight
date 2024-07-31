@@ -181,7 +181,7 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
         this.getStack(REQUIRE_CONTAINER).writeNbt(requireContainerTag);
         tag.put("requireContainer", requireContainerTag);
 
-        // Save experienceF
+        // Save experience
         tag.putFloat("TotalExperience", totalExperience);
 
         NbtCompound tankContent = new NbtCompound();
