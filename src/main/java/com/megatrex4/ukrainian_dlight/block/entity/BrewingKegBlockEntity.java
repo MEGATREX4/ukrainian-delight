@@ -671,7 +671,7 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
 
     private void extractFluid(int amount) {
         try (Transaction transaction = Transaction.openOuter()) {
-            this.fluidStorage.extract(FluidVariant.of(Fluids.WATER), amount, transaction);
+            this.fluidStorage.extract(FluidVariant.of(Fluids.WATER), FluidStack.convertMbToDroplets(amount), transaction);
             transaction.commit();
         }
     }
