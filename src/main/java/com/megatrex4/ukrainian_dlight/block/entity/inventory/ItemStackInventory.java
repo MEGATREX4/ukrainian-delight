@@ -1,4 +1,4 @@
-package com.megatrex4.ukrainian_dlight.block.entity;
+package com.megatrex4.ukrainian_dlight.block.entity.inventory;
 
 import com.megatrex4.ukrainian_dlight.util.CompoundTagUtils;
 import com.nhoryzon.mc.farmersdelight.exception.SlotInvalidRangeException;

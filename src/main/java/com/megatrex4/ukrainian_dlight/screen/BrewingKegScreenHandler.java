@@ -26,7 +26,6 @@ public class BrewingKegScreenHandler extends ScreenHandler {
 
     public static final int[] INGREDIENT_SLOTS = {0, 1, 2, 3, 4, 5};
     public static final int CONTAINER_SLOT = 6;
-    public static final int REQUIRE_CONTAINER = 7;
     public static final int WATER_SLOT = 8;
     public static final int DRINKS_DISPLAY_SLOT = 9;
 
@@ -78,18 +77,6 @@ public class BrewingKegScreenHandler extends ScreenHandler {
         this.addSlot(new Slot(tileEntity, CONTAINER_SLOT, 97, 59));
         // Add water slot
         this.addSlot(new Slot(tileEntity, WATER_SLOT, 30, 59));
-        // Add require container slot
-        this.addSlot(new Slot(tileEntity, REQUIRE_CONTAINER, 1000000000, 1000000000) {
-            @Override
-            public boolean canInsert(ItemStack stack) {
-                return false;
-            }
-
-            @Override
-            public boolean canTakeItems(PlayerEntity playerEntity) {
-                return false;
-            }
-        });
 
 
     // Add drinks display slot

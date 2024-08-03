@@ -1,5 +1,6 @@
-package com.megatrex4.ukrainian_dlight.block.entity;
+package com.megatrex4.ukrainian_dlight.block.entity.inventory;
 
+import com.megatrex4.ukrainian_dlight.util.CompoundTagUtils;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
@@ -209,5 +210,14 @@ public interface ImplementedInventory extends SidedInventory {
     @Override
     default boolean canPlayerUse(PlayerEntity player) {
         return true;
+    }
+
+
+    default void readInventoryNbt(NbtCompound tag) {
+        Inventories.readNbt(tag.getCompound(CompoundTagUtils.TAG_KEY_INVENTORY), getItems());
+    }
+
+    default void writeInventoryNbt(NbtCompound tag) {
+        tag.put(CompoundTagUtils.TAG_KEY_INVENTORY, Inventories.writeNbt(new NbtCompound(), getItems()));
     }
 }

@@ -6,6 +6,8 @@ import com.megatrex4.ukrainian_dlight.block.entity.ModBlockEntities;
 import com.megatrex4.ukrainian_dlight.screen.renderer.FluidStackRenderer;
 import com.megatrex4.ukrainian_dlight.util.CompoundTagUtils;
 import com.megatrex4.ukrainian_dlight.util.FluidStack;
+import com.nhoryzon.mc.farmersdelight.entity.block.CookingPotBlockEntity;
+import com.nhoryzon.mc.farmersdelight.registry.BlockEntityTypesRegistry;
 import com.nhoryzon.mc.farmersdelight.registry.ParticleTypesRegistry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -56,7 +58,6 @@ public class BrewingKegBlock extends BlockWithEntity implements BlockEntityProvi
 
     public static final int[] INGREDIENT_SLOTS = {0, 1, 2, 3, 4, 5};
     public static final int CONTAINER_SLOT = 6;
-    public static final int REQUIRE_CONTAINER = 7;
     public static final int WATER_SLOT = 8;
     public static final int DRINKS_DISPLAY_SLOT = 9;
     public static final int OUTPUT_SLOT = 10;
@@ -180,31 +181,30 @@ public class BrewingKegBlock extends BlockWithEntity implements BlockEntityProvi
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof BrewingKegBlockEntity) {
                 BrewingKegBlockEntity brewingKegEntity = (BrewingKegBlockEntity) blockEntity;
+
                 // Create an item stack with the block's item
                 ItemStack itemStack = new ItemStack(this.asItem());
+
                 // Save BlockEntity data to NBT
-                NbtCompound tag = brewingKegEntity.writeToNbtPublic(new NbtCompound()); // Use the public method to get NBT
+                NbtCompound tag = new NbtCompound();
+                brewingKegEntity.writeNbt(tag);
+                System.out.println("Saved BlockEntityTag: " + tag.toString()); // Debug line
                 itemStack.setSubNbt("BlockEntityTag", tag);
 
-                // Save DRINKS_DISPLAY_SLOT to NBT and remove from block entity
+                // Save DisplaySlot to NBT
                 NbtCompound displaySlotTag = new NbtCompound();
                 brewingKegEntity.getStack(DRINKS_DISPLAY_SLOT).writeNbt(displaySlotTag);
+                System.out.println("Saved DisplaySlot: " + displaySlotTag.toString()); // Debug line
                 itemStack.setSubNbt("DisplaySlot", displaySlotTag);
 
-                // Save REQUARE_CONTAINER to NBT and remove from block entity
-                NbtCompound requireContainerTag = new NbtCompound();
-                brewingKegEntity.getStack(REQUIRE_CONTAINER).writeNbt(requireContainerTag);
-                itemStack.setSubNbt("requireContainer", requireContainerTag);
-
-                // Drop items from INGREDIENT_SLOTS (0-7) and WATER_SLOT (9)
+                // Drop items from INGREDIENT_SLOTS, WATER_SLOT, and CONTAINER_SLOT
                 for (int slot : BrewingKegBlockEntity.INGREDIENT_SLOTS) {
-                    if (slot != BrewingKegBlockEntity.WATER_SLOT) { // Skip WATER_SLOT
+                    if (slot != BrewingKegBlockEntity.WATER_SLOT) {
                         dropSlotContents(world, pos, brewingKegEntity, slot);
                     }
                 }
                 dropSlotContents(world, pos, brewingKegEntity, BrewingKegBlockEntity.WATER_SLOT);
-
-                // Drop the OUTPUT_SLOT
+                dropSlotContents(world, pos, brewingKegEntity, BrewingKegBlockEntity.CONTAINER_SLOT);
                 dropSlotContents(world, pos, brewingKegEntity, BrewingKegBlockEntity.OUTPUT_SLOT);
 
                 // Spawn the item entity with the BlockEntityTag and DisplaySlot NBT
@@ -215,6 +215,8 @@ public class BrewingKegBlock extends BlockWithEntity implements BlockEntityProvi
             super.onStateReplaced(state, world, pos, newState, moved);
         }
     }
+
+
 
 
     private void dropSlotContents(World world, BlockPos pos, BrewingKegBlockEntity brewingKegEntity, int slot) {
@@ -267,7 +269,7 @@ public class BrewingKegBlock extends BlockWithEntity implements BlockEntityProvi
                         return ActionResult.SUCCESS;
                     }
                 } else {
-                    ItemStack requiredContainer = blockEntity.getStack(REQUIRE_CONTAINER);
+                    ItemStack requiredContainer = blockEntity.getDrinkContainer();
 
                     if (heldItem.isOf(requiredContainer.getItem())) {
                         ItemStack displayItem = blockEntity.getStack(DRINKS_DISPLAY_SLOT);

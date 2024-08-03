@@ -7,6 +7,8 @@ import com.megatrex4.ukrainian_dlight.screen.renderer.FluidStackRenderer;
 import com.megatrex4.ukrainian_dlight.util.FluidStack;
 import com.megatrex4.ukrainian_dlight.util.MouseUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.nhoryzon.mc.farmersdelight.FarmersDelightMod;
+
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -35,7 +37,6 @@ public class BrewingKegScreen extends HandledScreen<BrewingKegScreenHandler> {
 
     public static final int[] INGREDIENT_SLOTS = {0, 1, 2, 3, 4, 5};
     public static final int CONTAINER_SLOT = 6;
-    public static final int REQUIRE_CONTAINER = 7;
     public static final int WATER_SLOT = 8;
     public static final int DRINKS_DISPLAY_SLOT = 9;
     public static final int OUTPUT_SLOT = 10;
@@ -101,42 +102,13 @@ public class BrewingKegScreen extends HandledScreen<BrewingKegScreenHandler> {
 
     @Override
     protected void drawMouseoverTooltip(DrawContext context, int mouseX, int mouseY) {
-        if (this.handler.getCursorStack().isEmpty() && this.focusedSlot != null) {
-            if (this.focusedSlot.hasStack()) {
-                // Check if the focused slot is DRINKS_DISPLAY_SLOT (slot ID 9)
-                if (this.focusedSlot.id == DRINKS_DISPLAY_SLOT) {
-                    List<Text> tooltip = new ArrayList<>();
-
-                    // Get the item in DRINKS_DISPLAY_SLOT (slot ID 9)
-                    ItemStack drink = this.focusedSlot.getStack();
-                    Text drinkText = drink.getName();
-                    if (drinkText instanceof MutableText mutableName) {
-                        tooltip.add(mutableName.formatted(drink.getRarity().formatting));
-                    } else {
-                        tooltip.add(drinkText);
-                    }
-                    drink.getItem().appendTooltip(drink, handler.blockEntity.getWorld(), tooltip, TooltipContext.Default.BASIC);
-
-                    // Get the item in REQUIRE_CONTAINER (slot ID 7)
-                    ItemStack containerItem = handler.blockEntity.getStack(REQUIRE_CONTAINER);
-                    String containerName = "";
-                    if (!containerItem.isEmpty()) {
-                        Item container = containerItem.getItem();
-                        containerName = Text.translatable(container.getTranslationKey()).getString();
-                    }
-
-                    // Add the localized string with the container name
-                    tooltip.add(UkrainianDelight.i18n("tooltip.slot_item", containerName).formatted(Formatting.GRAY));
-
-                    // Draw the tooltip
-                    context.drawTooltip(textRenderer, tooltip, mouseX, mouseY);
-                } else {
-                    // Draw the typical tooltip for all other slots
-                    context.drawItemTooltip(textRenderer, this.focusedSlot.getStack(), mouseX, mouseY);
-                }
-            }
+        if (this.handler.getCursorStack().isEmpty() && this.focusedSlot != null && this.focusedSlot.hasStack()) {
+            //fix it
+            context.drawItemTooltip(textRenderer, focusedSlot.getStack(), mouseX, mouseY);
         }
     }
+
+
 
 
     protected void drawMouseoverTankTooltip(DrawContext context, int mouseX, int mouseY) {
