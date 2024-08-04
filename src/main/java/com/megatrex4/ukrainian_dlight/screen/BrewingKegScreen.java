@@ -37,9 +37,9 @@ public class BrewingKegScreen extends HandledScreen<BrewingKegScreenHandler> {
 
     public static final int[] INGREDIENT_SLOTS = {0, 1, 2, 3, 4, 5};
     public static final int CONTAINER_SLOT = 6;
-    public static final int WATER_SLOT = 8;
-    public static final int DRINKS_DISPLAY_SLOT = 9;
-    public static final int OUTPUT_SLOT = 10;
+    public static final int WATER_SLOT = 7;
+    public static final int DRINKS_DISPLAY_SLOT = 8;
+    public static final int OUTPUT_SLOT = 9;
 
     public static final int INVENTORY_SIZE = OUTPUT_SLOT + 1;
 

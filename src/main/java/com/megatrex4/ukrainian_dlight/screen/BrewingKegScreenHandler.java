@@ -26,10 +26,10 @@ public class BrewingKegScreenHandler extends ScreenHandler {
 
     public static final int[] INGREDIENT_SLOTS = {0, 1, 2, 3, 4, 5};
     public static final int CONTAINER_SLOT = 6;
-    public static final int WATER_SLOT = 8;
-    public static final int DRINKS_DISPLAY_SLOT = 9;
+    public static final int WATER_SLOT = 7;
+    public static final int DRINKS_DISPLAY_SLOT = 8;
 
-    public static final int OUTPUT_SLOT = 10;
+    public static final int OUTPUT_SLOT = 9;
 
     public static final int INVENTORY_SIZE = OUTPUT_SLOT + 1;
 
@@ -131,53 +131,47 @@ public class BrewingKegScreenHandler extends ScreenHandler {
 
     @Override
     public ItemStack quickMove(PlayerEntity playerIn, int index) {
-        if (index > this.slots.size() - 1) {
+        if (index >= this.slots.size()) {
             return ItemStack.EMPTY;
-        } else {
-            ItemStack itemStack = ItemStack.EMPTY;
-            Slot slot = this.slots.get(index);
-            if (slot.hasStack()) {
-                ItemStack slotItemStack = slot.getStack();
-                itemStack = slotItemStack.copy();
+        }
 
-                if (index == OUTPUT_SLOT) {
-                    // Transfer items from OUTPUT_SLOT to player inventory
-                    if (!this.insertItem(slotItemStack, 11, 47, true)) {
-                        return ItemStack.EMPTY;
-                    }
-                    slot.onQuickTransfer(slotItemStack, itemStack);
-                } else if (index >= 11 && index < 47) {
-                    // Transfer items from player inventory
-                    if (slotItemStack.getItem() == Items.WATER_BUCKET) {
-                        if (!this.insertItem(slotItemStack, WATER_SLOT, WATER_SLOT + 1, false)) {
-                            return ItemStack.EMPTY;
-                        }
-                    } else if (!this.insertItem(slotItemStack, 0, 6, false)) {
-                        return ItemStack.EMPTY;
-                    }
-                } else {
-                    // For items in container slots, transfer to player inventory
-                    if (!this.insertItem(slotItemStack, 11, 47, false)) {
-                        return ItemStack.EMPTY;
-                    }
-                }
+        ItemStack itemStack = ItemStack.EMPTY;
+        Slot slot = this.slots.get(index);
 
-                if (slotItemStack.isEmpty()) {
-                    slot.setStack(ItemStack.EMPTY);
-                } else {
-                    slot.markDirty();
-                }
+        if (slot.hasStack()) {
+            ItemStack slotItemStack = slot.getStack();
+            itemStack = slotItemStack.copy();
 
-                if (slotItemStack.getCount() == itemStack.getCount()) {
+            if (index == OUTPUT_SLOT) {
+                // Transfer items from OUTPUT_SLOT to player inventory
+                if (!this.insertItem(slotItemStack, 10, 46, true)) { // Adjusted range to fit the slots size
                     return ItemStack.EMPTY;
                 }
-
-                slot.onTakeItem(playerIn, slotItemStack);
+                slot.onQuickTransfer(slotItemStack, itemStack);
+            } else if (index >= 10 && index < 46) {
+                // Transfer items from player inventory
+                if (slotItemStack.getItem() == Items.WATER_BUCKET) {
+                    if (!this.insertItem(slotItemStack, WATER_SLOT, WATER_SLOT + 1, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                } else if (!this.insertItem(slotItemStack, 0, 10, false)) { // Adjusted range
+                    return ItemStack.EMPTY;
+                }
+            } else if (!this.insertItem(slotItemStack, 10, 46, false)) { // Adjusted range
+                return ItemStack.EMPTY;
             }
 
-            return itemStack;
+            if (slotItemStack.isEmpty()) {
+                slot.setStack(ItemStack.EMPTY);
+            } else {
+                slot.markDirty();
+            }
         }
+
+        return itemStack;
     }
+
+
 
 
 

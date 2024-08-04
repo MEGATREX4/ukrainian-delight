@@ -6,6 +6,8 @@ import com.megatrex4.ukrainian_dlight.block.entity.ModBlockEntities;
 import com.megatrex4.ukrainian_dlight.screen.renderer.FluidStackRenderer;
 import com.megatrex4.ukrainian_dlight.util.CompoundTagUtils;
 import com.megatrex4.ukrainian_dlight.util.FluidStack;
+
+import com.nhoryzon.mc.farmersdelight.block.state.CookingPotSupport;
 import com.nhoryzon.mc.farmersdelight.entity.block.CookingPotBlockEntity;
 import com.nhoryzon.mc.farmersdelight.registry.BlockEntityTypesRegistry;
 import com.nhoryzon.mc.farmersdelight.registry.ParticleTypesRegistry;
@@ -58,9 +60,9 @@ public class BrewingKegBlock extends BlockWithEntity implements BlockEntityProvi
 
     public static final int[] INGREDIENT_SLOTS = {0, 1, 2, 3, 4, 5};
     public static final int CONTAINER_SLOT = 6;
-    public static final int WATER_SLOT = 8;
-    public static final int DRINKS_DISPLAY_SLOT = 9;
-    public static final int OUTPUT_SLOT = 10;
+    public static final int WATER_SLOT = 7;
+    public static final int DRINKS_DISPLAY_SLOT = 8;
+    public static final int OUTPUT_SLOT = 9;
 
     public static final int INVENTORY_SIZE = OUTPUT_SLOT + 1;
 
@@ -199,9 +201,7 @@ public class BrewingKegBlock extends BlockWithEntity implements BlockEntityProvi
 
                 // Drop items from INGREDIENT_SLOTS, WATER_SLOT, and CONTAINER_SLOT
                 for (int slot : BrewingKegBlockEntity.INGREDIENT_SLOTS) {
-                    if (slot != BrewingKegBlockEntity.WATER_SLOT) {
-                        dropSlotContents(world, pos, brewingKegEntity, slot);
-                    }
+                    dropSlotContents(world, pos, brewingKegEntity, slot);
                 }
                 dropSlotContents(world, pos, brewingKegEntity, BrewingKegBlockEntity.WATER_SLOT);
                 dropSlotContents(world, pos, brewingKegEntity, BrewingKegBlockEntity.CONTAINER_SLOT);
@@ -245,64 +245,24 @@ public class BrewingKegBlock extends BlockWithEntity implements BlockEntityProvi
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (!world.isClient) {
-            ItemStack heldItem = player.getStackInHand(hand);
-            BrewingKegBlockEntity blockEntity = (BrewingKegBlockEntity) world.getBlockEntity(pos);
+        ItemStack heldStack = player.getStackInHand(hand);
+        if (!world.isClient() && world.getBlockEntity(pos) instanceof BrewingKegBlockEntity brewingKegBlockEntity) {
+            // Use the instance of BrewingKegBlockEntity to call the method
+            ItemStack serving = brewingKegBlockEntity.useHeldItemOnDrink(heldStack);
 
-            if (blockEntity == null) {
-                return ActionResult.PASS;
-            }
-
-            if (hand == Hand.MAIN_HAND) {
-                if (heldItem.isOf(Items.WATER_BUCKET)) {
-                    long waterAmount = blockEntity.getWaterAmount();
-                    long waterCapacity = blockEntity.getWaterCapacity();
-
-                    if (waterAmount + 1000 <= waterCapacity) {
-                        blockEntity.addWater(1000);
-                        if (!world.isClient) {
-                            world.playSound(null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                        }
-                        if (!player.isCreative()) {
-                            player.setStackInHand(hand, new ItemStack(Items.BUCKET));
-                        }
-                        return ActionResult.SUCCESS;
-                    }
-                } else {
-                    ItemStack requiredContainer = blockEntity.getDrinkContainer();
-
-                    if (heldItem.isOf(requiredContainer.getItem())) {
-                        ItemStack displayItem = blockEntity.getStack(DRINKS_DISPLAY_SLOT);
-
-                        if (!displayItem.isEmpty() && displayItem.getCount() > 0) {
-
-                            ItemStack filledContainer = displayItem.copy(); // Use the display item as the filled container
-                            filledContainer.setCount(1);
-
-                            displayItem.decrement(1);
-                            heldItem.decrement(1);
-
-                            // Attempt to give the filled container to the player
-                            if (!player.getInventory().insertStack(filledContainer)) {
-                                // If player inventory is full, spawn it as an entity at player's position
-                                ItemEntity itemEntity = new ItemEntity(world, player.getX(), player.getY(), player.getZ(), filledContainer);
-                                world.spawnEntity(itemEntity);
-                            }
-
-                            blockEntity.markDirty();
-                            blockEntity.sendFluidPacket();
-                            return ActionResult.SUCCESS;
-                        }
-                    }
+            if (serving != ItemStack.EMPTY) {
+                if (!player.getInventory().insertStack(serving)) {
+                    player.dropItem(serving, false);
+                }
+                world.playSound(null, pos, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, SoundCategory.BLOCKS, 1.f, 1.f);
+            } else {
+                NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
+                if (screenHandlerFactory != null) {
+                    player.openHandledScreen(screenHandlerFactory);
                 }
             }
-
-            NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
-            if (screenHandlerFactory != null) {
-                player.openHandledScreen(screenHandlerFactory);
-            }
         }
-        return ActionResult.SUCCESS;
+        return ActionResult.SUCCESS; // Ensure to return ActionResult.SUCCESS if needed
     }
 
 
@@ -320,7 +280,7 @@ public class BrewingKegBlock extends BlockWithEntity implements BlockEntityProvi
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
         return checkType(type, ModBlockEntities.BREWING_KEG_BLOCK_ENTITY, (world1, pos, state1, blockEntity) -> {
-            blockEntity.tick(world1, pos, state1);
+            blockEntity.tick(world1, pos, state1, (BrewingKegBlockEntity) blockEntity);
             BrewingKegBlock.spawnParticles(world1, pos, state1);
         });
     }
