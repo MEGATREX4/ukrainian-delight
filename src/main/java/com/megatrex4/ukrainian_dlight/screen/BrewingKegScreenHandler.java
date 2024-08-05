@@ -1,6 +1,7 @@
 package com.megatrex4.ukrainian_dlight.screen;
 
 import com.megatrex4.ukrainian_dlight.block.entity.BrewingKegBlockEntity;
+import com.megatrex4.ukrainian_dlight.block.entity.inventory.BrewingKegResultSlot;
 import com.megatrex4.ukrainian_dlight.util.FluidStack;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -46,22 +47,22 @@ public class BrewingKegScreenHandler extends ScreenHandler {
     }
 
     public BrewingKegScreenHandler(int syncId, PlayerInventory tileEntity, PacketByteBuf buf) {
-        this(syncId, tileEntity, tileEntity.player.getWorld().getBlockEntity(buf.readBlockPos()), new ArrayPropertyDelegate(INVENTORY_SIZE));
+        this(syncId, tileEntity, (BrewingKegBlockEntity) tileEntity.player.getWorld().getBlockEntity(buf.readBlockPos()), new ArrayPropertyDelegate(INVENTORY_SIZE));
     }
 
-    public BrewingKegScreenHandler(int syncId, PlayerInventory playerInventory, BlockEntity blockEntity, PropertyDelegate arrayPropertyDelegate) {
-        super(ModScreenHandlers.BREWING_KEG_SCREEN_HANDLER, syncId);
-        checkSize(((Inventory) blockEntity), INVENTORY_SIZE);
 
-        this.tileEntity = ((Inventory) blockEntity);
+    public BrewingKegScreenHandler(int syncId, PlayerInventory playerInventory, BrewingKegBlockEntity blockEntity, PropertyDelegate arrayPropertyDelegate) {
+        super(ModScreenHandlers.BREWING_KEG_SCREEN_HANDLER, syncId);
+        checkSize(blockEntity, INVENTORY_SIZE); // Corrected type casting
+
+        this.tileEntity = blockEntity; // Corrected type casting
         this.player = playerInventory.player;
-        tileEntity.onOpen(playerInventory.player);
         this.propertyDelegate = arrayPropertyDelegate;
-        this.blockEntity = ((BrewingKegBlockEntity) blockEntity);
+        this.blockEntity = blockEntity; // Corrected type casting
 
         // Ensure you provide capacity value
-        long capacity = ((BrewingKegBlockEntity) blockEntity).fluidStorage.getCapacity(); // Updated line
-        this.fluidStack = new FluidStack(((BrewingKegBlockEntity) blockEntity).fluidStorage.variant, ((BrewingKegBlockEntity) blockEntity).fluidStorage.amount);
+        long capacity = blockEntity.fluidStorage.getCapacity();
+        this.fluidStack = new FluidStack(blockEntity.fluidStorage.variant, blockEntity.fluidStorage.amount);
 
         // Add 6 ingredient slots
         int inputStartX = 53;
@@ -74,13 +75,12 @@ public class BrewingKegScreenHandler extends ScreenHandler {
         }
 
         // Add container slot
-        this.addSlot(new Slot(tileEntity, CONTAINER_SLOT, 97, 59));
+        this.addSlot(new Slot(blockEntity, CONTAINER_SLOT, 97, 59));
         // Add water slot
-        this.addSlot(new Slot(tileEntity, WATER_SLOT, 30, 59));
+        this.addSlot(new Slot(blockEntity, WATER_SLOT, 30, 59));
 
-
-    // Add drinks display slot
-        this.addSlot(new Slot(tileEntity, DRINKS_DISPLAY_SLOT, 131, 28) {
+        // Add drinks display slot
+        this.addSlot(new Slot(blockEntity, DRINKS_DISPLAY_SLOT, 131, 28) {
             @Override
             public boolean canInsert(ItemStack stack) {
                 return false;
@@ -92,12 +92,7 @@ public class BrewingKegScreenHandler extends ScreenHandler {
             }
         });
         // Add output slot
-        this.addSlot(new Slot(tileEntity, OUTPUT_SLOT, 131, 59) {
-            @Override
-            public boolean canInsert(ItemStack stack) {
-                return false;
-            }
-        });
+        this.addSlot(new BrewingKegResultSlot(playerInventory.player, blockEntity, OUTPUT_SLOT, 131, 59));
 
         addPlayerInventory(playerInventory);
         addPlayerHotbar(playerInventory);
@@ -129,6 +124,14 @@ public class BrewingKegScreenHandler extends ScreenHandler {
         return maxWaterLevel != 0 && waterLevel != 0 ? (int)(waterLevel * waterBarHeight / maxWaterLevel) : 0;
     }
 
+    public void setInventory(ItemStack[] itemStacks) {
+        for (int i = 0; i < itemStacks.length; i++) {
+            this.slots.get(i).setStack(itemStacks[i]);
+        }
+    }
+
+
+
     @Override
     public ItemStack quickMove(PlayerEntity playerIn, int index) {
         if (index >= this.slots.size()) {
@@ -142,22 +145,36 @@ public class BrewingKegScreenHandler extends ScreenHandler {
             ItemStack slotItemStack = slot.getStack();
             itemStack = slotItemStack.copy();
 
+            // Prevent moving items into DRINKS_DISPLAY_SLOT and OUTPUT_SLOT
+            if (index == DRINKS_DISPLAY_SLOT || index == OUTPUT_SLOT) {
+                return ItemStack.EMPTY;
+            }
+
+            // Handle item transfer from OUTPUT_SLOT to player inventory
             if (index == OUTPUT_SLOT) {
-                // Transfer items from OUTPUT_SLOT to player inventory
-                if (!this.insertItem(slotItemStack, 10, 46, true)) { // Adjusted range to fit the slots size
+                if (!this.insertItem(slotItemStack, 11, Math.min(47, this.slots.size()), true)) { // Ensure range is within bounds
                     return ItemStack.EMPTY;
                 }
                 slot.onQuickTransfer(slotItemStack, itemStack);
-            } else if (index >= 10 && index < 46) {
-                // Transfer items from player inventory
+            }
+            // Handle item transfer from player inventory slots
+            else if (index >= 11 && index < Math.min(47, this.slots.size())) { // Ensure range is within bounds
                 if (slotItemStack.getItem() == Items.WATER_BUCKET) {
                     if (!this.insertItem(slotItemStack, WATER_SLOT, WATER_SLOT + 1, false)) {
                         return ItemStack.EMPTY;
                     }
-                } else if (!this.insertItem(slotItemStack, 0, 10, false)) { // Adjusted range
+                } else if (!this.insertItem(slotItemStack, 0, 6, false)) { // Adjusted range for ingredient slots
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.insertItem(slotItemStack, 10, 46, false)) { // Adjusted range
+            }
+            // Handle transfer from ingredient slots to player inventory
+            else if (index >= 0 && index < 6) { // INGREDIENT_SLOTS
+                if (!this.insertItem(slotItemStack, 11, Math.min(47, this.slots.size()), false)) { // Ensure range is within bounds
+                    return ItemStack.EMPTY;
+                }
+            }
+            // Handle transfer for other slots
+            else if (!this.insertItem(slotItemStack, 11, Math.min(47, this.slots.size()), false)) { // Ensure range is within bounds
                 return ItemStack.EMPTY;
             }
 
@@ -166,10 +183,19 @@ public class BrewingKegScreenHandler extends ScreenHandler {
             } else {
                 slot.markDirty();
             }
+
+            if (slotItemStack.getCount() == itemStack.getCount()) {
+                return ItemStack.EMPTY;
+            }
+
+            slot.onTakeItem(playerIn, slotItemStack);
         }
 
         return itemStack;
     }
+
+
+
 
 
 

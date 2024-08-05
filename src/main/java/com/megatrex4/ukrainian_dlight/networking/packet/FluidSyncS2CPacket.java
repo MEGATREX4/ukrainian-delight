@@ -17,14 +17,15 @@ public class FluidSyncS2CPacket {
         long fluidLevel = buf.readLong();
         BlockPos position = buf.readBlockPos();
 
-        if(client.world.getBlockEntity(position) instanceof BrewingKegBlockEntity blockEntity) {
+        if (client.world.getBlockEntity(position) instanceof BrewingKegBlockEntity blockEntity) {
             blockEntity.setFluidLevel(variant, fluidLevel);
 
-            if(client.player.currentScreenHandler instanceof BrewingKegScreenHandler screenHandler &&
+            if (client.player.currentScreenHandler instanceof BrewingKegScreenHandler screenHandler &&
                     screenHandler.blockEntity.getPos().equals(position)) {
                 blockEntity.setFluidLevel(variant, fluidLevel);
                 screenHandler.setFluid(new FluidStack(variant, fluidLevel));
             }
         }
     }
+
 }

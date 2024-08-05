@@ -19,6 +19,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.SlotActionType;
@@ -103,10 +104,32 @@ public class BrewingKegScreen extends HandledScreen<BrewingKegScreenHandler> {
     @Override
     protected void drawMouseoverTooltip(DrawContext context, int mouseX, int mouseY) {
         if (this.handler.getCursorStack().isEmpty() && this.focusedSlot != null && this.focusedSlot.hasStack()) {
-            //fix it
-            context.drawItemTooltip(textRenderer, focusedSlot.getStack(), mouseX, mouseY);
+            if (focusedSlot.id == BrewingKegBlockEntity.DRINKS_DISPLAY_SLOT) {
+                List<Text> tooltip = new ArrayList<>();
+
+                ItemStack drink = focusedSlot.getStack();
+                Text text = drink.getName();
+                if (text instanceof MutableText mutableName) {
+                    tooltip.add(mutableName.formatted(drink.getRarity().formatting));
+                } else {
+                    tooltip.add(text);
+                }
+                drink.getItem().appendTooltip(drink, handler.blockEntity.getWorld(), tooltip, TooltipContext.Default.BASIC);
+
+                ItemStack containerItem = handler.blockEntity.getDrinkContainer();
+                String container = !containerItem.isEmpty() ? containerItem.getItem().getName().getString() : "";
+
+                tooltip.add(UkrainianDelight.i18n("tooltip.poured", container).formatted(Formatting.GRAY));
+
+                context.drawTooltip(textRenderer, tooltip, mouseX, mouseY);
+            } else {
+                context.drawItemTooltip(textRenderer, focusedSlot.getStack(), mouseX, mouseY);
+            }
         }
     }
+
+
+
 
 
 
@@ -129,5 +152,7 @@ public class BrewingKegScreen extends HandledScreen<BrewingKegScreenHandler> {
     private boolean isMouseAboveArea(int pMouseX, int pMouseY, int x, int y, int offsetX, int offsetY, int width, int height) {
         return MouseUtil.isMouseOver(pMouseX, pMouseY, x + offsetX, y + offsetY, width, height);
     }
+
+
 
 }

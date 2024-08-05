@@ -27,9 +27,6 @@
 		],
 		"modmenu": [
 			"com.megatrex4.ukrainian_dlight.compat.config.ModMenuIntegration"
-		],
-		"jade": [
-			"com.megatrex4.ukrainian_dlight.compat.jade.UkrainianDelightJade"
 		]
 	},
 	"mixins": [

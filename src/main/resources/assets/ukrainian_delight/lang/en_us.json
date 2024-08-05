@@ -70,7 +70,7 @@
   "ukrainian_delight.tooltip.tank_amount": "%d mB",
   "ukrainian_delight.tooltip.tank_empty": "Empty",
 
-  "ukrainian_delight.tooltip.slot_item": "Poured into %s",
+  "ukrainian_delight.tooltip.poured": "Poured into %s",
 
   "ukrainian_delight.tooltip.item_amout_with_capacity": "[%s] %d / %d mB",
   "ukrainian_delight.tooltip.item_tank_amount": "[%s] %d mB",

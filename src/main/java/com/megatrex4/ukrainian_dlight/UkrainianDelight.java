@@ -4,7 +4,6 @@ import com.megatrex4.ukrainian_dlight.block.DrinkBottleBlock;
 import com.megatrex4.ukrainian_dlight.block.FoodJarBlocks;
 import com.megatrex4.ukrainian_dlight.block.ModBlocks;
 import com.megatrex4.ukrainian_dlight.block.entity.ModBlockEntities;
-import com.megatrex4.ukrainian_dlight.compat.jade.UkrainianDelightJade;
 import com.megatrex4.ukrainian_dlight.config.ModConfig;
 //import com.megatrex4.ukrainian_dlight.config.UkrainianDelightConfig;
 import com.megatrex4.ukrainian_dlight.initialize.Initialise;
@@ -15,8 +14,6 @@ import com.megatrex4.ukrainian_dlight.networking.ModMessages;
 import com.megatrex4.ukrainian_dlight.recipe.ModRecipes;
 import com.megatrex4.ukrainian_dlight.screen.ModScreenHandlers;
 import com.megatrex4.ukrainian_dlight.screen.ModScreens;
-import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 
 import net.minecraft.entity.damage.DamageType;
