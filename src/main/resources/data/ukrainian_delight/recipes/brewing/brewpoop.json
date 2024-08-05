@@ -3,7 +3,7 @@
   "container": {
     "item": "minecraft:glass_bottle"
   },
-  "brewingtime": 200,
+  "brewingtime": 20,
   "experience": 100.0,
   "water": 100,
   "ingredients": [

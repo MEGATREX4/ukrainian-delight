@@ -4,10 +4,10 @@ import com.megatrex4.ukrainian_dlight.UkrainianDelight;
 import com.megatrex4.ukrainian_dlight.block.entity.BrewingKegBlockEntity;
 import com.megatrex4.ukrainian_dlight.config.ModConfig;
 import com.megatrex4.ukrainian_dlight.screen.renderer.FluidStackRenderer;
+import com.megatrex4.ukrainian_dlight.util.CompoundTagUtils;
 import com.megatrex4.ukrainian_dlight.util.FluidStack;
 import com.megatrex4.ukrainian_dlight.util.MouseUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.nhoryzon.mc.farmersdelight.FarmersDelightMod;
 
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.minecraft.client.gui.DrawContext;
@@ -20,6 +20,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.Registries;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.SlotActionType;
@@ -116,7 +117,8 @@ public class BrewingKegScreen extends HandledScreen<BrewingKegScreenHandler> {
                 }
                 drink.getItem().appendTooltip(drink, handler.blockEntity.getWorld(), tooltip, TooltipContext.Default.BASIC);
 
-                ItemStack containerItem = handler.blockEntity.getDrinkContainer();
+                // get container name
+                ItemStack containerItem = this.handler.blockEntity.getDrinkContainer();
                 String container = !containerItem.isEmpty() ? containerItem.getItem().getName().getString() : "";
 
                 tooltip.add(UkrainianDelight.i18n("tooltip.poured", container).formatted(Formatting.GRAY));

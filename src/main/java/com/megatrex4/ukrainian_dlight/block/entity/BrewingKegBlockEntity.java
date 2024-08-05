@@ -232,6 +232,8 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
         progress = tag.getInt("progress");
 
         drinkContainer = ItemStack.fromNbt(tag.getCompound(CompoundTagUtils.TAG_KEY_CONTAINER));
+        // debug log drink container
+        System.out.println("BrewingKegBlockEntity: readNbt drinkContainer: " + drinkContainer);
 
         // Load DRINKS_DISPLAY_SLOT
         if (tag.contains("DisplaySlot", NbtType.COMPOUND)) {
@@ -395,6 +397,45 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
     private void playBrewingSound() {
         if (world != null && !world.isClient) {
             world.playSound(null, pos, SoundEvents.BLOCK_BREWING_STAND_BREW, SoundCategory.BLOCKS, 1.0f, 1.0f);
+        }
+    }
+
+
+    private boolean craftItem(BrewingRecipe recipe, int craftedAmount) {
+        if (this.world != null && recipe != null) {
+            ++this.progress;
+            this.maxProgress = recipe.getBrewingTime();
+
+            if (this.progress < this.maxProgress) {
+                return false;
+            } else {
+                this.progress = 0;
+                ItemStack recipeOutput = recipe.craft(this, this.world.getRegistryManager());
+                ItemStack currentOutput = this.getStack(DRINKS_DISPLAY_SLOT);
+
+                drinkContainer = recipe.getContainer();
+
+                if (currentOutput.isEmpty()) {
+                    this.setStack(DRINKS_DISPLAY_SLOT, recipeOutput.copy());
+                } else if (currentOutput.getItem() == recipeOutput.getItem()) {
+                    currentOutput.increment(recipeOutput.getCount());
+                }
+
+                trackRecipeExperience(recipe);
+                // Handle item remainder logic
+                handleRecipeRemainder(recipe);
+
+                // Decrement liquid amount here using extractFluid
+                this.extractFluid(recipe.getWaterAmount());
+
+
+                this.world.playSound(null, this.pos, SoundEvents.BLOCK_FURNACE_FIRE_CRACKLE, SoundCategory.BLOCKS, 1.0F, 1.0F);
+
+                markDirty();
+                return true;
+            }
+        } else {
+            return false;
         }
     }
 
@@ -573,43 +614,7 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
     }
 
 
-    private boolean craftItem(BrewingRecipe recipe, int craftedAmount) {
-        if (this.world != null && recipe != null) {
-            ++this.progress;
-            this.maxProgress = recipe.getBrewingTime();
 
-            if (this.progress < this.maxProgress) {
-                return false;
-            } else {
-                this.progress = 0;
-                ItemStack recipeOutput = recipe.craft(this, this.world.getRegistryManager());
-                ItemStack currentOutput = this.getStack(DRINKS_DISPLAY_SLOT);
-
-                drinkContainer = recipe.getContainer();
-
-                if (currentOutput.isEmpty()) {
-                    this.setStack(DRINKS_DISPLAY_SLOT, recipeOutput.copy());
-                } else if (currentOutput.getItem() == recipeOutput.getItem()) {
-                    currentOutput.increment(recipeOutput.getCount());
-                }
-
-                trackRecipeExperience(recipe);
-                // Handle item remainder logic
-                handleRecipeRemainder(recipe);
-
-                // Decrement liquid amount here using extractFluid
-                this.extractFluid(recipe.getWaterAmount());
-
-
-                this.world.playSound(null, this.pos, SoundEvents.BLOCK_FURNACE_FIRE_CRACKLE, SoundCategory.BLOCKS, 1.0F, 1.0F);
-
-                markDirty();
-                return true;
-            }
-        } else {
-            return false;
-        }
-    }
 
 
 
