@@ -105,35 +105,9 @@ public class BrewingKegScreen extends HandledScreen<BrewingKegScreenHandler> {
     @Override
     protected void drawMouseoverTooltip(DrawContext context, int mouseX, int mouseY) {
         if (this.handler.getCursorStack().isEmpty() && this.focusedSlot != null && this.focusedSlot.hasStack()) {
-            if (focusedSlot.id == BrewingKegBlockEntity.DRINKS_DISPLAY_SLOT) {
-                List<Text> tooltip = new ArrayList<>();
-
-                ItemStack drink = focusedSlot.getStack();
-                Text text = drink.getName();
-                if (text instanceof MutableText mutableName) {
-                    tooltip.add(mutableName.formatted(drink.getRarity().formatting));
-                } else {
-                    tooltip.add(text);
-                }
-                drink.getItem().appendTooltip(drink, handler.blockEntity.getWorld(), tooltip, TooltipContext.Default.BASIC);
-
-                // get container name
-                ItemStack containerItem = this.handler.blockEntity.getDrinkContainer();
-                String container = !containerItem.isEmpty() ? containerItem.getItem().getName().getString() : "";
-
-                tooltip.add(UkrainianDelight.i18n("tooltip.poured", container).formatted(Formatting.GRAY));
-
-                context.drawTooltip(textRenderer, tooltip, mouseX, mouseY);
-            } else {
                 context.drawItemTooltip(textRenderer, focusedSlot.getStack(), mouseX, mouseY);
-            }
         }
     }
-
-
-
-
-
 
 
     protected void drawMouseoverTankTooltip(DrawContext context, int mouseX, int mouseY) {

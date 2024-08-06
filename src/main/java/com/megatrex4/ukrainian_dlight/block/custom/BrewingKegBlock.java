@@ -209,17 +209,6 @@ public class BrewingKegBlock extends BlockWithEntity implements BlockEntityProvi
     }
 
 
-
-//    I refused to use this, everything will be better saved in the block inventory NBT data
-
-//    private void dropSlotContents(World world, BlockPos pos, BrewingKegBlockEntity brewingKegEntity, int slot) {
-//        ItemStack stack = brewingKegEntity.getStack(slot);
-//        if (!stack.isEmpty()) {
-//            ItemScatterer.spawn(world, pos.getX(), pos.getY(), pos.getZ(), stack);
-//            brewingKegEntity.setStack(slot, ItemStack.EMPTY);
-//        }
-//    }
-
     public static void spawnParticles(World world, BlockPos pos, BlockState state) {
         Random random = world.random;
         if (world != null) {
@@ -239,9 +228,7 @@ public class BrewingKegBlock extends BlockWithEntity implements BlockEntityProvi
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         ItemStack heldStack = player.getStackInHand(hand);
-        BrewingKegBlockEntity blockEntity = (BrewingKegBlockEntity) world.getBlockEntity(pos);
         if (!world.isClient() && world.getBlockEntity(pos) instanceof BrewingKegBlockEntity brewingKegBlockEntity) {
-            // Use the instance of BrewingKegBlockEntity to call the method
             ItemStack serving = brewingKegBlockEntity.useHeldItemOnDrink(heldStack);
 
             if (serving != ItemStack.EMPTY) {
@@ -249,31 +236,33 @@ public class BrewingKegBlock extends BlockWithEntity implements BlockEntityProvi
                     player.dropItem(serving, false);
                 }
                 world.playSound(null, pos, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, SoundCategory.BLOCKS, 1.f, 1.f);
+                return ActionResult.SUCCESS;
             }
-            // if player held item water bucket add 1000 mb to brewingKegBlockEntity
-                if (heldStack.isOf(Items.WATER_BUCKET)) {
-                    long waterAmount = blockEntity.getWaterAmount();
-                    long waterCapacity = blockEntity.getWaterCapacity();
-                    if (waterAmount + 1000 <= waterCapacity) {
-                        blockEntity.addWater(1000);
-                        if (!world.isClient) {
-                            world.playSound(null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                        }
-                        if (!player.isCreative()) {
-                            player.setStackInHand(hand, new ItemStack(Items.BUCKET));
-                        }
-                        return ActionResult.SUCCESS;
+
+            if (heldStack.isOf(Items.WATER_BUCKET)) {
+                long waterAmount = brewingKegBlockEntity.getWaterAmount();
+                long waterCapacity = brewingKegBlockEntity.getWaterCapacity();
+                if (waterAmount + 1000 <= waterCapacity) {
+                    brewingKegBlockEntity.addWater(1000);
+                    world.playSound(null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                    if (!player.isCreative()) {
+                        player.setStackInHand(hand, new ItemStack(Items.BUCKET));
                     }
-                } else {
-                    NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
-                    if (screenHandlerFactory != null) {
-                        player.openHandledScreen(screenHandlerFactory);
-                    }
+                    return ActionResult.SUCCESS;
                 }
+            } else {
+                NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
+                if (screenHandlerFactory != null) {
+                    // Open the screen handler and set the container if needed
+                    player.openHandledScreen(screenHandlerFactory);
+                }
+            }
             return ActionResult.SUCCESS;
         }
         return ActionResult.SUCCESS;
     }
+
+
 
 
     private boolean giveItemToPlayerOrDrop(World world, PlayerEntity player, ItemStack itemStack) {
