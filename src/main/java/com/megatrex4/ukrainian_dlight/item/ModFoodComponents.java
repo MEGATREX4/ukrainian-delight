@@ -72,6 +72,18 @@ public class ModFoodComponents {
             .saturationModifier(0.1f)
             .build();
 
+    public static final FoodComponent COTTAGE_CHEESE = new FoodComponent.Builder()
+            .hunger(5)
+            .saturationModifier(0.25f)
+            .build();
+
+    public static final FoodComponent SALO = new FoodComponent.Builder()
+            .hunger(5)
+            .saturationModifier(0.25f)
+            .build();
+
+
+
     // Ensure that the class is initialized
     public static void init() {
         // This method is empty, but it ensures that the class is initialized

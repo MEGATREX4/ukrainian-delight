@@ -54,8 +54,17 @@ public class ModItems {
                     .food(ModFoodComponents.CHERRY_BERRY)
                     .build());
 
+    public static final Item COTTAGE_CHEESE = registerItem("cottage_cheese", new ItemBuilder()
+                    .food(ModFoodComponents.COTTAGE_CHEESE)
+                    .build());
+
+    public static final Item SALO = registerItem("salo", new ItemBuilder()
+                    .food(ModFoodComponents.SALO)
+                    .build());
+
     // Simple items without specifying maxCount, defaults to 64
     public static final Item SALT = registerItem("salt", new ItemBuilder().build());
+    public static final Item YEAST = registerItem("yeast", new ItemBuilder().build());
 
     // Register items
     public static Item registerItem(String name, Item item) {

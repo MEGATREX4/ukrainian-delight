@@ -42,6 +42,10 @@ public class ModItemGroups {
                         entries.add(ModItems.CUTTED_CUCUMBER);
                         entries.add(ModItems.APPLE_SLICE);
                         entries.add(ModItems.DRIED_APPLE_SLICE);
+                        entries.add(ModItems.CHERRY_BERRY);
+                        entries.add(ModItems.COTTAGE_CHEESE);
+                        entries.add(ModItems.SALO);
+                        entries.add(ModItems.YEAST);
                     }).build());
 
     public static final ItemGroup JARS_UKRAINIAN_DELIGHT = Registry.register(Registries.ITEM_GROUP,

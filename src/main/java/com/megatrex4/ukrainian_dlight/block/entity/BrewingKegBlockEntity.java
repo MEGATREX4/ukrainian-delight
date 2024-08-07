@@ -82,7 +82,6 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
     private int maxProgress = 200;  // Adjusted to match the brewing time in the JSON
     private Text customName;
     private ItemStack drinkContainer;
-    private ItemStack lastContainer;
 
 
 
