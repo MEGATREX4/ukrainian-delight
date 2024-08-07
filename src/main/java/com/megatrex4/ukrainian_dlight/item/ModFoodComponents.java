@@ -1,15 +1,15 @@
 package com.megatrex4.ukrainian_dlight.item;
 
-import com.nhoryzon.mc.farmersdelight.registry.EffectsRegistry;
+import vectorwing.farmersdelight.common.registry.ModEffects;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.FoodComponent;
+
 
 public class ModFoodComponents {
     // Retrieve the StatusEffect instances using the EffectsRegistry
-    public static final StatusEffect COMFORT = EffectsRegistry.COMFORT.get();
-    public static final StatusEffect NOURISHMENT = EffectsRegistry.NOURISHMENT.get();
+    public static final StatusEffect COMFORT = ModEffects.COMFORT.get();
+    public static final StatusEffect NOURISHMENT = ModEffects.NOURISHMENT.get();
 
     // MEALS
     public static final FoodComponent VARENYK = new FoodComponent.Builder()

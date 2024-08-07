@@ -1,7 +1,7 @@
 package com.megatrex4.ukrainian_dlight.block.entity.inventory;
 
 import com.megatrex4.ukrainian_dlight.util.CompoundTagUtils;
-import com.nhoryzon.mc.farmersdelight.exception.SlotInvalidRangeException;
+
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;

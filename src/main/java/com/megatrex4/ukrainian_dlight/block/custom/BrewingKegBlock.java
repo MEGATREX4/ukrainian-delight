@@ -7,10 +7,6 @@ import com.megatrex4.ukrainian_dlight.screen.renderer.FluidStackRenderer;
 import com.megatrex4.ukrainian_dlight.util.CompoundTagUtils;
 import com.megatrex4.ukrainian_dlight.util.FluidStack;
 
-import com.nhoryzon.mc.farmersdelight.block.state.CookingPotSupport;
-import com.nhoryzon.mc.farmersdelight.entity.block.CookingPotBlockEntity;
-import com.nhoryzon.mc.farmersdelight.registry.BlockEntityTypesRegistry;
-import com.nhoryzon.mc.farmersdelight.registry.ParticleTypesRegistry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
@@ -219,7 +215,7 @@ public class BrewingKegBlock extends BlockWithEntity implements BlockEntityProvi
                 // Debug particle spawn
                 // System.out.println("Spawning steam");
                 double motionY = random.nextBoolean() ? .015d : .005d;
-                world.addParticle(ParticleTypesRegistry.STEAM.get(), baseX, baseY, baseZ, .0d, motionY, .0d);
+                world.addParticle(ParticleTypes.SMOKE, baseX, baseY, baseZ, .0d, motionY, .0d);
             }
         }
     }
