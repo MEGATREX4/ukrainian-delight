@@ -16,8 +16,6 @@
       "input5": "minecraft:wheat",
       "container": "minecraft:glass_bottle",
       "output": "ukrainian_delight:wine_bottle",
-      "waterAmount": 500,
-      "brewingTime": 200,
       "text": "This is how you use the BrewingKeg to create various beverages. $(br) The input items and container are required for the process, and the result will be displayed as the output item."
     }
   ]

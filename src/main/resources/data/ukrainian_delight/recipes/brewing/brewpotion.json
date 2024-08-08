@@ -1,4 +1,5 @@
 {
+  "type": "ukrainian_delight:brewing",
   "container": {
     "item": "ukrainian_delight:wine_bottle"
   },
@@ -8,6 +9,18 @@
   "ingredients": [
     {
       "item": "minecraft:nether_wart"
+    },
+    {
+      "item": "minecraft:carrot"
+    },
+    {
+      "item": "minecraft:carrot"
+    },
+    {
+      "item": "minecraft:carrot"
+    },
+    {
+      "item": "minecraft:carrot"
     },
     {
       "item": "minecraft:carrot"
