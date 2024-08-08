@@ -312,13 +312,14 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
         handleWaterBucket();
         boolean enoughFluid = hasEnoughFluid();
 
+        // Check if all required slots are filled correctly
         if (blockEntity.hasInput() && enoughFluid) {
             Optional<BrewingRecipe> match = getCurrentRecipe();
             if (match.isPresent()) {
                 BrewingRecipe recipe = match.get();
                 if (blockEntity.canCook(recipe)) {
+                    // Process brewing only if recipe is correct
                     dirty = blockEntity.processBrewing(recipe);
-
                 } else {
                     blockEntity.progress = 0;
                 }
@@ -343,6 +344,7 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
         }
     }
 
+
     private boolean hasInput() {
         for (int i = 0; i < DRINKS_DISPLAY_SLOT; ++i) {
             if (i != WATER_SLOT && i != CONTAINER_SLOT && !getStack(i).isEmpty()) {
@@ -358,22 +360,32 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
             ItemStack recipeOutput = recipeIn.getOutput(world.getRegistryManager());
             if (recipeOutput.isEmpty()) {
                 return false;
-            } else {
-                ItemStack currentOutput = getStack(DRINKS_DISPLAY_SLOT);
-                if (currentOutput.isEmpty()) {
-                    return true;
-                } else if (!ItemStack.areItemsEqual(currentOutput, recipeOutput)) {
+            }
+
+            // Check that all required ingredients are present and no extra items are there
+            for (int i = 0; i < DRINKS_DISPLAY_SLOT; ++i) {
+                if (i == WATER_SLOT || i == CONTAINER_SLOT) continue;
+                ItemStack stack = getStack(i);
+                if (!stack.isEmpty() && !recipeIn.getIngredients().stream().anyMatch(ingredient -> ingredient.test(stack))) {
                     return false;
-                } else if (currentOutput.getCount() + recipeOutput.getCount() <= getMaxCountPerStack()) {
-                    return true;
-                } else {
-                    return currentOutput.getCount() + recipeOutput.getCount() <= recipeOutput.getMaxCount();
                 }
+            }
+
+            ItemStack currentOutput = getStack(DRINKS_DISPLAY_SLOT);
+            if (currentOutput.isEmpty()) {
+                return true;
+            } else if (!ItemStack.areItemsEqual(currentOutput, recipeOutput)) {
+                return false;
+            } else if (currentOutput.getCount() + recipeOutput.getCount() <= getMaxCountPerStack()) {
+                return true;
+            } else {
+                return currentOutput.getCount() + recipeOutput.getCount() <= recipeOutput.getMaxCount();
             }
         } else {
             return false;
         }
     }
+
 
 
     private boolean processBrewing(BrewingRecipe recipe) {
@@ -385,6 +397,7 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
             return false;
         }
 
+        // Complete the brewing process
         progress = 0;
         drinkContainer = recipe.getContainer();
         ItemStack recipeOutput = recipe.getOutput(world.getRegistryManager());
@@ -397,27 +410,29 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
         trackRecipeExperience(recipe);
         this.extractFluid(recipe.getWaterAmount());
 
+        // Consume ingredients and handle recipe remainder
         for (int i = 0; i < DRINKS_DISPLAY_SLOT; ++i) {
             if (i == WATER_SLOT || i == CONTAINER_SLOT) continue;
-            ItemStack itemStack = getStack(i);
-            if (itemStack.getItem().hasRecipeRemainder() && world != null) {
-                Direction direction = getCachedState().get(BrewingKegBlock.FACING).rotateYCounterclockwise();
-                double dropX = pos.getX() + .5d + (direction.getOffsetX() * .25d);
-                double dropY = pos.getY() + .7d;
-                double dropZ = pos.getZ() + .5d + (direction.getOffsetZ() * .25d);
-                ItemEntity entity = new ItemEntity(world, dropX, dropY, dropZ, new ItemStack(getStack(i).getItem()
-                        .getRecipeRemainder()));
-                entity.setVelocity(direction.getOffsetX() * .08f, .25f, direction.getOffsetZ() * .08f);
-                world.spawnEntity(entity);
-            }
 
-            if (!getStack(i).isEmpty()) {
-                getStack(i).decrement(1);
+            ItemStack itemStack = getStack(i);
+            if (!itemStack.isEmpty()) {
+                if (itemStack.getItem().hasRecipeRemainder()) {
+                    Direction direction = getCachedState().get(BrewingKegBlock.FACING).rotateYCounterclockwise();
+                    double dropX = pos.getX() + .5d + (direction.getOffsetX() * .25d);
+                    double dropY = pos.getY() + .7d;
+                    double dropZ = pos.getZ() + .5d + (direction.getOffsetZ() * .25d);
+                    ItemEntity entity = new ItemEntity(world, dropX, dropY, dropZ, new ItemStack(itemStack.getItem().getRecipeRemainder()));
+                    entity.setVelocity(direction.getOffsetX() * .08f, .25f, direction.getOffsetZ() * .08f);
+                    world.spawnEntity(entity);
+                }
+
+                itemStack.decrement(1); // Consume the item
             }
         }
 
         return true;
     }
+
 
 
     private void useStoredContainersOnDrink() {

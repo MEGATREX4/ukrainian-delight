@@ -2,6 +2,7 @@ package com.megatrex4.ukrainian_dlight.block;
 
 import com.megatrex4.ukrainian_dlight.UkrainianDelight;
 import com.megatrex4.ukrainian_dlight.block.custom.BrewingKegBlock;
+import com.megatrex4.ukrainian_dlight.block.custom.BrewingKegBlockItem;
 import com.megatrex4.ukrainian_dlight.block.custom.SaltBlock;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
@@ -32,9 +33,16 @@ public class ModBlocks {
         return Registry.register(Registries.BLOCK, new Identifier(UkrainianDelight.MOD_ID, name), block);
     }
 
-    private static Item registerBlockItem(String name, Block block){
-        return Registry.register(Registries.ITEM, new Identifier(UkrainianDelight.MOD_ID, name),
-                new BlockItem(block, new Item.Settings()));
+    private static void registerBlockItem(String name, Block block){
+        Item item;
+        if (block instanceof BrewingKegBlock) {
+            // Use custom BrewingKegBlockItem for BrewingKegBlock
+            item = new BrewingKegBlockItem(block, new Item.Settings().maxCount(1));
+        } else {
+            // Default BlockItem for other blocks
+            item = new BlockItem(block, new Item.Settings());
+        }
+        Registry.register(Registries.ITEM, new Identifier(UkrainianDelight.MOD_ID, name), item);
     }
 
     public static void registerModBlocks() {
