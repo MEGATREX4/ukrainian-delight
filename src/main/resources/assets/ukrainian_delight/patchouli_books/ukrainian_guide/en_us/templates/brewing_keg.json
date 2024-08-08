@@ -1,0 +1,109 @@
+{
+  "processor": "com.megatrex4.ukrainian_dlight.compat.patchouli.BrewingKegProcessor",
+  "include": [
+    {
+      "template": "ukrainian_delight:brewing_keg",
+      "as": "brew",
+      "using": {
+        "input0": "#input0",
+        "input1": "#input1",
+        "input2": "#input2",
+        "input3": "#input3",
+        "input4": "#input4",
+        "input5": "#input5",
+        "container": "#container",
+        "output": "#output",
+        "water": "#water",
+        "waterAmount": "#waterAmount",
+        "brewingTime": "#brewingTime",
+        "text": "#text"
+      },
+      "x": 20,
+      "y": 20
+    }
+  ],
+  "components": [
+    {
+      "type": "patchouli:image",
+      "image": "ukrainian_delight:textures/gui/patchouli/brewing_keg.png",
+      "width": 256,
+      "height": 64,
+      "texture_height": 16,
+      "scale": 0.65,
+      "u": 20
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#input0",
+      "x": 20,
+      "y": 40
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#input1",
+      "x": 60,
+      "y": 40
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#input2",
+      "x": 100,
+      "y": 40
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#input3",
+      "x": 20,
+      "y": 80
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#input4",
+      "x": 60,
+      "y": 80
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#input5",
+      "x": 100,
+      "y": 80
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#container",
+      "x": 140,
+      "y": 60
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#output",
+      "x": 180,
+      "y": 60
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#water",
+      "x": 220,
+      "y": 60
+    },
+    {
+      "type": "patchouli:tooltip",
+      "tooltip": [
+        "Water Amount: #waterAmount mB"
+      ],
+      "width": 100,
+      "height": 20,
+      "x": 140,
+      "y": 20
+    },
+    {
+      "type": "patchouli:separator",
+      "y": 100
+    },
+    {
+      "type": "patchouli:text",
+      "text": "#text",
+      "y": 110
+    }
+  ]
+}

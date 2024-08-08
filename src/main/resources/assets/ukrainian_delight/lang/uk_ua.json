@@ -69,6 +69,10 @@
 
   "ukrainian_delight.tooltip.light_drink": "Легкий напій",
   "ukrainian_delight.tooltip.mid_drink": "Середній напій",
-  "ukrainian_delight.tooltip.strong_drink": "Міцний напій"
+  "ukrainian_delight.tooltip.strong_drink": "Міцний напій",
+
+  "_comment10": "guide",
+  "patchouli.ukrainian_delight.guide_name": "Мамині рецепти",
+  "patchouli.ukrainian_delight.landing_text": "Ласкаво просимо до Посібника по модифікації Ukrainian Delight!"
 
 }

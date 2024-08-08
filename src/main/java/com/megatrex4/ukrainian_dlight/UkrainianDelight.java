@@ -4,8 +4,8 @@ import com.megatrex4.ukrainian_dlight.block.DrinkBottleBlock;
 import com.megatrex4.ukrainian_dlight.block.FoodJarBlocks;
 import com.megatrex4.ukrainian_dlight.block.ModBlocks;
 import com.megatrex4.ukrainian_dlight.block.entity.ModBlockEntities;
+//import com.megatrex4.ukrainian_dlight.compat.patchouli.CustomBrewingRecipeProcessor;
 import com.megatrex4.ukrainian_dlight.config.ModConfig;
-//import com.megatrex4.ukrainian_dlight.config.UkrainianDelightConfig;
 import com.megatrex4.ukrainian_dlight.initialize.Initialise;
 import com.megatrex4.ukrainian_dlight.item.ModItemGroups;
 import com.megatrex4.ukrainian_dlight.item.ModItems;
@@ -15,8 +15,9 @@ import com.megatrex4.ukrainian_dlight.recipe.ModRecipes;
 import com.megatrex4.ukrainian_dlight.screen.ModScreenHandlers;
 import com.megatrex4.ukrainian_dlight.screen.ModScreens;
 import net.fabricmc.api.ModInitializer;
-
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.damage.DamageType;
+import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.MutableText;
@@ -28,8 +29,7 @@ import org.slf4j.LoggerFactory;
 public class UkrainianDelight implements ModInitializer {
 	public static final String MOD_ID = "ukrainian_delight";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-	public static final RegistryKey<DamageType> GLASS_DAMAGE = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, new Identifier("ukrainian_delight", "glass_damage"));
-
+	public static final RegistryKey<DamageType> GLASS_DAMAGE = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, new Identifier(MOD_ID, "glass_damage"));
 
 	public static Identifier id(String id) {
 		return new Identifier(MOD_ID, id);
@@ -39,12 +39,8 @@ public class UkrainianDelight implements ModInitializer {
 		return Text.translatable(MOD_ID + "." + key, args);
 	}
 
-
 	@Override
 	public void onInitialize() {
-
-		RegistryKey<DamageType> GLASS_DAMAGE;
-
 		FoodJarBlocks.registerFoodBlocks();
 		DrinkBottleBlock.registerDrinkBlock();
 		ModBlocks.registerModBlocks();
