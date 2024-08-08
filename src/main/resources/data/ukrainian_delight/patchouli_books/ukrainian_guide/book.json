@@ -1,7 +1,10 @@
 {
-  "name": "Ukrainian Delight Guide",
-  "landing_text": "Welcome to the Ukrainian Delight Mod Guide!",
+  "name": "patchouli.ukrainian_delight.guide_name",
+  "landing_text": "patchouli.ukrainian_delight.landing_text",
   "version": 1,
   "creative_tab": "ukrainian_delight:ingredients_ukrainian_delight",
-  "use_resource_pack": true
+  "use_resource_pack": true,
+  "model": "ukrainian_delight:ukrainian_guide",
+  "show_progress": false,
+  "index_icon": "ukrainian_delight:ukrainian_guide"
 }

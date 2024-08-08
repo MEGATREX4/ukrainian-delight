@@ -1,0 +1,70 @@
+{
+  "components": [
+    {
+      "type": "patchouli:image",
+      "image": "ukrainian_delight:textures/gui/patchouli/brewing_keg.png",
+      "width": 256,
+      "height": 64,
+      "texture_height": 64,
+      "scale": 0.65,
+      "u": 40
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#input0",
+      "x": 20,
+      "y": 40
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#input1",
+      "x": 60,
+      "y": 40
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#input2",
+      "x": 100,
+      "y": 40
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#input3",
+      "x": 20,
+      "y": 80
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#input4",
+      "x": 60,
+      "y": 80
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#input5",
+      "x": 100,
+      "y": 80
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#container",
+      "x": 140,
+      "y": 60
+    },
+    {
+      "type": "patchouli:item",
+      "item": "#output",
+      "x": 180,
+      "y": 60
+    },
+    {
+      "type": "patchouli:separator",
+      "y": 100
+    },
+    {
+      "type": "patchouli:text",
+      "text": "#text",
+      "y": 110
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "type": "patchouli:entry",
+  "name": "Brewing Keg",
+  "icon": "minecraft:writable_book",
+  "description": "Details on how to use the Brewing Keg.",
+  "category": "ukrainian_delight:test_category",
+  "pages": [
+    {
+      "type": "ukrainian_delight:brewing_keg",
+      "recipe": "ukrainian_delight:brewing/brewpotion",
+      "input0": "minecraft:sugar",
+      "input1": "minecraft:wheat",
+      "input2": "minecraft:wheat",
+      "input3": "minecraft:wheat",
+      "input4": "minecraft:wheat",
+      "input5": "minecraft:wheat",
+      "container": "minecraft:glass_bottle",
+      "output": "ukrainian_delight:wine_bottle",
+      "text": "This is how you use the BrewingKeg to create various beverages. $(br) The input items and container are required for the process, and the result will be displayed as the output item."
+    }
+  ]
+}

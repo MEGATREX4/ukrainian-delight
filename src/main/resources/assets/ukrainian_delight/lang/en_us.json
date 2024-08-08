@@ -92,5 +92,9 @@
   "ukrainian_delight.category.general": "General Settings",
   "ukrainian_delight.option.brewing_keg_capacity": "Brewing Keg Capacity",
   "tooltip.ukrainian_delight.brewing_keg_capacity": "%s",
-  "tooltip.ukrainian_delight.brewing_keg_amount": "%s"
+  "tooltip.ukrainian_delight.brewing_keg_amount": "%s",
+
+  "_comment10": "guide",
+  "patchouli.ukrainian_delight.guide_name": "Mum's recipes",
+  "patchouli.ukrainian_delight.landing_text": "Welcome to the Ukrainian Delight Mod Guide!"
 }
