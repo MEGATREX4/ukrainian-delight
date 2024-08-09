@@ -47,6 +47,31 @@ public class ModItemGroups {
                         entries.add(ModItems.SALO);
                         entries.add(ModItems.YEAST);
                     }).build());
+    
+    public static final ItemGroup KRASHANKY_UKRAINIAN_DELIGHT = Registry.register(Registries.ITEM_GROUP,
+            new Identifier(UkrainianDelight.MOD_ID, "krashanky_ukrainian_delight"),
+            FabricItemGroup.builder()
+                    .displayName(Text.translatable("itemgroup.krashanky_ukrainian_delight"))
+                    .icon(() -> new ItemStack(ModItems.APPLE_SLICE))
+                    .entries((displayContext, entries) -> {
+                        entries.add(ModItems.BLACK_KRASHANKA);
+                        entries.add(ModItems.BLUE_KRASHANKA);
+                        entries.add(ModItems.BROWN_KRASHANKA);
+                        entries.add(ModItems.CYAN_KRASHANKA);
+                        entries.add(ModItems.GRAY_KRASHANKA);
+                        entries.add(ModItems.GREEN_KRASHANKA);
+                        entries.add(ModItems.LIGHT_BLUE_KRASHANKA);
+                        entries.add(ModItems.LIGHT_GRAY_KRASHANKA);
+                        entries.add(ModItems.LIME_KRASHANKA);
+                        entries.add(ModItems.MAGENTA_KRASHANKA);
+                        entries.add(ModItems.ORANGE_KRASHANKA);
+                        entries.add(ModItems.PINK_KRASHANKA);
+                        entries.add(ModItems.PURPLE_KRASHANKA);
+                        entries.add(ModItems.RED_KRASHANKA);
+                        entries.add(ModItems.WHITE_KRASHANKA);
+                        entries.add(ModItems.YELLOW_KRASHANKA);
+
+                    }).build());
 
     public static final ItemGroup JARS_UKRAINIAN_DELIGHT = Registry.register(Registries.ITEM_GROUP,
             new Identifier(UkrainianDelight.MOD_ID, "jars_ukrainian_delight"),

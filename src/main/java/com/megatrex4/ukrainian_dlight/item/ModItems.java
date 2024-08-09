@@ -62,9 +62,28 @@ public class ModItems {
                     .food(ModFoodComponents.SALO)
                     .build());
 
+
     // Simple items without specifying maxCount, defaults to 64
     public static final Item SALT = registerItem("salt", new ItemBuilder().build());
     public static final Item YEAST = registerItem("yeast", new ItemBuilder().build());
+
+    public static final Item BLACK_KRASHANKA = registerItem("black_krashanka", new ItemBuilder().build());
+    public static final Item BLUE_KRASHANKA = registerItem("blue_krashanka", new ItemBuilder().build());
+    public static final Item BROWN_KRASHANKA = registerItem("brown_krashanka", new ItemBuilder().build());
+    public static final Item CYAN_KRASHANKA = registerItem("cyan_krashanka", new ItemBuilder().build());
+    public static final Item GREEN_KRASHANKA = registerItem("green_krashanka", new ItemBuilder().build());
+    public static final Item GRAY_KRASHANKA = registerItem("gray_krashanka", new ItemBuilder().build());
+    public static final Item LIGHT_BLUE_KRASHANKA = registerItem("light_blue_krashanka", new ItemBuilder().build());
+    public static final Item LIGHT_GRAY_KRASHANKA = registerItem("light_gray_krashanka", new ItemBuilder().build());
+    public static final Item LIME_KRASHANKA = registerItem("lime_krashanka", new ItemBuilder().build());
+    public static final Item MAGENTA_KRASHANKA = registerItem("magenta_krashanka", new ItemBuilder().build());
+    public static final Item ORANGE_KRASHANKA = registerItem("orange_krashanka", new ItemBuilder().build());
+    public static final Item PINK_KRASHANKA = registerItem("pink_krashanka", new ItemBuilder().build());
+    public static final Item PURPLE_KRASHANKA = registerItem("purple_krashanka", new ItemBuilder().build());
+    public static final Item RED_KRASHANKA = registerItem("red_krashanka", new ItemBuilder().build());
+    public static final Item WHITE_KRASHANKA = registerItem("white_krashanka", new ItemBuilder().build());
+    public static final Item YELLOW_KRASHANKA = registerItem("yellow_krashanka", new ItemBuilder().build());
+
 
     // Register items
     public static Item registerItem(String name, Item item) {
