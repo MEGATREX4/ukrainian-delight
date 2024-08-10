@@ -138,17 +138,16 @@ public class BrewingKegScreenHandler extends ScreenHandler {
             ItemStack slotItemStack = slot.getStack();
             itemStack = slotItemStack.copy();
 
-            // Prevent moving items into DRINKS_DISPLAY_SLOT and OUTPUT_SLOT
-            if (index == DRINKS_DISPLAY_SLOT || index == OUTPUT_SLOT) {
-                return ItemStack.EMPTY;
-            }
-
             // Handle item transfer from OUTPUT_SLOT to player inventory
             if (index == OUTPUT_SLOT) {
                 if (!this.insertItem(slotItemStack, 11, Math.min(47, this.slots.size()), true)) { // Ensure range is within bounds
                     return ItemStack.EMPTY;
                 }
                 slot.onQuickTransfer(slotItemStack, itemStack);
+            }
+            // Prevent moving items into DRINKS_DISPLAY_SLOT
+            else if (index == DRINKS_DISPLAY_SLOT) {
+                return ItemStack.EMPTY;
             }
             // Handle item transfer from player inventory slots
             else if (index >= 11 && index < Math.min(47, this.slots.size())) { // Ensure range is within bounds
