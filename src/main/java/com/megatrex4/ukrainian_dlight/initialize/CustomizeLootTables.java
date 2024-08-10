@@ -9,7 +9,7 @@ import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.util.Identifier;
 
-public class Initialise {
+public class CustomizeLootTables {
 
     public static final Identifier CHERRY_TREE_LOOT_TABLE_ID = new Identifier("minecraft", "blocks/cherry_leaves");
 
@@ -19,7 +19,7 @@ public class Initialise {
             if (id.equals(CHERRY_TREE_LOOT_TABLE_ID)) {
                 LootPool.Builder poolBuilder = LootPool.builder()
                         .with(ItemEntry.builder(ModItems.CHERRY_BERRY))
-                        .conditionally(RandomChanceLootCondition.builder(0.2f)) // 20% chance
+                        .conditionally(RandomChanceLootCondition.builder(0.12f)) // 20% chance
                         .apply(SetCountLootFunction.builder(ConstantLootNumberProvider.create(1)).build());
 
                 tableBuilder.pool(poolBuilder.build());

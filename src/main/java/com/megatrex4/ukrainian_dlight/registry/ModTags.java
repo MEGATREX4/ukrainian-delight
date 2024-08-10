@@ -13,6 +13,8 @@ public class ModTags {
     public static final TagKey<Item> MID_DRINK;
     public static final TagKey<Item> STRONG_DRINK;
 
+    public static final TagKey<Item> CONTAINER;
+
     private static <E> TagKey<E> create(String pathName, RegistryKey<? extends Registry<E>> registry) {
         return TagKey.of(registry, new Identifier(UkrainianDelight.MOD_ID, pathName));
     }
@@ -22,5 +24,7 @@ public class ModTags {
         LIGHT_DRINK = create("light_drink", RegistryKeys.ITEM);
         MID_DRINK = create("mid_drink", RegistryKeys.ITEM);
         STRONG_DRINK = create("strong_drink", RegistryKeys.ITEM);
+
+        CONTAINER = create("container", RegistryKeys.ITEM);
     }
 }

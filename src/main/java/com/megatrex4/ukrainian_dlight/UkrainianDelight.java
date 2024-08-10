@@ -6,7 +6,7 @@ import com.megatrex4.ukrainian_dlight.block.ModBlocks;
 import com.megatrex4.ukrainian_dlight.block.entity.ModBlockEntities;
 //import com.megatrex4.ukrainian_dlight.compat.patchouli.CustomBrewingRecipeProcessor;
 import com.megatrex4.ukrainian_dlight.config.ModConfig;
-import com.megatrex4.ukrainian_dlight.initialize.Initialise;
+import com.megatrex4.ukrainian_dlight.initialize.CustomizeLootTables;
 import com.megatrex4.ukrainian_dlight.item.ModItemGroups;
 import com.megatrex4.ukrainian_dlight.item.ModItems;
 import com.megatrex4.ukrainian_dlight.item.ToolTipHelper;
@@ -15,9 +15,7 @@ import com.megatrex4.ukrainian_dlight.recipe.ModRecipes;
 import com.megatrex4.ukrainian_dlight.screen.ModScreenHandlers;
 import com.megatrex4.ukrainian_dlight.screen.ModScreens;
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.damage.DamageType;
-import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.MutableText;
@@ -53,7 +51,7 @@ public class UkrainianDelight implements ModInitializer {
 		ModRecipes.registerRecipes();
 		ModScreens.registerScreens();
 		ModConfig.loadConfig();
-		Initialise.register();
+		CustomizeLootTables.register();
 
 		LOGGER.info("Hello Fabric world it's " + MOD_ID + "!");
 	}

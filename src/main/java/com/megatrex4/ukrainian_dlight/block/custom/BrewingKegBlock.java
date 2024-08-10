@@ -28,6 +28,7 @@ import net.minecraft.nbt.NbtElement;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registries;
 import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.screen.ScreenHandler;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
@@ -186,13 +187,11 @@ public class BrewingKegBlock extends BlockWithEntity implements BlockEntityProvi
                 // Save BlockEntity data to NBT
                 NbtCompound tag = new NbtCompound();
                 brewingKegEntity.writeNbt(tag);
-                System.out.println("Saved BlockEntityTag: " + tag.toString()); // Debug line
                 itemStack.setSubNbt("BlockEntityTag", tag);
 
                 // Save DisplaySlot to NBT
                 NbtCompound displaySlotTag = new NbtCompound();
                 brewingKegEntity.getStack(DRINKS_DISPLAY_SLOT).writeNbt(displaySlotTag);
-                System.out.println("Saved DisplaySlot: " + displaySlotTag.toString()); // Debug line
                 itemStack.setSubNbt("DisplaySlot", displaySlotTag);
 
                 // Spawn the item entity with the BlockEntityTag and DisplaySlot NBT
@@ -203,7 +202,6 @@ public class BrewingKegBlock extends BlockWithEntity implements BlockEntityProvi
             super.onStateReplaced(state, world, pos, newState, moved);
         }
     }
-
 
     public static void spawnParticles(World world, BlockPos pos, BlockState state) {
         Random random = world.random;
@@ -219,7 +217,6 @@ public class BrewingKegBlock extends BlockWithEntity implements BlockEntityProvi
             }
         }
     }
-
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
@@ -258,9 +255,6 @@ public class BrewingKegBlock extends BlockWithEntity implements BlockEntityProvi
         return ActionResult.SUCCESS;
     }
 
-
-
-
     private boolean giveItemToPlayerOrDrop(World world, PlayerEntity player, ItemStack itemStack) {
         if (!player.getInventory().insertStack(itemStack)) {
             ItemEntity itemEntity = new ItemEntity(world, player.getX(), player.getY(), player.getZ(), itemStack);
@@ -284,4 +278,17 @@ public class BrewingKegBlock extends BlockWithEntity implements BlockEntityProvi
         FACING = Properties.HORIZONTAL_FACING;
     }
 
+    @Override
+    public boolean hasComparatorOutput(BlockState state) {
+        return true;
+    }
+
+    @Override
+    public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        if (blockEntity instanceof BrewingKegBlockEntity) {
+            return ((BrewingKegBlockEntity) blockEntity).calculateComparatorOutput();
+        }
+        return super.getComparatorOutput(state, world, pos);
+    }
 }

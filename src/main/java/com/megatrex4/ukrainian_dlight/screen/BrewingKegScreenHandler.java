@@ -23,8 +23,6 @@ import java.util.List;
 
 public class BrewingKegScreenHandler extends ScreenHandler {
 
-
-
     public static final int[] INGREDIENT_SLOTS = {0, 1, 2, 3, 4, 5};
     public static final int CONTAINER_SLOT = 6;
     public static final int WATER_SLOT = 7;
@@ -40,8 +38,6 @@ public class BrewingKegScreenHandler extends ScreenHandler {
     public final BrewingKegBlockEntity blockEntity;
     public final PlayerEntity player;
 
-
-
     public long getCapacity() {
         return blockEntity.getMaxWaterLevel();
     }
@@ -49,7 +45,6 @@ public class BrewingKegScreenHandler extends ScreenHandler {
     public BrewingKegScreenHandler(int syncId, PlayerInventory tileEntity, PacketByteBuf buf) {
         this(syncId, tileEntity, (BrewingKegBlockEntity) tileEntity.player.getWorld().getBlockEntity(buf.readBlockPos()), new ArrayPropertyDelegate(INVENTORY_SIZE));
     }
-
 
     public BrewingKegScreenHandler(int syncId, PlayerInventory playerInventory, BrewingKegBlockEntity blockEntity, PropertyDelegate arrayPropertyDelegate) {
         super(ModScreenHandlers.BREWING_KEG_SCREEN_HANDLER, syncId);
@@ -130,8 +125,6 @@ public class BrewingKegScreenHandler extends ScreenHandler {
         }
     }
 
-
-
     @Override
     public ItemStack quickMove(PlayerEntity playerIn, int index) {
         if (index >= this.slots.size()) {
@@ -193,15 +186,6 @@ public class BrewingKegScreenHandler extends ScreenHandler {
 
         return itemStack;
     }
-
-
-
-
-
-
-
-
-
 
     @Override
     public boolean canUse(PlayerEntity player) {
