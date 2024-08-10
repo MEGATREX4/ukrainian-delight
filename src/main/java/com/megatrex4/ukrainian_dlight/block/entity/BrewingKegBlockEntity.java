@@ -39,6 +39,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
+import net.minecraft.recipe.RecipeType;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
@@ -52,6 +53,9 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;
+import vectorwing.farmersdelight.common.mixin.accessor.RecipeManagerAccessor;
+import vectorwing.farmersdelight.common.registry.ModRecipeTypes;
 
 import java.util.*;
 
@@ -289,6 +293,7 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
 
     public void tick(World world, BlockPos pos, BlockState state, BrewingKegBlockEntity blockEntity) {
         boolean dirty = false;
+        boolean didInventoryChange = false;
 
         boolean isPowered = world.isReceivingRedstonePower(pos);
         if (isPowered) {
@@ -300,7 +305,7 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
 
         if (blockEntity.hasInput() && enoughFluid) {
             Optional<BrewingRecipe> match = getCurrentRecipe();
-            if (match.isPresent()) {
+            if (match.isPresent() && blockEntity.canCook((BrewingRecipe) match.get())) {
                 BrewingRecipe recipe = match.get();
                 if (blockEntity.canCook(recipe)) {
                     dirty = blockEntity.processBrewing(recipe);
@@ -336,6 +341,7 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
                 return true;
             }
         }
+
         return false;
     }
 
@@ -344,35 +350,65 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
         world.playSound(null, getPos(), SoundEvents.BLOCK_BREWING_STAND_BREW, SoundCategory.BLOCKS, 0.5F, randompitch);
     }
 
-    protected boolean canCook(Recipe<?> recipeIn) {
-        if (hasInput() && recipeIn != null) {
-            ItemStack recipeOutput = recipeIn.getOutput(world.getRegistryManager());
-            if (recipeOutput.isEmpty()) {
-                return false;
-            }
+    protected boolean canCook(BrewingRecipe recipe) {
+        if (!hasInput() || recipe == null) {
+            return false;
+        }
 
-            for (int i = 0; i < DRINKS_DISPLAY_SLOT; ++i) {
-                if (i == WATER_SLOT || i == CONTAINER_SLOT) continue;
-                ItemStack stack = getStack(i);
-                if (!stack.isEmpty() && !recipeIn.getIngredients().stream().anyMatch(ingredient -> ingredient.test(stack))) {
+        // Get the output stack of the recipe
+        ItemStack recipeOutput = recipe.getOutput(world.getRegistryManager());
+        if (recipeOutput.isEmpty()) {
+            return false;
+        }
+
+        // Create a list to track the remaining required ingredients
+        List<Ingredient> remainingIngredients = new ArrayList<>(recipe.getIngredients());
+
+        // Iterate over all ingredient slots
+        for (int i = 0; i < INGREDIENT_SLOTS.length; i++) {
+            ItemStack stack = getStack(INGREDIENT_SLOTS[i]);
+
+            // If the slot is not empty, try to match it with one of the remaining ingredients
+            if (!stack.isEmpty()) {
+                boolean matched = false;
+
+                for (Iterator<Ingredient> iterator = remainingIngredients.iterator(); iterator.hasNext(); ) {
+                    Ingredient ingredient = iterator.next();
+
+                    if (ingredient.test(stack)) {
+                        // If a match is found, remove the ingredient from the list and mark it as matched
+                        iterator.remove();
+                        matched = true;
+                        break;
+                    }
+                }
+
+                // If no match is found for the stack, return false
+                if (!matched) {
                     return false;
                 }
             }
+        }
 
-            ItemStack currentOutput = getStack(DRINKS_DISPLAY_SLOT);
-            if (currentOutput.isEmpty()) {
-                return true;
-            } else if (!ItemStack.areItemsEqual(currentOutput, recipeOutput)) {
-                return false;
-            } else if (currentOutput.getCount() + recipeOutput.getCount() <= getMaxCountPerStack()) {
-                return true;
-            } else {
-                return currentOutput.getCount() + recipeOutput.getCount() <= recipeOutput.getMaxCount();
-            }
-        } else {
+        // After iterating through all the slots, ensure that there are no remaining required ingredients
+        if (!remainingIngredients.isEmpty()) {
             return false;
         }
+
+        // Check if the output slot can accommodate the result
+        ItemStack currentOutput = getStack(DRINKS_DISPLAY_SLOT);
+        if (currentOutput.isEmpty()) {
+            return true;
+        } else if (!ItemStack.areItemsEqual(currentOutput, recipeOutput)) {
+            return false;
+        } else if (currentOutput.getCount() + recipeOutput.getCount() <= getMaxCountPerStack()) {
+            return true;
+        } else {
+            return currentOutput.getCount() + recipeOutput.getCount() <= recipeOutput.getMaxCount();
+        }
     }
+
+
 
     private boolean processBrewing(BrewingRecipe recipe) {
         if (world == null || recipe == null) return false;
