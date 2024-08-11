@@ -1,7 +1,6 @@
 package com.megatrex4.ukrainian_dlight.block;
 
 import com.megatrex4.ukrainian_dlight.UkrainianDelight;
-import com.megatrex4.ukrainian_dlight.block.custom.JarBlock;
 import com.megatrex4.ukrainian_dlight.item.FoodBlockItem;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;

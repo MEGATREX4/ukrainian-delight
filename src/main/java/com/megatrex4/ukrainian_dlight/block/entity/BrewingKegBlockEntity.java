@@ -1,12 +1,10 @@
 package com.megatrex4.ukrainian_dlight.block.entity;
 
-import com.megatrex4.ukrainian_dlight.block.custom.BrewingKegBlock;
 import com.megatrex4.ukrainian_dlight.block.entity.inventory.ImplementedInventory;
 import com.megatrex4.ukrainian_dlight.config.ModConfig;
 import com.megatrex4.ukrainian_dlight.networking.ModMessages;
 import com.megatrex4.ukrainian_dlight.recipe.BrewingRecipe;
-import com.megatrex4.ukrainian_dlight.recipe.ModRecipes;
-import com.megatrex4.ukrainian_dlight.registry.ModTags;
+import com.megatrex4.ukrainian_dlight.registry.RecipesRegistry;
 import com.megatrex4.ukrainian_dlight.screen.BrewingKegScreenHandler;
 import com.megatrex4.ukrainian_dlight.util.CompoundTagUtils;
 import com.megatrex4.ukrainian_dlight.util.FluidStack;
@@ -18,7 +16,6 @@ import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
-import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleVariantStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
@@ -31,7 +28,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.Inventories;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -39,8 +35,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -53,13 +47,10 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import vectorwing.farmersdelight.common.crafting.CookingPotRecipe;
-import vectorwing.farmersdelight.common.mixin.accessor.RecipeManagerAccessor;
-import vectorwing.farmersdelight.common.registry.ModRecipeTypes;
 
 import java.util.*;
 
-import static com.megatrex4.ukrainian_dlight.block.custom.BrewingKegBlock.FACING;
+import static com.megatrex4.ukrainian_dlight.block.BrewingKegBlock.FACING;
 
 public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(INVENTORY_SIZE, ItemStack.EMPTY);
@@ -570,7 +561,7 @@ public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreen
 
     private Optional<BrewingRecipe> getCurrentRecipe() {
         if (world == null) return Optional.empty();
-        return world.getRecipeManager().getFirstMatch(ModRecipes.BREWING, this, world);
+        return world.getRecipeManager().getFirstMatch(RecipesRegistry.BREWING, this, world);
     }
 
     public boolean isContainerValid(ItemStack containerItem) {

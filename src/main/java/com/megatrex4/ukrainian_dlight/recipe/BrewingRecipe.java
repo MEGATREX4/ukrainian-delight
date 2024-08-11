@@ -1,7 +1,6 @@
 package com.megatrex4.ukrainian_dlight.recipe;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import com.megatrex4.ukrainian_dlight.registry.RecipesRegistry;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
@@ -10,7 +9,6 @@ import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
@@ -68,12 +66,12 @@ public class BrewingRecipe implements Recipe<Inventory> {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return ModRecipes.BREWING_RECIPE_SERIALIZER;
+        return RecipesRegistry.BREWING_RECIPE_SERIALIZER;
     }
 
     @Override
     public RecipeType<?> getType() {
-        return ModRecipes.BREWING;
+        return RecipesRegistry.BREWING;
     }
 
     public ItemStack getContainer() {

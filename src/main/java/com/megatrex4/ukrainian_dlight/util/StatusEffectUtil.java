@@ -1,11 +1,9 @@
 package com.megatrex4.ukrainian_dlight.util;
 
-import com.megatrex4.ukrainian_dlight.registry.ModTags;
+import com.megatrex4.ukrainian_dlight.registry.TagsRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
 
 import java.util.Random;
 
@@ -21,19 +19,19 @@ public class StatusEffectUtil {
         int duration = mainEffect.getDuration();
         int amplifier = mainEffect.getAmplifier() + 1;
 
-        if (player.getInventory().contains(ModTags.LIGHT_DRINK)) {
+        if (player.getInventory().contains(TagsRegistry.LIGHT_DRINK)) {
             applyWeakness(player, duration / 2, (int) (amplifier * 1.3));
             applyNausea(player, duration / 2, (int) (amplifier * 1.3));
             if (RANDOM.nextFloat() < 0.2) {
                 applyBlindness(player, (int) (duration * 0.7), (int) (amplifier * 1.3));
             }
-        } else if (player.getInventory().contains(ModTags.MID_DRINK)) {
+        } else if (player.getInventory().contains(TagsRegistry.MID_DRINK)) {
             applyWeakness(player, (int) (duration * 0.7), (int) (amplifier * 1.5));
             applyNausea(player, (int) (duration * 0.7), (int) (amplifier * 1.5));
             if (RANDOM.nextFloat() < 0.7) {
                 applyBlindness(player, (int) (duration * 0.7), (int) (amplifier * 1.5));
             }
-        } else if (player.getInventory().contains(ModTags.STRONG_DRINK)) {
+        } else if (player.getInventory().contains(TagsRegistry.STRONG_DRINK)) {
             applyWeakness(player, (int) (duration * 0.9), (int) (amplifier * 1.7));
             applyNausea(player, (int) (duration * 0.9), (int) (amplifier * 1.7));
             if (RANDOM.nextFloat() < 0.8) {
