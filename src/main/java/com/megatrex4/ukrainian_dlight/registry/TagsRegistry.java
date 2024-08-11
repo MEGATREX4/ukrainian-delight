@@ -8,7 +8,7 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.registry.RegistryKeys;
 
-public class ModTags {
+public class TagsRegistry {
     public static final TagKey<Item> LIGHT_DRINK;
     public static final TagKey<Item> MID_DRINK;
     public static final TagKey<Item> STRONG_DRINK;

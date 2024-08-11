@@ -2,18 +2,19 @@ package com.megatrex4.ukrainian_dlight;
 
 import com.megatrex4.ukrainian_dlight.block.DrinkBottleBlock;
 import com.megatrex4.ukrainian_dlight.block.FoodJarBlocks;
-import com.megatrex4.ukrainian_dlight.block.ModBlocks;
+import com.megatrex4.ukrainian_dlight.item.KrashankyItem;
+import com.megatrex4.ukrainian_dlight.registry.BlockRegistry;
 import com.megatrex4.ukrainian_dlight.block.entity.ModBlockEntities;
 //import com.megatrex4.ukrainian_dlight.compat.patchouli.CustomBrewingRecipeProcessor;
 import com.megatrex4.ukrainian_dlight.config.ModConfig;
-import com.megatrex4.ukrainian_dlight.initialize.CustomizeLootTables;
+import com.megatrex4.ukrainian_dlight.registry.initialize.CustomizeLootTables;
 import com.megatrex4.ukrainian_dlight.item.ModItemGroups;
-import com.megatrex4.ukrainian_dlight.item.ModItems;
+import com.megatrex4.ukrainian_dlight.registry.ItemsRegistry;
 import com.megatrex4.ukrainian_dlight.item.ToolTipHelper;
 import com.megatrex4.ukrainian_dlight.networking.ModMessages;
-import com.megatrex4.ukrainian_dlight.recipe.ModRecipes;
-import com.megatrex4.ukrainian_dlight.screen.ModScreenHandlers;
-import com.megatrex4.ukrainian_dlight.screen.ModScreens;
+import com.megatrex4.ukrainian_dlight.registry.RecipesRegistry;
+import com.megatrex4.ukrainian_dlight.registry.ScreenHandlersRegistry;
+import com.megatrex4.ukrainian_dlight.registry.ScreensRegistry;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.registry.RegistryKey;
@@ -41,15 +42,15 @@ public class UkrainianDelight implements ModInitializer {
 	public void onInitialize() {
 		FoodJarBlocks.registerFoodBlocks();
 		DrinkBottleBlock.registerDrinkBlock();
-		ModBlocks.registerModBlocks();
-		ModItems.registerModItems();
+		BlockRegistry.registerModBlocks();
+		ItemsRegistry.registerModItems();
 		ModItemGroups.registerItemGroups();
 		ToolTipHelper.registerTooltip();
 		ModBlockEntities.registerBlockEntities();
-		ModScreenHandlers.registerModScreenHandlers();
+		ScreenHandlersRegistry.registerModScreenHandlers();
 		ModMessages.registerS2CPackets();
-		ModRecipes.registerRecipes();
-		ModScreens.registerScreens();
+		RecipesRegistry.registerRecipes();
+		ScreensRegistry.registerScreens();
 		ModConfig.loadConfig();
 		CustomizeLootTables.register();
 

@@ -1,6 +1,6 @@
-package com.megatrex4.ukrainian_dlight.initialize;
+package com.megatrex4.ukrainian_dlight.registry.initialize;
 
-import com.megatrex4.ukrainian_dlight.item.ModItems;
+import com.megatrex4.ukrainian_dlight.registry.ItemsRegistry;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.condition.RandomChanceLootCondition;
@@ -18,7 +18,7 @@ public class CustomizeLootTables {
         LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
             if (id.equals(CHERRY_TREE_LOOT_TABLE_ID)) {
                 LootPool.Builder poolBuilder = LootPool.builder()
-                        .with(ItemEntry.builder(ModItems.CHERRY_BERRY))
+                        .with(ItemEntry.builder(ItemsRegistry.CHERRY_BERRY))
                         .conditionally(RandomChanceLootCondition.builder(0.12f)) // 20% chance
                         .apply(SetCountLootFunction.builder(ConstantLootNumberProvider.create(1)).build());
 

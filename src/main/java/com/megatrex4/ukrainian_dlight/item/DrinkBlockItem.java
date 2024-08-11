@@ -1,7 +1,7 @@
 package com.megatrex4.ukrainian_dlight.item;
 
 import com.megatrex4.ukrainian_dlight.UkrainianDelight;
-import com.megatrex4.ukrainian_dlight.registry.ModTags;
+import com.megatrex4.ukrainian_dlight.registry.TagsRegistry;
 import com.megatrex4.ukrainian_dlight.util.StatusEffectUtil;
 import com.mojang.datafixers.util.Pair;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -22,12 +22,10 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class DrinkBlockItem extends BlockItem {
     private final FoodComponent foodComponent;
@@ -155,13 +153,13 @@ public class DrinkBlockItem extends BlockItem {
         }
 
         // Check if the item is in the drink tags and add corresponding tooltip
-        if (stack.isIn(ModTags.LIGHT_DRINK)) {
+        if (stack.isIn(TagsRegistry.LIGHT_DRINK)) {
             tooltip.add(Text.literal("").formatted(Formatting.GRAY));
             tooltip.add(UkrainianDelight.i18n("tooltip.light_drink").formatted(Formatting.GREEN));
-        } else if (stack.isIn(ModTags.MID_DRINK)) {
+        } else if (stack.isIn(TagsRegistry.MID_DRINK)) {
             tooltip.add(Text.literal("").formatted(Formatting.GRAY));
             tooltip.add(UkrainianDelight.i18n("tooltip.mid_drink").formatted(Formatting.YELLOW));
-        } else if (stack.isIn(ModTags.STRONG_DRINK)) {
+        } else if (stack.isIn(TagsRegistry.STRONG_DRINK)) {
             tooltip.add(Text.literal("").formatted(Formatting.GRAY));
             tooltip.add(UkrainianDelight.i18n("tooltip.strong_drink").formatted(Formatting.RED));
         }

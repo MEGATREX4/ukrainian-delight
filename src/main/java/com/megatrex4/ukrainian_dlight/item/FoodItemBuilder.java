@@ -4,27 +4,27 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.FoodComponent;
 import net.minecraft.item.Item;
 
-public class ItemBuilder {
+public class FoodItemBuilder {
     private FoodComponent foodComponent;
     private int maxCount = 64;
     private Boolean returnsBowl = false;
 
-    public ItemBuilder food(FoodComponent foodComponent) {
+    public FoodItemBuilder food(FoodComponent foodComponent) {
         this.foodComponent = foodComponent;
         return this;
     }
 
-    public ItemBuilder maxCount(int maxCount) {
+    public FoodItemBuilder maxCount(int maxCount) {
         this.maxCount = maxCount;
         return this;
     }
 
-    public ItemBuilder returnsBowl() {
+    public FoodItemBuilder returnsBowl() {
         this.returnsBowl = true;
         return this;
     }
 
-    public ItemBuilder returnsBowl(boolean returnsBowl) {
+    public FoodItemBuilder returnsBowl(boolean returnsBowl) {
         this.returnsBowl = returnsBowl;
         return this;
     }

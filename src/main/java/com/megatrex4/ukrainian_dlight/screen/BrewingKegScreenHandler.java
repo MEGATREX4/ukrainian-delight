@@ -2,11 +2,10 @@ package com.megatrex4.ukrainian_dlight.screen;
 
 import com.megatrex4.ukrainian_dlight.block.entity.BrewingKegBlockEntity;
 import com.megatrex4.ukrainian_dlight.block.entity.inventory.BrewingKegResultSlot;
+import com.megatrex4.ukrainian_dlight.registry.ScreenHandlersRegistry;
 import com.megatrex4.ukrainian_dlight.util.FluidStack;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.fluid.Fluid;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -15,11 +14,6 @@ import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class BrewingKegScreenHandler extends ScreenHandler {
 
@@ -47,7 +41,7 @@ public class BrewingKegScreenHandler extends ScreenHandler {
     }
 
     public BrewingKegScreenHandler(int syncId, PlayerInventory playerInventory, BrewingKegBlockEntity blockEntity, PropertyDelegate arrayPropertyDelegate) {
-        super(ModScreenHandlers.BREWING_KEG_SCREEN_HANDLER, syncId);
+        super(ScreenHandlersRegistry.BREWING_KEG_SCREEN_HANDLER, syncId);
         checkSize(blockEntity, INVENTORY_SIZE); // Corrected type casting
 
         this.tileEntity = blockEntity; // Corrected type casting
