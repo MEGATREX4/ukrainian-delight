@@ -8,7 +8,7 @@
     {
       "type": "ukrainian_delight:brewing_keg",
       "recipe": "ukrainian_delight:brewing/brewpotion",
-      "header": "Brewing Keg Guide",
+      "header": "Бродило",
       "input0": "minecraft:sugar",
       "input1": "minecraft:wheat",
       "input2": "minecraft:wheat",
@@ -17,7 +17,7 @@
       "input5": "minecraft:wheat",
       "container": "minecraft:glass_bottle",
       "output": "ukrainian_delight:wine_bottle",
-      "text": "This is how you use the BrewingKeg to create various beverages. $(br) The input items and container are required for the process, and the result will be displayed as the output item.",
+      "text": "Ось як ви можете використовувати Бродило для створення різних напоїв. $(br) Вхідні предмети та контейнер необхідні для процесу, а результат буде відображено як вихідний елемент.",
       "water_amount": "50"
     }
   ]

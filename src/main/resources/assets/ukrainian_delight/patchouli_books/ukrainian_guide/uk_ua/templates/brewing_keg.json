@@ -59,8 +59,8 @@
     {
       "type": "patchouli:tooltip",
       "tooltip": [
-        "Water",
-        "Required: #water_amount# mB"
+        "Вода",
+        "Необхідно: #water_amount# мБ"
       ],
       "x": 47,
       "y": 88,

@@ -115,5 +115,6 @@
 
   "_comment10": "guide",
   "patchouli.ukrainian_delight.guide_name": "Mum's recipes",
-  "patchouli.ukrainian_delight.landing_text": "Welcome to the Ukrainian Delight Mod Guide!"
+  "patchouli.ukrainian_delight.landing_text": "Welcome to the Ukrainian Delight Mod Guide!",
+  "patchouli.ukrainian_delight.tooltip.tank_amount": "%s mB of water"
 }

@@ -6,5 +6,6 @@
   "use_resource_pack": true,
   "model": "ukrainian_delight:ukrainian_guide",
   "show_progress": false,
-  "index_icon": "ukrainian_delight:ukrainian_guide"
+  "index_icon": "ukrainian_delight:ukrainian_guide",
+  "subtitle": "This is coolinary book"
 }

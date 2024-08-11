@@ -1,0 +1,11 @@
+{
+  "name": "Тестовий запис",
+  "icon": "minecraft:writable_book",
+  "category": "ukrainian_delight:test_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Це тестовий запис, і він має з'явитися!"
+    }
+  ]
+}
