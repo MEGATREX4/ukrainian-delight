@@ -1,4 +1,4 @@
-package com.megatrex4.ukrainian_dlight.features.features.config;
+package com.megatrex4.ukrainian_dlight.gen.features.features.config;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

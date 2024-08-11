@@ -1,10 +1,9 @@
-package com.megatrex4.ukrainian_dlight.block.custom;
+package com.megatrex4.ukrainian_dlight.block;
 
 import com.megatrex4.ukrainian_dlight.UkrainianDelight;
 import com.megatrex4.ukrainian_dlight.block.entity.BrewingKegBlockEntity;
 import com.megatrex4.ukrainian_dlight.block.entity.ModBlockEntities;
 import com.megatrex4.ukrainian_dlight.screen.renderer.FluidStackRenderer;
-import com.megatrex4.ukrainian_dlight.util.CompoundTagUtils;
 import com.megatrex4.ukrainian_dlight.util.FluidStack;
 
 import net.fabricmc.api.EnvType;
@@ -18,39 +17,30 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.Registries;
 import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.screen.ScreenHandler;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
-import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
-import net.minecraft.state.property.Property;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.*;
-import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Iterator;
 import java.util.List;
 
 public class BrewingKegBlock extends BlockWithEntity implements BlockEntityProvider {

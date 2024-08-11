@@ -1,5 +1,7 @@
 package com.megatrex4.ukrainian_dlight.registry;
 
+import com.google.common.collect.FluentIterable;
+import com.google.common.collect.ImmutableList;
 import com.megatrex4.ukrainian_dlight.UkrainianDelight;
 import com.megatrex4.ukrainian_dlight.item.FoodItemBuilder;
 import com.megatrex4.ukrainian_dlight.item.ModFoodComponents;
@@ -9,6 +11,8 @@ import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+
+import java.util.List;
 
 public class ItemsRegistry {
 
@@ -70,6 +74,7 @@ public class ItemsRegistry {
     public static final Item SALT = registerItem("salt", new FoodItemBuilder().build());
     public static final Item YEAST = registerItem("yeast", new FoodItemBuilder().build());
 
+    //KRASHANKY
     public static final Item BLACK_KRASHANKA = registerItem("black_krashanka", new KrashankyItem(new FabricItemSettings()));
     public static final Item BLUE_KRASHANKA = registerItem("blue_krashanka", new KrashankyItem(new FabricItemSettings()));
     public static final Item BROWN_KRASHANKA = registerItem("brown_krashanka", new KrashankyItem(new FabricItemSettings()));
@@ -86,6 +91,29 @@ public class ItemsRegistry {
     public static final Item RED_KRASHANKA = registerItem("red_krashanka", new KrashankyItem(new FabricItemSettings()));
     public static final Item WHITE_KRASHANKA = registerItem("white_krashanka", new KrashankyItem(new FabricItemSettings()));
     public static final Item YELLOW_KRASHANKA = registerItem("yellow_krashanka", new KrashankyItem(new FabricItemSettings()));
+
+//    public static final FluentIterable<Object> KRASHANKY_ITEMS = ;
+
+    //make to add all KRASHANY to KRASHANY_ITEMS to FluentIterable<Object>
+    public static final ImmutableList<Item> KRASHANKY_ITEMS = ImmutableList.of(
+            BLACK_KRASHANKA,
+            BLUE_KRASHANKA,
+            BROWN_KRASHANKA,
+            CYAN_KRASHANKA,
+            GREEN_KRASHANKA,
+            GRAY_KRASHANKA,
+            LIGHT_BLUE_KRASHANKA,
+            LIGHT_GRAY_KRASHANKA,
+            LIME_KRASHANKA,
+            MAGENTA_KRASHANKA,
+            ORANGE_KRASHANKA,
+            PINK_KRASHANKA,
+            PURPLE_KRASHANKA,
+            RED_KRASHANKA,
+            WHITE_KRASHANKA,
+            YELLOW_KRASHANKA
+    );
+
 
 
     // Register items

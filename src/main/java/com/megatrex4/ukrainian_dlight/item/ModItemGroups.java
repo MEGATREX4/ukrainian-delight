@@ -33,7 +33,6 @@ public class ModItemGroups {
                     .icon(() -> new ItemStack(ItemsRegistry.CUCUMBER))
                     .entries((displayContext, entries) -> {
                         entries.add(BlockRegistry.BREWING_KEG);
-                        entries.add(BlockRegistry.PYSANKER_TABLE);
                         entries.add(BlockRegistry.SALT_BAG);
                         entries.add(BlockRegistry.SALT_BLOCK);
                         entries.add(ItemsRegistry.SALT);

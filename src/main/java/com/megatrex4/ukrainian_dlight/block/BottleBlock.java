@@ -1,4 +1,4 @@
-package com.megatrex4.ukrainian_dlight.block.custom;
+package com.megatrex4.ukrainian_dlight.block;
 
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;

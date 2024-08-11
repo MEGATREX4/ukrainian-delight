@@ -1,8 +1,8 @@
-package com.megatrex4.ukrainian_dlight.features;
+package com.megatrex4.ukrainian_dlight.gen.features;
 
 import com.megatrex4.ukrainian_dlight.UkrainianDelight;
-import com.megatrex4.ukrainian_dlight.features.features.SaltCavesFeature;
-import com.megatrex4.ukrainian_dlight.features.features.config.SaltCavesFeatureConfig;
+import com.megatrex4.ukrainian_dlight.gen.features.features.SaltCavesFeature;
+import com.megatrex4.ukrainian_dlight.gen.features.features.config.SaltCavesFeatureConfig;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.world.gen.feature.Feature;

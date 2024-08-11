@@ -1,7 +1,6 @@
 package com.megatrex4.ukrainian_dlight.block;
 
 import com.megatrex4.ukrainian_dlight.UkrainianDelight;
-import com.megatrex4.ukrainian_dlight.block.custom.BottleBlock;
 import com.megatrex4.ukrainian_dlight.item.DrinkBlockItem;
 import net.minecraft.block.Block;
 import net.minecraft.entity.effect.StatusEffectInstance;

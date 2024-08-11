@@ -1,7 +1,7 @@
-package com.megatrex4.ukrainian_dlight.features.features;
+package com.megatrex4.ukrainian_dlight.gen.features.features;
 
 
-import com.megatrex4.ukrainian_dlight.features.features.config.SaltCavesFeatureConfig;
+import com.megatrex4.ukrainian_dlight.gen.features.features.config.SaltCavesFeatureConfig;
 import com.mojang.serialization.Codec;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;

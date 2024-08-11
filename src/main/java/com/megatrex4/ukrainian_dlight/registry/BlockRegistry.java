@@ -1,10 +1,9 @@
 package com.megatrex4.ukrainian_dlight.registry;
 
 import com.megatrex4.ukrainian_dlight.UkrainianDelight;
-import com.megatrex4.ukrainian_dlight.block.custom.BrewingKegBlock;
-import com.megatrex4.ukrainian_dlight.block.custom.BrewingKegBlockItem;
-import com.megatrex4.ukrainian_dlight.block.custom.PysankerTableBlock;
-import com.megatrex4.ukrainian_dlight.block.custom.SaltBlock;
+import com.megatrex4.ukrainian_dlight.block.BrewingKegBlock;
+import com.megatrex4.ukrainian_dlight.block.BrewingKegBlockItem;
+import com.megatrex4.ukrainian_dlight.block.SaltBlock;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -29,8 +28,6 @@ public class BlockRegistry {
     public static final Block BREWING_KEG = registerBlock("brewing_keg",
             new BrewingKegBlock(FabricBlockSettings.copyOf(Blocks.OAK_PLANKS).sounds(BlockSoundGroup.WOOD).nonOpaque()));
 
-    public static final Block PYSANKER_TABLE = registerBlock("pysankers_table",
-            new PysankerTableBlock(FabricBlockSettings.copyOf(Blocks.OAK_PLANKS).sounds(BlockSoundGroup.WOOD)));
 
     private static Block registerBlock(String name, Block block){
         registerBlockItem(name, block);

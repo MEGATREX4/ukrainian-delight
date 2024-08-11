@@ -50,7 +50,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
-import static com.megatrex4.ukrainian_dlight.block.custom.BrewingKegBlock.FACING;
+import static com.megatrex4.ukrainian_dlight.block.BrewingKegBlock.FACING;
 
 public class BrewingKegBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(INVENTORY_SIZE, ItemStack.EMPTY);
