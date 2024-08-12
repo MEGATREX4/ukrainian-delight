@@ -5,12 +5,14 @@ import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.condition.RandomChanceLootCondition;
 import net.minecraft.loot.entry.ItemEntry;
+import net.minecraft.loot.entry.LootTableEntry;
 import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.util.Identifier;
 
 public class CustomizeLootTables {
 
+    // Define the vanilla loot table ID you want to modify
     public static final Identifier CHERRY_TREE_LOOT_TABLE_ID = new Identifier("minecraft", "blocks/cherry_leaves");
 
     public static void register() {
@@ -18,10 +20,7 @@ public class CustomizeLootTables {
         LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
             if (id.equals(CHERRY_TREE_LOOT_TABLE_ID)) {
                 LootPool.Builder poolBuilder = LootPool.builder()
-                        .with(ItemEntry.builder(ItemsRegistry.CHERRY_BERRY))
-                        .conditionally(RandomChanceLootCondition.builder(0.12f)) // 20% chance
-                        .apply(SetCountLootFunction.builder(ConstantLootNumberProvider.create(1)).build());
-
+                        .with(LootTableEntry.builder(new Identifier("ukrainian_delight", "blocks/inject/cherry_leaves")));
                 tableBuilder.pool(poolBuilder.build());
             }
         });

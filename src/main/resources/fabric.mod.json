@@ -22,9 +22,6 @@
 		"fabric-datagen": [
 			"com.megatrex4.ukrainian_dlight.UkrainianDelightDataGenerator"
 		],
-		"rei_client": [
-			"com.megatrex4.ukrainian_dlight.compat.UkrainianDeligthREIClientPlugin"
-		],
 		"modmenu": [
 			"com.megatrex4.ukrainian_dlight.compat.config.ModMenuIntegration"
 		]
@@ -41,6 +38,8 @@
 	},
 	"suggests": {
 		"modmenu": "*",
-		"cloth-config": "*"
+		"cloth-config": "*",
+		"rei": "*",
+		"emi": "*"
 	}
 }

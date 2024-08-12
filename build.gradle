@@ -34,8 +34,8 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 	// REI Integration
-	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_api_version}"
-	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
+	// modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_api_version}"
+	// modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
 
 	// Farmers Delight API
 	modCompileOnly "maven.modrinth:farmers-delight-refabricated:${project.farmersdelight_version}"
