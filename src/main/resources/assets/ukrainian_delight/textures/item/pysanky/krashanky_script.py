@@ -24,7 +24,7 @@ def create_json_files(directory):
             json_content = {
                 "parent": "item/generated",
                 "textures": {
-                    "layer0": f"ukrainian_delight:item/krashanky/{item_name}"
+                    "layer0": f"ukrainian_delight:item/pysanky/{item_name}"
                 }
             }
 
@@ -41,4 +41,4 @@ def create_json_files(directory):
             print(f"Skipped non-PNG file: {filename}")
 
 # Replace 'your_directory_path' with the path where your PNG files are located
-create_json_files('D:\\Users\\EUGENE\\Desktop\\mods\\ukrainian_delight\\src\\main\\resources\\assets\\ukrainian_delight\\textures\\item\\krashanky')
+create_json_files('D:\\Users\\EUGENE\\Desktop\\mods\\ukrainian_delight\\src\\main\\resources\\assets\\ukrainian_delight\\textures\\item\\pysanky')

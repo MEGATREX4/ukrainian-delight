@@ -53,7 +53,7 @@ public class ItemGroupRegistry {
             new Identifier(UkrainianDelight.MOD_ID, "krashanky_ukrainian_delight"),
             FabricItemGroup.builder()
                     .displayName(Text.translatable("itemgroup.krashanky_ukrainian_delight"))
-                    .icon(() -> new ItemStack(ItemsRegistry.APPLE_SLICE))
+                    .icon(() -> new ItemStack(ItemsRegistry.BLUE_KRASHANKA))
                     .entries((displayContext, entries) -> {
                         entries.add(ItemsRegistry.BLACK_KRASHANKA);
                         entries.add(ItemsRegistry.BLUE_KRASHANKA);
@@ -71,6 +71,7 @@ public class ItemGroupRegistry {
                         entries.add(ItemsRegistry.RED_KRASHANKA);
                         entries.add(ItemsRegistry.WHITE_KRASHANKA);
                         entries.add(ItemsRegistry.YELLOW_KRASHANKA);
+
 
                     }).build());
 
