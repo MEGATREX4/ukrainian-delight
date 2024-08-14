@@ -2,6 +2,7 @@ package com.megatrex4.ukrainian_dlight;
 
 import com.megatrex4.ukrainian_dlight.block.DrinkBottleBlock;
 import com.megatrex4.ukrainian_dlight.block.FoodJarBlocks;
+import com.megatrex4.ukrainian_dlight.item.ItemGroupRegistry;
 import com.megatrex4.ukrainian_dlight.registry.BlockRegistry;
 import com.megatrex4.ukrainian_dlight.block.entity.ModBlockEntities;
 //import com.megatrex4.ukrainian_dlight.compat.patchouli.CustomBrewingRecipeProcessor;
@@ -44,7 +45,7 @@ public class UkrainianDelight implements ModInitializer {
 		DrinkBottleBlock.registerDrinkBlock();
 		BlockRegistry.registerModBlocks();
 		ItemsRegistry.registerModItems();
-		ModItemGroups.registerItemGroups();
+		ItemGroupRegistry.registerItemGroups();
 		ToolTipHelper.registerTooltip();
 		ModBlockEntities.registerBlockEntities();
 		ScreenHandlersRegistry.registerModScreenHandlers();
