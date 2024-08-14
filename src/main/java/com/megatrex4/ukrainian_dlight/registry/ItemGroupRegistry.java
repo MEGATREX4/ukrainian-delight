@@ -13,7 +13,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-public class ModItemGroups {
+public class ItemGroupRegistry {
     public static final ItemGroup MEALS_UKRAINIAN_DELIGHT = Registry.register(Registries.ITEM_GROUP,
             new Identifier(UkrainianDelight.MOD_ID, "meals_ukrainian_delight"),
             FabricItemGroup.builder()

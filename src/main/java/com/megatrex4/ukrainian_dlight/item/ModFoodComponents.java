@@ -1,5 +1,6 @@
 package com.megatrex4.ukrainian_dlight.item;
 
+import net.minecraft.item.FoodComponents;
 import vectorwing.farmersdelight.common.registry.ModEffects;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -78,6 +79,36 @@ public class ModFoodComponents {
             .build();
 
     public static final FoodComponent SALO = new FoodComponent.Builder()
+            .hunger(5)
+            .saturationModifier(0.25f)
+            .build();
+
+    public static final FoodComponent APPLE_PYRIZHOK = new FoodComponent.Builder()
+            .hunger(5)
+            .saturationModifier(0.25f)
+            .build();
+
+    public static final FoodComponent CABBAGE_PYRIZHOK = new FoodComponent.Builder()
+            .hunger(5)
+            .saturationModifier(0.25f)
+            .build();
+
+    public static final FoodComponent MEAT_PYRIZHOK = new FoodComponent.Builder()
+            .hunger(5)
+            .saturationModifier(0.25f)
+            .build();
+
+    public static final FoodComponent POTATO_PYRIZHOK = new FoodComponent.Builder()
+            .hunger(5)
+            .saturationModifier(0.25f)
+            .build();
+
+    public static final FoodComponent BAKED_POTATOS_N_MUSHROOMS = new FoodComponent.Builder()
+            .hunger(5)
+            .saturationModifier(0.25f)
+            .build();
+
+    public static final FoodComponent BAKED_PUMPKIN_SLICE = new FoodComponent.Builder()
             .hunger(5)
             .saturationModifier(0.25f)
             .build();
