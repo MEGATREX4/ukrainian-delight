@@ -7,67 +7,33 @@ import com.megatrex4.ukrainian_dlight.item.FoodItemBuilder;
 import com.megatrex4.ukrainian_dlight.item.ModFoodComponents;
 import com.megatrex4.ukrainian_dlight.item.KrashankyItem;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.item.FoodComponent;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import vectorwing.farmersdelight.common.registry.ModEffects;
 
 import java.util.List;
 
+import static com.megatrex4.ukrainian_dlight.item.ModFoodComponents.*;
+
 public class ItemsRegistry {
 
-    // Define items using the ItemBuilder
-    public static final Item VARENYK = registerItem("varenyk", new FoodItemBuilder()
-                    .food(ModFoodComponents.VARENYK)
-                    .build());
 
-    public static final Item BORSCHT = registerItem("borscht", new FoodItemBuilder()
-                    .food(ModFoodComponents.BORSCHT)
-                    .maxCount(16)
-                    .returnsBowl()
-                    .build());
-
-    public static final Item LEAN_BORSCHT = registerItem("lean_borscht", new FoodItemBuilder()
-                    .food(ModFoodComponents.LEAN_BORSCHT)
-                    .maxCount(16)
-                    .returnsBowl()
-                    .build());
-
-    public static final Item HORSERADISH = registerItem("horseradish", new FoodItemBuilder()
-                    .food(ModFoodComponents.HORSERADISH)
-                    .build());
-
-    public static final Item CUCUMBER = registerItem("cucumber", new FoodItemBuilder()
-                    .food(ModFoodComponents.CUCUMBER)
-                    .build());
-
-    public static final Item CUTTED_CUCUMBER = registerItem("cutted_cucumber", new FoodItemBuilder()
-                    .food(ModFoodComponents.CUTTED_CUCUMBER)
-                    .build());
-
-    public static final Item APPLE_SLICE = registerItem("apple_slice", new FoodItemBuilder()
-                    .food(ModFoodComponents.APPLE_SLICE)
-                    .build());
-
-    public static final Item DRIED_APPLE_SLICE = registerItem("dried_apple_slice", new FoodItemBuilder()
-                    .food(ModFoodComponents.DRIED_APPLE_SLICE)
-                    .build());
-
-    public static final Item HOMEMADE_SAUSAGE = registerItem("homemade_sausage", new FoodItemBuilder()
-                    .food(ModFoodComponents.HOMEMADE_SAUSAGE)
-                    .build());
-
-    public static final Item CHERRY_BERRY = registerItem("cherry_berry", new FoodItemBuilder()
-                    .food(ModFoodComponents.CHERRY_BERRY)
-                    .build());
-
-    public static final Item COTTAGE_CHEESE = registerItem("cottage_cheese", new FoodItemBuilder()
-                    .food(ModFoodComponents.COTTAGE_CHEESE)
-                    .build());
-
-    public static final Item SALO = registerItem("salo", new FoodItemBuilder()
-                    .food(ModFoodComponents.SALO)
-                    .build());
+    public static final Item VARENYK = registerFoodItem("varenyk", createFoodComponent(6, 0.40f), 64, false, false);
+    public static final Item BORSCHT = registerFoodItem("borscht", createFoodComponent(15, 1f, new StatusEffectInstance(ModEffects.COMFORT.get(), 5 * 60 * 20), new StatusEffectInstance(ModEffects.NOURISHMENT.get(), 3 * 60 * 20)), 16, true, false);
+    public static final Item LEAN_BORSCHT = registerFoodItem("lean_borscht", createFoodComponent(8, 0.8f, new StatusEffectInstance(ModEffects.COMFORT.get(), 3 * 60 * 20)), 16, true, false);
+    public static final Item HORSERADISH = registerFoodItem("horseradish", createFoodComponent(6, 0.15f), 64, false, false);
+    public static final Item CUCUMBER = registerFoodItem("cucumber", createFoodComponent(2, 0.3f), 64, false, false);
+    public static final Item HOMEMADE_SAUSAGE = registerFoodItem("homemade_sausage", createFoodComponent(7, 0.6f), 64, false, false);
+    public static final Item CUTTED_CUCUMBER = registerFoodItem("cutted_cucumber", createFoodComponent(1, 0.1f), 64, false, true);
+    public static final Item APPLE_SLICE = registerFoodItem("apple_slice", createFoodComponent(3, 0.2f), 64, false, true);
+    public static final Item DRIED_APPLE_SLICE = registerFoodItem("dried_apple_slice", createFoodComponent(3, 0.2f), 64, false, true);
+    public static final Item CHERRY_BERRY = registerFoodItem("cherry_berry", createFoodComponent(3, 0.2f), 64, false, true);
+    public static final Item COTTAGE_CHEESE = registerFoodItem("cottage_cheese", createFoodComponent(3, 0.2f), 64, false, false);
+    public static final Item SALO = registerFoodItem("salo", createFoodComponent(3, 0.2f), 64, false, false);
 
 
     // Simple items without specifying maxCount, defaults to 64
@@ -114,8 +80,6 @@ public class ItemsRegistry {
             YELLOW_KRASHANKA
     );
 
-
-
     // Register items
     public static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, new Identifier(UkrainianDelight.MOD_ID, name.toLowerCase()), item);
@@ -123,5 +87,24 @@ public class ItemsRegistry {
 
     public static void registerModItems() {
         UkrainianDelight.LOGGER.info("Registering Mod Items for " + UkrainianDelight.MOD_ID);
+    }
+
+    // Main method with the optional Identifier parameter
+    private static Item registerFoodItem(String name, FoodComponent foodComponent, int maxCount, boolean returnsBowl, boolean isSnack, Identifier bowlId) {
+        FoodItemBuilder builder = new FoodItemBuilder()
+                .food(foodComponent)
+                .maxCount(maxCount);
+
+        if (returnsBowl) {
+            builder.returnsBowl(bowlId);
+        }
+        if (isSnack) builder.snack();
+
+        return registerItem(name, builder.build());
+    }
+
+    // Overloaded method to handle the case where the bowl identifier is not provided (returns default bowl)
+    private static Item registerFoodItem(String name, FoodComponent foodComponent, int maxCount, boolean returnsBowl, boolean isSnack) {
+        return registerFoodItem(name, foodComponent, maxCount, returnsBowl, isSnack, new Identifier("minecraft", "bowl"));
     }
 }

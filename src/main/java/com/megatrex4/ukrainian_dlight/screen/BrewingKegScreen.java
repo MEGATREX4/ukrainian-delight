@@ -93,7 +93,6 @@ public class BrewingKegScreen extends HandledScreen<BrewingKegScreenHandler> {
         }
     }
 
-
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         renderBackground(context);
@@ -109,7 +108,6 @@ public class BrewingKegScreen extends HandledScreen<BrewingKegScreenHandler> {
         }
     }
 
-
     protected void drawMouseoverTankTooltip(DrawContext context, int mouseX, int mouseY) {
         int x = (width - backgroundWidth) / 2;
         int y = (height - backgroundHeight) / 2;
@@ -119,7 +117,6 @@ public class BrewingKegScreen extends HandledScreen<BrewingKegScreenHandler> {
             context.drawTooltip(textRenderer, tooltip, mouseX, mouseY);
         }
     }
-
 
     private boolean isMouseAboveArea(int pMouseX, int pMouseY, int x, int y, int offsetX, int offsetY, FluidStackRenderer renderer) {
         return MouseUtil.isMouseOver(pMouseX, pMouseY, x + offsetX, y + offsetY, renderer.getWidth(), renderer.getHeight());

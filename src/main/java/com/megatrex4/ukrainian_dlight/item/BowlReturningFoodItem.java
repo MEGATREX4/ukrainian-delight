@@ -3,13 +3,17 @@ package com.megatrex4.ukrainian_dlight.item;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.item.Item;
+import net.minecraft.registry.Registries;
 import net.minecraft.world.World;
+import net.minecraft.util.Identifier;
 
 public class BowlReturningFoodItem extends ToolTipHelper {
+    private final Identifier bowlId; // Store the bowl identifier
 
-    public BowlReturningFoodItem(Settings settings) {
+    public BowlReturningFoodItem(Settings settings, Identifier bowlId) {
         super(settings);
+        this.bowlId = bowlId; // Initialize with the bowl identifier
     }
 
     @Override
@@ -18,7 +22,8 @@ public class BowlReturningFoodItem extends ToolTipHelper {
 
         if (user instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) user;
-            ItemStack bowlStack = new ItemStack(Items.BOWL);
+            Item bowlItem = Registries.ITEM.get(bowlId); // Retrieve the bowl item based on the identifier
+            ItemStack bowlStack = new ItemStack(bowlItem);
 
             boolean addedToInventory = player.getInventory().insertStack(bowlStack);
 

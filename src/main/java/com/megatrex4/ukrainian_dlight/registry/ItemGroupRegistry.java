@@ -71,8 +71,6 @@ public class ItemGroupRegistry {
                         entries.add(ItemsRegistry.RED_KRASHANKA);
                         entries.add(ItemsRegistry.WHITE_KRASHANKA);
                         entries.add(ItemsRegistry.YELLOW_KRASHANKA);
-
-
                     }).build());
 
     public static final ItemGroup JARS_UKRAINIAN_DELIGHT = Registry.register(Registries.ITEM_GROUP,

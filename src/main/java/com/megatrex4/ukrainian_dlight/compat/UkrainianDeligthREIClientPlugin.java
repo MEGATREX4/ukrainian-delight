@@ -1,4 +1,4 @@
-package com.megatrex4.ukrainian_dlight.compat;
+//package com.megatrex4.ukrainian_dlight.compat;
 
 //import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 //import net.minecraft.client.resource.language.I18n;
