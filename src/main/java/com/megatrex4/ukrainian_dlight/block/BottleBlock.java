@@ -1,7 +1,10 @@
 package com.megatrex4.ukrainian_dlight.block;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -48,9 +51,13 @@ public class BottleBlock extends Block {
     public BottleBlock() {
         super(FabricBlockSettings.copyOf(Blocks.GLASS).strength(0.2F).nonOpaque().sounds(BlockSoundGroup.GLASS));
         this.setDefaultState(this.stateManager.getDefaultState().with(BOTTLES, 1).with(FACING, Direction.NORTH));
-        setRenderLayer();
+
+        if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
+            setRenderLayer();
+        }
     }
 
+    @Environment(EnvType.CLIENT)
     private void setRenderLayer() {
         BlockRenderLayerMap.INSTANCE.putBlock(this, RenderLayer.getCutout());
     }

@@ -4,6 +4,7 @@ import com.megatrex4.ukrainian_dlight.UkrainianDelight;
 import com.megatrex4.ukrainian_dlight.block.BrewingKegBlock;
 import com.megatrex4.ukrainian_dlight.block.BrewingKegBlockItem;
 import com.megatrex4.ukrainian_dlight.block.SaltBlock;
+import com.megatrex4.ukrainian_dlight.util.UDIdentifier;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -31,7 +32,7 @@ public class BlockRegistry {
 
     private static Block registerBlock(String name, Block block){
         registerBlockItem(name, block);
-        return Registry.register(Registries.BLOCK, new Identifier(UkrainianDelight.MOD_ID, name), block);
+        return Registry.register(Registries.BLOCK, new UDIdentifier(name), block);
     }
 
     private static void registerBlockItem(String name, Block block){
@@ -41,7 +42,7 @@ public class BlockRegistry {
         } else {
             item = new BlockItem(block, new Item.Settings());
         }
-        Registry.register(Registries.ITEM, new Identifier(UkrainianDelight.MOD_ID, name), item);
+        Registry.register(Registries.ITEM, new UDIdentifier(name), item);
     }
 
     public static void registerModBlocks() {

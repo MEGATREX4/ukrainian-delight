@@ -2,6 +2,7 @@ package com.megatrex4.ukrainian_dlight.registry;
 
 import com.megatrex4.ukrainian_dlight.UkrainianDelight;
 import com.megatrex4.ukrainian_dlight.screen.BrewingKegScreenHandler;
+import com.megatrex4.ukrainian_dlight.util.UDIdentifier;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.registry.Registries;
@@ -12,7 +13,7 @@ import net.minecraft.util.Identifier;
 
 public class ScreenHandlersRegistry {
     public static final ScreenHandlerType<BrewingKegScreenHandler> BREWING_KEG_SCREEN_HANDLER =
-            Registry.register(Registries.SCREEN_HANDLER, new Identifier(UkrainianDelight.MOD_ID, "brewing_keg_screen_handler"),
+            Registry.register(Registries.SCREEN_HANDLER, new UDIdentifier("brewing_keg_screen_handler"),
                     new ExtendedScreenHandlerType<>(BrewingKegScreenHandler::new));
 
     public static void registerModScreenHandlers() {

@@ -10,8 +10,25 @@ base {
 	archivesName = project.archives_base_name
 }
 
+tasks.withType(Copy).configureEach {
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+
 repositories {
 	mavenCentral()
+
+	maven { url = "https://mvn.devos.one/releases/" }
+
+	maven { // for Porting Lib: Fabric ASM
+		url = "https://jitpack.io/"
+	}
+
+	maven { // Reach Entity Attributes
+		url = "https://maven.jamieswhiteshirt.com/libs-release"
+		content { includeGroup("com.jamieswhiteshirt") }
+	}
+
 	maven { url "https://maven.fabricmc.net/" }
 	maven { url "https://maven.shedaniel.me/" }
 	maven { url "https://maven.terraformersmc.com/releases/" }
@@ -38,7 +55,15 @@ dependencies {
 	// modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
 
 	// Farmers Delight API
-	modCompileOnly "maven.modrinth:farmers-delight-refabricated:${project.farmersdelight_version}"
+	modImplementation "maven.modrinth:farmers-delight-refabricated:${project.farmersdelight_version}"
+
+	include(modImplementation("com.github.Chocohead:Fabric-ASM:${fabric_asm_version}")) {
+		exclude (group: "net.fabricmc.fabric-api")
+	}
+
+	for (String module in port_lib_modules.split(",")) {
+		include(modApi("io.github.fabricators_of_create.Porting-Lib:$module:$port_lib_version"))
+	}
 
 	// Mod Menu (optional)
 	modCompileOnly "com.terraformersmc:modmenu:${project.modmenu_version}"

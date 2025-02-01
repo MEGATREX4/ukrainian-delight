@@ -153,13 +153,13 @@ public class DrinkBlockItem extends BlockItem {
         }
 
         // Check if the item is in the drink tags and add corresponding tooltip
-        if (stack.isIn(TagsRegistry.LIGHT_DRINK)) {
+        if (stack.isIn(TagsRegistry.Items.LIGHT_DRINK)) {
             tooltip.add(Text.literal("").formatted(Formatting.GRAY));
             tooltip.add(UkrainianDelight.i18n("tooltip.light_drink").formatted(Formatting.GREEN));
-        } else if (stack.isIn(TagsRegistry.MID_DRINK)) {
+        } else if (stack.isIn(TagsRegistry.Items.MID_DRINK)) {
             tooltip.add(Text.literal("").formatted(Formatting.GRAY));
             tooltip.add(UkrainianDelight.i18n("tooltip.mid_drink").formatted(Formatting.YELLOW));
-        } else if (stack.isIn(TagsRegistry.STRONG_DRINK)) {
+        } else if (stack.isIn(TagsRegistry.Items.STRONG_DRINK)) {
             tooltip.add(Text.literal("").formatted(Formatting.GRAY));
             tooltip.add(UkrainianDelight.i18n("tooltip.strong_drink").formatted(Formatting.RED));
         }

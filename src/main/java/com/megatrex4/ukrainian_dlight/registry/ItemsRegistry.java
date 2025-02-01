@@ -6,6 +6,7 @@ import com.megatrex4.ukrainian_dlight.UkrainianDelight;
 import com.megatrex4.ukrainian_dlight.item.FoodItemBuilder;
 import com.megatrex4.ukrainian_dlight.item.ModFoodComponents;
 import com.megatrex4.ukrainian_dlight.item.KrashankyItem;
+import com.megatrex4.ukrainian_dlight.util.UDIdentifier;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.item.FoodComponent;
@@ -58,9 +59,6 @@ public class ItemsRegistry {
     public static final Item WHITE_KRASHANKA = registerItem("white_krashanka", new KrashankyItem(new FabricItemSettings()));
     public static final Item YELLOW_KRASHANKA = registerItem("yellow_krashanka", new KrashankyItem(new FabricItemSettings()));
 
-//    public static final FluentIterable<Object> KRASHANKY_ITEMS = ;
-
-    //make to add all KRASHANY to KRASHANY_ITEMS to FluentIterable<Object>
     public static final ImmutableList<Item> KRASHANKY_ITEMS = ImmutableList.of(
             BLACK_KRASHANKA,
             BLUE_KRASHANKA,
@@ -82,7 +80,7 @@ public class ItemsRegistry {
 
     // Register items
     public static Item registerItem(String name, Item item) {
-        return Registry.register(Registries.ITEM, new Identifier(UkrainianDelight.MOD_ID, name.toLowerCase()), item);
+        return Registry.register(Registries.ITEM, new UDIdentifier(name.toLowerCase()), item);
     }
 
     public static void registerModItems() {

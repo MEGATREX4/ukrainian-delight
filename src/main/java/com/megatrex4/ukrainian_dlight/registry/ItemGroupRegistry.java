@@ -5,6 +5,7 @@ import com.megatrex4.ukrainian_dlight.block.DrinkBottleBlock;
 import com.megatrex4.ukrainian_dlight.block.FoodJarBlocks;
 import com.megatrex4.ukrainian_dlight.registry.BlockRegistry;
 import com.megatrex4.ukrainian_dlight.registry.ItemsRegistry;
+import com.megatrex4.ukrainian_dlight.util.UDIdentifier;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -15,7 +16,7 @@ import net.minecraft.util.Identifier;
 
 public class ItemGroupRegistry {
     public static final ItemGroup MEALS_UKRAINIAN_DELIGHT = Registry.register(Registries.ITEM_GROUP,
-            new Identifier(UkrainianDelight.MOD_ID, "meals_ukrainian_delight"),
+            new UDIdentifier("meals_ukrainian_delight"),
             FabricItemGroup.builder()
                     .displayName(Text.translatable("itemgroup.meals_ukrainian_delight"))
                     .icon(() -> new ItemStack(ItemsRegistry.BORSCHT))
@@ -27,7 +28,7 @@ public class ItemGroupRegistry {
                     }).build());
 
     public static final ItemGroup INGREDIENT_UKRAINIAN_DELIGHT = Registry.register(Registries.ITEM_GROUP,
-            new Identifier(UkrainianDelight.MOD_ID, "ingredients_ukrainian_delight"),
+            new UDIdentifier("ingredients_ukrainian_delight"),
             FabricItemGroup.builder()
                     .displayName(Text.translatable("itemgroup.ingredients_ukrainian_delight"))
                     .icon(() -> new ItemStack(ItemsRegistry.CUCUMBER))
@@ -50,7 +51,7 @@ public class ItemGroupRegistry {
                     }).build());
     
     public static final ItemGroup KRASHANKY_UKRAINIAN_DELIGHT = Registry.register(Registries.ITEM_GROUP,
-            new Identifier(UkrainianDelight.MOD_ID, "krashanky_ukrainian_delight"),
+            new UDIdentifier("krashanky_ukrainian_delight"),
             FabricItemGroup.builder()
                     .displayName(Text.translatable("itemgroup.krashanky_ukrainian_delight"))
                     .icon(() -> new ItemStack(ItemsRegistry.BLUE_KRASHANKA))
@@ -74,7 +75,7 @@ public class ItemGroupRegistry {
                     }).build());
 
     public static final ItemGroup JARS_UKRAINIAN_DELIGHT = Registry.register(Registries.ITEM_GROUP,
-            new Identifier(UkrainianDelight.MOD_ID, "jars_ukrainian_delight"),
+            new UDIdentifier("jars_ukrainian_delight"),
             FabricItemGroup.builder()
                     .displayName(Text.translatable("itemgroup.jars_ukrainian_delight"))
                     .icon(() -> new ItemStack(FoodJarBlocks.JARRED_TOMATOES))

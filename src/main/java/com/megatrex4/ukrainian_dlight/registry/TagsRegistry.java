@@ -1,30 +1,25 @@
 package com.megatrex4.ukrainian_dlight.registry;
 
 import com.megatrex4.ukrainian_dlight.UkrainianDelight;
+import com.megatrex4.ukrainian_dlight.util.UDIdentifier;
 import net.minecraft.item.Item;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
-import net.minecraft.registry.RegistryKeys;
 
 public class TagsRegistry {
-    public static final TagKey<Item> LIGHT_DRINK;
-    public static final TagKey<Item> MID_DRINK;
-    public static final TagKey<Item> STRONG_DRINK;
 
-    public static final TagKey<Item> CONTAINER;
+    // Nested class for Items tags
+    public static class Items {
+        public static final TagKey<Item> LIGHT_DRINK = createTag("light_drink");
+        public static final TagKey<Item> MID_DRINK = createTag("mid_drink");
+        public static final TagKey<Item> STRONG_DRINK = createTag("strong_drink");
+        public static final TagKey<Item> CONTAINER = createTag("container");
+        public static final TagKey<Item> KRASHANKA = createTag("krashanka");
+        public static final TagKey<Item> SALT = createTag("salt");
 
-    private static <E> TagKey<E> create(String pathName, RegistryKey<? extends Registry<E>> registry) {
-        return TagKey.of(registry, new Identifier(UkrainianDelight.MOD_ID, pathName));
-    }
-
-
-    static {
-        LIGHT_DRINK = create("light_drink", RegistryKeys.ITEM);
-        MID_DRINK = create("mid_drink", RegistryKeys.ITEM);
-        STRONG_DRINK = create("strong_drink", RegistryKeys.ITEM);
-
-        CONTAINER = create("container", RegistryKeys.ITEM);
+        private static TagKey<Item> createTag(String name) {
+            return TagKey.of(RegistryKeys.ITEM, new UDIdentifier(name));
+        }
     }
 }

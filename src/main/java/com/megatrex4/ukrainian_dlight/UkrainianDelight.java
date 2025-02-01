@@ -14,6 +14,7 @@ import com.megatrex4.ukrainian_dlight.networking.ModMessages;
 import com.megatrex4.ukrainian_dlight.registry.RecipesRegistry;
 import com.megatrex4.ukrainian_dlight.registry.ScreenHandlersRegistry;
 import com.megatrex4.ukrainian_dlight.registry.ScreensRegistry;
+import com.megatrex4.ukrainian_dlight.util.UDIdentifier;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.minecraft.entity.damage.DamageType;
@@ -28,8 +29,9 @@ import org.slf4j.LoggerFactory;
 
 public class UkrainianDelight implements ModInitializer {
 	public static final String MOD_ID = "ukrainian_delight";
+
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-	public static final RegistryKey<DamageType> GLASS_DAMAGE = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, new Identifier(MOD_ID, "glass_damage"));
+	public static final RegistryKey<DamageType> GLASS_DAMAGE = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, new UDIdentifier("glass_damage"));
 
 	public static Identifier id(String id) {
 		return new Identifier(MOD_ID, id);
