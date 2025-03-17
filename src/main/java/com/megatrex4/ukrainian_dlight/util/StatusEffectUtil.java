@@ -54,18 +54,15 @@ public class StatusEffectUtil {
     }
 
     public static String formatAmplifier(int amplifier) {
-        // Default to no suffix if amplifier is less than 1
-        if (amplifier < 1) {
-            return "I";
+        int[] values = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+        String[] suffixes = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < values.length; i++) {
+            while (amplifier >= values[i]) {
+                amplifier -= values[i];
+                result.append(suffixes[i]);
+            }
         }
-
-        // Handle amplifiers greater than 5 by returning the number itself
-        if (amplifier > 10) {
-            return "  " + amplifier;
-        }
-
-        // Fetch localized string for the amplifier
-        String[] suffixes = {"I", "II", "III", "IV", "V"};
-        return suffixes[amplifier - 1];
+        return result.toString();
     }
 }
