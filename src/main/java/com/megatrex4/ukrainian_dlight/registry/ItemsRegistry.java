@@ -59,6 +59,23 @@ public class ItemsRegistry {
     public static final Item WHITE_KRASHANKA = registerItem("white_krashanka", new KrashankyItem(new FabricItemSettings()));
     public static final Item YELLOW_KRASHANKA = registerItem("yellow_krashanka", new KrashankyItem(new FabricItemSettings()));
 
+    public static final Item BLACK_PYSANKA = registerItem("black_pysanka", new KrashankyItem(new FabricItemSettings()));
+    public static final Item BLUE_PYSANKA = registerItem("blue_pysanka", new KrashankyItem(new FabricItemSettings()));
+    public static final Item BROWN_PYSANKA = registerItem("brown_pysanka", new KrashankyItem(new FabricItemSettings()));
+    public static final Item CYAN_PYSANKA = registerItem("cyan_pysanka", new KrashankyItem(new FabricItemSettings()));
+    public static final Item GREEN_PYSANKA = registerItem("green_pysanka", new KrashankyItem(new FabricItemSettings()));
+    public static final Item GRAY_PYSANKA = registerItem("gray_pysanka", new KrashankyItem(new FabricItemSettings()));
+    public static final Item LIGHT_BLUE_PYSANKA = registerItem("light_blue_pysanka", new KrashankyItem(new FabricItemSettings()));
+    public static final Item LIGHT_GRAY_PYSANKA = registerItem("light_gray_pysanka", new KrashankyItem(new FabricItemSettings()));
+    public static final Item LIME_PYSANKA = registerItem("lime_pysanka", new KrashankyItem(new FabricItemSettings()));
+    public static final Item MAGENTA_PYSANKA = registerItem("magenta_pysanka", new KrashankyItem(new FabricItemSettings()));
+    public static final Item ORANGE_PYSANKA = registerItem("orange_pysanka", new KrashankyItem(new FabricItemSettings()));
+    public static final Item PINK_PYSANKA = registerItem("pink_pysanka", new KrashankyItem(new FabricItemSettings()));
+    public static final Item PURPLE_PYSANKA = registerItem("purple_pysanka", new KrashankyItem(new FabricItemSettings()));
+    public static final Item RED_PYSANKA = registerItem("red_pysanka", new KrashankyItem(new FabricItemSettings()));
+    public static final Item WHITE_PYSANKA = registerItem("white_pysanka", new KrashankyItem(new FabricItemSettings()));
+    public static final Item YELLOW_PYSANKA = registerItem("yellow_pysanka", new KrashankyItem(new FabricItemSettings()));
+
     public static final ImmutableList<Item> KRASHANKY_ITEMS = ImmutableList.of(
             BLACK_KRASHANKA,
             BLUE_KRASHANKA,
@@ -77,6 +94,27 @@ public class ItemsRegistry {
             WHITE_KRASHANKA,
             YELLOW_KRASHANKA
     );
+
+    public static final ImmutableList<Item> PYSANKY_ITEMS = ImmutableList.of(
+            BLACK_PYSANKA,
+            BLUE_PYSANKA,
+            BROWN_PYSANKA,
+            CYAN_PYSANKA,
+            GREEN_PYSANKA,
+            GRAY_PYSANKA,
+            LIGHT_BLUE_PYSANKA,
+            LIGHT_GRAY_PYSANKA,
+            LIME_PYSANKA,
+            MAGENTA_PYSANKA,
+            ORANGE_PYSANKA,
+            PINK_PYSANKA,
+            PURPLE_PYSANKA,
+            RED_PYSANKA,
+            WHITE_PYSANKA,
+            YELLOW_PYSANKA
+    );
+
+
 
     // Register items
     public static Item registerItem(String name, Item item) {

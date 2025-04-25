@@ -56,22 +56,8 @@ public class ItemGroupRegistry {
                     .displayName(Text.translatable("itemgroup.krashanky_ukrainian_delight"))
                     .icon(() -> new ItemStack(ItemsRegistry.BLUE_KRASHANKA))
                     .entries((displayContext, entries) -> {
-                        entries.add(ItemsRegistry.BLACK_KRASHANKA);
-                        entries.add(ItemsRegistry.BLUE_KRASHANKA);
-                        entries.add(ItemsRegistry.BROWN_KRASHANKA);
-                        entries.add(ItemsRegistry.CYAN_KRASHANKA);
-                        entries.add(ItemsRegistry.GRAY_KRASHANKA);
-                        entries.add(ItemsRegistry.GREEN_KRASHANKA);
-                        entries.add(ItemsRegistry.LIGHT_BLUE_KRASHANKA);
-                        entries.add(ItemsRegistry.LIGHT_GRAY_KRASHANKA);
-                        entries.add(ItemsRegistry.LIME_KRASHANKA);
-                        entries.add(ItemsRegistry.MAGENTA_KRASHANKA);
-                        entries.add(ItemsRegistry.ORANGE_KRASHANKA);
-                        entries.add(ItemsRegistry.PINK_KRASHANKA);
-                        entries.add(ItemsRegistry.PURPLE_KRASHANKA);
-                        entries.add(ItemsRegistry.RED_KRASHANKA);
-                        entries.add(ItemsRegistry.WHITE_KRASHANKA);
-                        entries.add(ItemsRegistry.YELLOW_KRASHANKA);
+                        ItemsRegistry.PYSANKY_ITEMS.forEach(entries::add);
+                        ItemsRegistry.KRASHANKY_ITEMS.forEach(entries::add);
                     }).build());
 
     public static final ItemGroup JARS_UKRAINIAN_DELIGHT = Registry.register(Registries.ITEM_GROUP,

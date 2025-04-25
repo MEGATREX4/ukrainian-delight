@@ -26,6 +26,10 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
             getOrCreateTagBuilder(TagsRegistry.Items.KRASHANKA).add(item);
         }
 
+        for (Item item : ItemsRegistry.PYSANKY_ITEMS) {
+            getOrCreateTagBuilder(TagsRegistry.Items.PYSANKA).add(item);
+        }
+
         getOrCreateTagBuilder(TagsRegistry.Items.SALT).add(ItemsRegistry.SALT);
     }
 }

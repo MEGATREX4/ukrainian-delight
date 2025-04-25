@@ -16,6 +16,7 @@ public class TagsRegistry {
         public static final TagKey<Item> STRONG_DRINK = createTag("strong_drink");
         public static final TagKey<Item> CONTAINER = createTag("container");
         public static final TagKey<Item> KRASHANKA = createTag("krashanka");
+        public static final TagKey<Item> PYSANKA = createTag("pysanka");
         public static final TagKey<Item> SALT = createTag("salt");
 
         private static TagKey<Item> createTag(String name) {
