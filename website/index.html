@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ukrainian Delight - Українська кухня</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
+  <script>
+    function removeButtonsInIframe() {
+      const iframe = document.querySelector('iframe');
+      const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+      const buttons = iframeDoc.querySelectorAll('button');
+      for (const button of buttons) {
+        button.remove();
+      }
+    }
+    window.onload = removeButtonsInIframe;
+  </script>
+</head>
+<body class="bg-[#191919] flex items-center justify-center min-h-screen">
+  <iframe 
+    src="https://ukrainiandelight.notion.site/ebd/81221786503d47f88800dae904f1cc32" 
+    class="w-full max-w-screen-xl h-[100vh] rounded shadow-lg border border-gray-300"
+    frameborder="0" 
+    allowfullscreen>
+  </iframe>
+</body>
+</html>
+
