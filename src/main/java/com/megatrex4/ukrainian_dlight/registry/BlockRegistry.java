@@ -3,6 +3,7 @@ package com.megatrex4.ukrainian_dlight.registry;
 import com.megatrex4.ukrainian_dlight.UkrainianDelight;
 import com.megatrex4.ukrainian_dlight.block.BrewingKegBlock;
 import com.megatrex4.ukrainian_dlight.block.BrewingKegBlockItem;
+import com.megatrex4.ukrainian_dlight.block.CucumberCropBlock;
 import com.megatrex4.ukrainian_dlight.block.SaltBlock;
 import com.megatrex4.ukrainian_dlight.util.UDIdentifier;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -28,6 +29,8 @@ public class BlockRegistry {
 
     public static final Block BREWING_KEG = registerBlock("brewing_keg",
             new BrewingKegBlock(FabricBlockSettings.copyOf(Blocks.OAK_PLANKS).sounds(BlockSoundGroup.WOOD).nonOpaque()));
+
+    public static final Block CUCUMBER_CROP = registerBlock("cucumber_crop", new CucumberCropBlock(FabricBlockSettings.copyOf(Blocks.WHEAT)));
 
 
     private static Block registerBlock(String name, Block block){

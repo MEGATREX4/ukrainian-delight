@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/crop",
+  "textures": {
+    "crop": "ukrainian_delight:block/cucumber_crop/cucumber_crop_stage1"
+  }
+}

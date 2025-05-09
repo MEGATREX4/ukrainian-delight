@@ -1,0 +1,63 @@
+{
+  "multipart": [
+    {
+      "when": { "age": 0 },
+      "apply": { "model": "ukrainian_delight:block/cucumber_crop_stage0" }
+    },
+    {
+      "when": { "age": 1 },
+      "apply": { "model": "ukrainian_delight:block/cucumber_crop_stage1" }
+    },
+    {
+      "when": {
+        "age": 2
+      },
+      "apply": {
+        "model": "ukrainian_delight:block/cucumber_crop_stage2"
+      }
+    },
+    {
+      "when": {
+        "age": 3
+      },
+      "apply": {
+        "model": "ukrainian_delight:block/cucumber_crop_stage3"
+      }
+    },
+    {
+      "when": {
+        "age": 4
+      },
+      "apply": {
+        "model": "ukrainian_delight:block/cucumber_crop_stage4"
+      }
+    },
+    {
+      "when": {
+        "age": 2,
+        "up": "ukrainian_delight:cucumber_crop"
+      },
+      "apply": {
+        "model": "ukrainian_delight:block/cucumber_crop_stage2_top"
+      }
+    },
+    {
+      "when": {
+        "age": 3,
+        "up": "ukrainian_delight:cucumber_crop"
+      },
+      "apply": {
+        "model": "ukrainian_delight:block/cucumber_crop_stage3_top"
+      }
+    },
+    {
+      "when": {
+        "age": 4,
+        "up": "ukrainian_delight:cucumber_crop"
+      },
+      "apply": {
+        "model": "ukrainian_delight:block/cucumber_crop_stage4_top"
+      }
+    }
+  ]
+}

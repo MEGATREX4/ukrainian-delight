@@ -48,6 +48,7 @@ public class ItemGroupRegistry {
                         entries.add(ItemsRegistry.COTTAGE_CHEESE);
                         entries.add(ItemsRegistry.SALO);
                         entries.add(ItemsRegistry.YEAST);
+                        entries.add(ItemsRegistry.CUCUMBER_SEEDS);
                     }).build());
     
     public static final ItemGroup KRASHANKY_UKRAINIAN_DELIGHT = Registry.register(Registries.ITEM_GROUP,

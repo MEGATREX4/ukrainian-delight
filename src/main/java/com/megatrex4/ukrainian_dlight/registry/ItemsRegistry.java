@@ -8,7 +8,9 @@ import com.megatrex4.ukrainian_dlight.item.ModFoodComponents;
 import com.megatrex4.ukrainian_dlight.item.KrashankyItem;
 import com.megatrex4.ukrainian_dlight.util.UDIdentifier;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.block.Block;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.item.AliasedBlockItem;
 import net.minecraft.item.FoodComponent;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -22,6 +24,7 @@ import static com.megatrex4.ukrainian_dlight.item.ModFoodComponents.*;
 
 public class ItemsRegistry {
 
+    public static final Item CUCUMBER_SEEDS = registerItem("cucumber_seeds", new AliasedBlockItem(BlockRegistry.CUCUMBER_CROP, new FabricItemSettings()));
 
     public static final Item VARENYK = registerFoodItem("varenyk", createFoodComponent(6, 0.40f), 64, false, false);
     public static final Item BORSCHT = registerFoodItem("borscht", createFoodComponent(15, 1f, new StatusEffectInstance(ModEffects.COMFORT.get(), 5 * 60 * 20), new StatusEffectInstance(ModEffects.NOURISHMENT.get(), 3 * 60 * 20)), 16, true, false);
