@@ -38,7 +38,8 @@ public class ItemsRegistry {
     public static final Item CHERRY_BERRY = registerFoodItem("cherry_berry", createFoodComponent(3, 0.2f), 64, false, true);
     public static final Item COTTAGE_CHEESE = registerFoodItem("cottage_cheese", createFoodComponent(3, 0.2f), 64, false, false);
     public static final Item SALO = registerFoodItem("salo", createFoodComponent(3, 0.2f), 64, false, false);
-
+    public static final Item LOAFBREAD = registerFoodItem("loafbread", createFoodComponent(4, 0.4f), 64, false, false);
+    public static final Item VERHUNY = registerFoodItem("verhuny", createFoodComponent(1, 0.1f), 64, false, true);
 
     // Simple items without specifying maxCount, defaults to 64
     public static final Item SALT = registerItem("salt", new FoodItemBuilder().build());

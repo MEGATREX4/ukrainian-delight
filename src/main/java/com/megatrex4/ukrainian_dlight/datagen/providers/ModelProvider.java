@@ -11,6 +11,7 @@ import net.minecraft.util.Identifier;
 
 import java.util.Optional;
 
+import static com.megatrex4.ukrainian_dlight.registry.ItemsRegistry.LOAFBREAD;
 import static net.minecraft.data.client.TextureMap.sideTopBottom;
 
 public class ModelProvider extends FabricModelProvider {
@@ -58,5 +59,7 @@ public class ModelProvider extends FabricModelProvider {
         ItemsRegistry.KRASHANKY_ITEMS.forEach(item -> itemModelGenerator.register(item, Models.GENERATED));
         ItemsRegistry.PYSANKY_ITEMS.forEach(item -> itemModelGenerator.register(item, Models.GENERATED));
         itemModelGenerator.register(ItemsRegistry.CUCUMBER_SEEDS, Models.GENERATED);
+        itemModelGenerator.register(ItemsRegistry.LOAFBREAD, Models.GENERATED);
+        itemModelGenerator.register(ItemsRegistry.VERHUNY, Models.GENERATED);
     }
 }
