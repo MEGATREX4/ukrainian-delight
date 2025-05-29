@@ -38,7 +38,9 @@ repositories {
 
 
 fabricApi {
-	configureDataGeneration()
+	configureDataGeneration {
+		modId = "ukrainian_delight"
+	}
 }
 
 dependencies {
