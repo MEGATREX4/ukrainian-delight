@@ -25,6 +25,8 @@ public class ItemGroupRegistry {
                         entries.add(ItemsRegistry.LEAN_BORSCHT);
                         entries.add(ItemsRegistry.HOMEMADE_SAUSAGE);
                         entries.add(ItemsRegistry.VARENYK);
+                        entries.add(ItemsRegistry.VERHUNY);
+                        entries.add(ItemsRegistry.LOAFBREAD);
                     }).build());
 
     public static final ItemGroup INGREDIENT_UKRAINIAN_DELIGHT = Registry.register(Registries.ITEM_GROUP,
