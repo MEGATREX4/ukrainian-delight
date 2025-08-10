@@ -24,6 +24,11 @@ public class ModelProvider extends FabricModelProvider {
         generator.registerSimpleCubeAll(BlockRegistry.SALT_BLOCK);
 
         generator.registerSingleton(BlockRegistry.SALT_BAG, TexturedModel.ORIENTABLE_WITH_BOTTOM);
+        generator.registerSingleton(BlockRegistry.POPLAR_LOG, TexturedModel.ORIENTABLE_WITH_BOTTOM);
+
+        generator.registerSimpleCubeAll(BlockRegistry.POPLAR_PLANKS);
+        generator.registerSimpleCubeAll(BlockRegistry.POPLAR_LEAVES);
+
         registerCucumberCrop(generator);
     }
 

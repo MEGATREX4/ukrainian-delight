@@ -1,9 +1,0 @@
-{
-  "parent": "minecraft:block/orientable_with_bottom",
-  "textures": {
-    "bottom": "ukrainian_delight:block/salt_bag_bottom",
-    "front": "ukrainian_delight:block/salt_bag_front",
-    "side": "ukrainian_delight:block/salt_bag_side",
-    "top": "ukrainian_delight:block/salt_bag_top"
-  }
-}

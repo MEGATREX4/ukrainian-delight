@@ -32,6 +32,11 @@ public class BlockRegistry {
 
     public static final Block CUCUMBER_CROP = registerBlock("cucumber_crop", new CucumberCropBlock(FabricBlockSettings.copyOf(Blocks.WHEAT)));
 
+    //simple blocks
+    public static final Block POPLAR_PLANKS = registerBlock("poplar_planks", new Block(FabricBlockSettings.copyOf(Blocks.OAK_PLANKS)));
+    public static final Block POPLAR_LEAVES = registerBlock("poplar_leaves", new Block(FabricBlockSettings.copyOf(Blocks.OAK_LEAVES)));
+    public static final Block POPLAR_LOG = registerBlock("poplar_log", new Block(FabricBlockSettings.copyOf(Blocks.OAK_LOG)));
+
 
     private static Block registerBlock(String name, Block block){
         registerBlockItem(name, block);
